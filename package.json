@@ -5,8 +5,13 @@
   "dependencies": {
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "react-images-upload": "^1.2.3",
+    "react-redux": "^5.1.0",
     "react-scripts": "2.0.5",
-    "react-webcam": "^1.0.4"
+    "react-webcam": "^1.0.4",
+    "redux": "^4.0.1",
+    "redux-form": "^7.4.2",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
