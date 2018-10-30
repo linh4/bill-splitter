@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "react": "^16.6.0",
-    "react-cloud-vision-api": "^0.3.0",
     "react-dom": "^16.6.0",
     "react-images-upload": "^1.2.3",
     "react-redux": "^5.1.0",
