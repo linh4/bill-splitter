@@ -1,7 +1,7 @@
 import React from 'react';
 import CameraCapture from '../components/CameraCapture'
 
-const CameraContainers = (props) => {
+const CameraContainer = (props) => {
   return (
     <div>
       <CameraCapture />
@@ -9,4 +9,4 @@ const CameraContainers = (props) => {
   )
 }
 
-export default CameraContainers;
+export default CameraContainer;
