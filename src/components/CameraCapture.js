@@ -5,23 +5,17 @@ import {convertImg} from '../actions'
 
 class CameraCapture extends Component {
 
-  // state = {
-  //   pic: null
-  // }
-
   setRef = (webcam) => {
     this.webcam = webcam
   }
 
   capture = () => {
     const imageSrc = this.webcam.getScreenshot();
-    // this.setState({pic: imageSrc})
     this.props.convertImg(imageSrc)
 
   }
 
   render() {
-    // console.log(this.state.pic)
     const videoConstraints = {
       width: 1600,
       height: 900,
@@ -30,7 +24,7 @@ class CameraCapture extends Component {
 
     return (
       <div>
-        <Webcam 
+        <Webcam
           audio={false}
           ref={this.setRef}
           screenshotFormat="image/jpeg"
@@ -42,4 +36,4 @@ class CameraCapture extends Component {
   }
 }
 
-export default connect(state => ({imgData: state.text.imgData}), {convertImg})(CameraCapture)
+export default connect(null, {convertImg})(CameraCapture)
