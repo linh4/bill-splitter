@@ -1,10 +1,10 @@
 import React from 'react';
-import ImageCard from '../components/ImageCard'
+import ImageCapture from '../components/ImageUpload'
 
 const ImageContainer = (props) => {
   return (
     <div>
-      <ImageCard />
+      <ImageCapture />
     </div>
   )
 }
