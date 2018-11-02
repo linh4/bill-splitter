@@ -20,7 +20,6 @@ class App extends Component {
   componentDidMount(){
     const token = localStorage.getItem('token');
     if (token) {
-      // debugger
         return this.props.currentUser(token)
     } else if (!token && this.props.currentUserI != null) {
         console.log(this.props.currentUserI)
@@ -29,25 +28,29 @@ class App extends Component {
 
   render() {
     // if (!localStorage.getItem('token') && !this.props.currentUser.id) {
-    //   return <Redirect to='/login' />
+    //   return <Route exact path="/" component={Login} />
     // }else {
     return (
       <div className="App">
-        {localStorage.token && this.props.loggedIn ? <Navbar /> : null}
-        <Switch>
-          <Route exact path="/" component={Login} />
+        {localStorage.token && this.props.loggedIn ? (
+          <div>
+            <Navbar />
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/home" component={HomePage} />
+          </div>
+        )
+          : <Route exact path="/" component={Login} />}
+
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
-
-          <Route exact path="/home" component={HomePage} />
 
           <Route exact path="/bills/upload" render={(routerProps) => <ImageContainer {...routerProps} />} />
           <Route exact path="/bills" component={BillContainer} />
           {/* <Route exact path="/bills" component={BillPage} /> */}
-      </Switch>
       </div>
     );
   }
+// }
 }
 
 const mapStateToProps = (state) => {
@@ -55,7 +58,6 @@ const mapStateToProps = (state) => {
   return {
     currentUserI: state.user.currentUser,
     loggedIn: state.user.loggedIn
-    // loading: state.user.loading
   };
 }
 

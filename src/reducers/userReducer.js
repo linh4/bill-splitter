@@ -17,7 +17,7 @@ const userReducer = (state = initialState, action) => {
       localStorage.removeItem('token')
       return {...state, currentUser: {}}
     case 'CURRENT_USER':
-      return {...state, currentUser: action.payload}
+      return {...state, currentUser: action.payload, loggedIn: true}
 
     default:
       return state;
