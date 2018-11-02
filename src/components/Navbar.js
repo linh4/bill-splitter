@@ -1,10 +1,18 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { logoutUser } from '../actions/userAction'
+import { logoutUser, currentUser } from '../actions/userAction'
+import { createBill } from '../actions/billAction'
 
 
 class Navbar extends React.Component {
+
+  componentDidMount() {
+    let token = localStorage.getItem('token')
+    if (token) {
+      return this.props.currentUser(token)
+    }
+  }
 
   handleLogout = () => {
     console.log('logged out')
@@ -12,14 +20,18 @@ class Navbar extends React.Component {
     this.props.history.push('/')
   }
 
+  handleCreateBill = () => {
+    console.log('created bill')
+    this.props.createBill(this.props.currentUserI.id)
+    this.props.history.push('/bills/upload')
+  }
+
   render() {
   return (
     <div>
-        <Link to="/bills/upload">
-        <button>New Bill</button>
-      </Link>
+        <button onClick={this.handleCreateBill}>New Bill</button>
 
-        <Link to="bills">
+        <Link to="/bills">
         <button>My Bills</button>
       </Link>
         <button onClick={this.handleLogout}>Log Out</button>
@@ -28,4 +40,11 @@ class Navbar extends React.Component {
   }
 }
 
-export default withRouter(connect(state => ({currentUser: state.user.currentUser}), {logoutUser})(Navbar))
+const mapStateToProps = (state) => {
+  // console.log(state)
+  return {
+    currentUserI: state.user.currentUser
+    };
+};
+
+export default withRouter(connect(mapStateToProps, {logoutUser, createBill, currentUser})(Navbar))

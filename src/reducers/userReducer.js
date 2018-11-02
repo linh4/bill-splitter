@@ -5,10 +5,11 @@ const initialState = {
 }
 
 const userReducer = (state = initialState, action) => {
+  console.log('in user reducer')
   switch (action.type) {
     case 'SIGNUP_USER':
       localStorage.setItem("token", action.payload.jwt)
-      return {...state, currentUser: action.payload.user, loggedIn: true}
+      return {...state, currentUser: action.payload.user, loggedIn: false}
     case 'LOGIN_USER':
       localStorage.setItem("token", action.payload.jwt)
       return {...state, currentUser: action.payload.user, loggedIn: true, loading: false}

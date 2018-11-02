@@ -18,8 +18,11 @@ class Login extends React.Component{
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.handleLogin(this.state)
-    this.props.history.push('/home')
+    .then(() => this.props.history.push('/home'))
+    .catch(() => this.props.history.push('/'))
+    console.log("in submit", this.props.currentUser)
   }
+
   render(){
       return(
         <div>
@@ -37,6 +40,7 @@ class Login extends React.Component{
 }
 
 const mapStateToProps= (state) => {
+  // console.log(state.user)
   return {
     currentUser: state.user.currentUser
   }

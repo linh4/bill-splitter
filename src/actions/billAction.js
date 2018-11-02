@@ -1,14 +1,35 @@
 import API_KEY from '../keys.js'
 import moment from 'moment';
 
-let m = moment().format("DD/MM/YYYY");
-console.log(m)
+let today = moment().format("DD/MM/YYYY");
 
-export const getBill = (bill) => {
+const addBill = (bill) => {
+  return {type: 'ADD_BILL', payload: bill}
+}
+
+const getBill = (bill) => {
   return {type: 'RENDER_TEXT', payload: bill}
 }
 
-export function convertImg(imageSrc) {
+export const createBill = (userId) => {
+  return dispatch => {
+    return fetch("http://localhost:3000/bills", {
+      method: 'POST',
+      body: JSON.stringify({
+        user_id: userId,
+        date: today
+       }),
+      headers: {
+        "Content-Type": "application/json",
+        'Accept': 'application/json',
+        Authorization: localStorage.getItem("token")
+       }
+     }).then(res => res.json()).then(res => dispatch(addBill(res))
+   )
+ }
+}
+
+export const convertImg = (imageSrc) => {
   let img = imageSrc.replace("data:image/jpeg;base64,", "")
   return dispatch => {
     dispatch({type: "ADD_IMG", payload: imageSrc})
@@ -60,20 +81,4 @@ export function convertImg(imageSrc) {
       dispatch(getBill(billList()))
     })
   }
- }
-
- export function createBill(values) {
-   return dispatch => {
-   fetch("http://localhost:3000/bills", {
-      method: 'POST',
-      body: JSON.stringify(values),
-      headers: {
-        "Content-Type": "application/json",
-        'Accept': 'application/json',
-        Authorization: localStorage.getItem("token")
-      }
-    }).then(res => res.json()).then(res => dispatch({ type: "ADD_BILL", payload: res.data.attributes })
-    )
-  }
-
  }

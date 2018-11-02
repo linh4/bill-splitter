@@ -33,7 +33,7 @@ class App extends Component {
     // }else {
     return (
       <div className="App">
-        {localStorage.token ? <Navbar /> : null}
+        {localStorage.token && this.props.loggedIn ? <Navbar /> : null}
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />
@@ -42,8 +42,8 @@ class App extends Component {
           <Route exact path="/home" component={HomePage} />
 
           <Route exact path="/bills/upload" render={(routerProps) => <ImageContainer {...routerProps} />} />
-          <Route exact path="/bills/:id" component={BillContainer} />
-          <Route exact path="/bills" component={BillPage} />
+          <Route exact path="/bills" component={BillContainer} />
+          {/* <Route exact path="/bills" component={BillPage} /> */}
       </Switch>
       </div>
     );

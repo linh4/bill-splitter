@@ -1,4 +1,5 @@
 const loginUser = (user) => {
+  console.log("in login action", user)
   return {type: 'LOGIN_USER', payload: user}
 }
 
@@ -12,7 +13,7 @@ const getCurrentUser = (user) => {
 
 export function handleSignUp(values) {
   return dispatch => {
-    fetch("http://localhost:3000/users", {
+    return fetch("http://localhost:3000/users", {
        method: 'POST',
        body: JSON.stringify(values),
        headers: {"Content-Type": "application/json"}
@@ -21,8 +22,9 @@ export function handleSignUp(values) {
      .then(user => {
        if (user.error) {
          console.log(user.error)
+         throw new Error ('log in error')
        } else {
-         dispatch(signupUser(user))
+         return dispatch(signupUser(user))
      } //payload has user obj and jwt
    })
  }
@@ -30,7 +32,7 @@ export function handleSignUp(values) {
 
 export function handleLogin(values) {
   return dispatch => {
-    fetch("http://localhost:3000/auth", {
+    return fetch("http://localhost:3000/auth", {
        method: 'POST',
        body: JSON.stringify(values),
        headers: {"Content-Type": "application/json"}
@@ -39,8 +41,9 @@ export function handleLogin(values) {
      .then(user => {
        if (!user.jwt) {
          console.log('erroer')
+         throw new Error ('log in error')
        } else {
-       dispatch(loginUser(user)) //payload has user obj and jwt
+       return dispatch(loginUser(user)) //payload has user obj and jwt
      }
    })
  }

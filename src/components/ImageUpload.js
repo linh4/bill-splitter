@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {convertImg} from '../actions/billAction'
 // import ImageUploader from 'react-images-upload';
 import FileInputComponent from 'react-file-input-previews-base64'
+import { withRouter } from 'react-router-dom'
 
 class ImageUpload extends Component {
 
@@ -14,6 +15,7 @@ class ImageUpload extends Component {
         });
         console.log(this.state.pictures)
     this.props.convertImg(this.state.pictures)
+    this.props.histore.push('/bills')
    }
 
    render() {
@@ -29,4 +31,4 @@ class ImageUpload extends Component {
    }
 }
 
-export default connect(null, {convertImg})(ImageUpload)
+export default withRouter(connect(null, {convertImg})(ImageUpload))

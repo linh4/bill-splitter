@@ -13,7 +13,8 @@ class SignUp extends React.Component{
   handleSignUpSubmit = (e) => {
     e.preventDefault()
     this.props.handleSignUp(this.state)
-    this.props.history.push('/home')
+    .then(() => this.props.history.push('/login'))
+    .catch(() => this.props.history.push('/signup'))
   }
 
   handleChange = (e) => {
