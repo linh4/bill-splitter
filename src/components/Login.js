@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {handleLogin} from '../actions/index.js'
+import {handleLogin} from '../actions/userAction.js'
+import { Link, withRouter } from 'react-router-dom'
+
 
 class Login extends React.Component{
   state={
@@ -16,24 +18,28 @@ class Login extends React.Component{
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.handleLogin(this.state)
+    this.props.history.push('/home')
   }
   render(){
-    if (this.state.error){
-      alert("Invalid Login Information")
-      this.props.history.push('/');
-      return null
-    }else{
       return(
+        <div>
           <form>
             <label>Username</label>
             <input placeholder='Username' name="username" onChange={this.handleChange}/>
             <label>Password</label>
             <input type="password" placeholder='Password' name="password" onChange={this.handleChange}/>
-          <button onClick={this.handleSubmit} type='submit'>Submit</button>
+            <button onClick={this.handleSubmit} type='submit'>Submit</button>
           </form>
+          <Link to="/signup">SIGN UP</Link>
+        </div>
       )
-    }
   }
 }
 
-export default connect(null, {handleLogin})(Login)
+const mapStateToProps= (state) => {
+  return {
+    currentUser: state.user.currentUser
+  }
+}
+
+export default withRouter(connect(mapStateToProps, {handleLogin})(Login))

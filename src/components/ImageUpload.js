@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {convertImg} from '../actions'
+import {convertImg} from '../actions/billAction'
 // import ImageUploader from 'react-images-upload';
 import FileInputComponent from 'react-file-input-previews-base64'
 

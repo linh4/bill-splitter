@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {handleSignUp} from '../actions/index.js'
+import {handleSignUp} from '../actions/userAction.js'
+import { Link, withRouter } from 'react-router-dom'
 
 class SignUp extends React.Component{
   state = {
@@ -12,6 +13,7 @@ class SignUp extends React.Component{
   handleSignUpSubmit = (e) => {
     e.preventDefault()
     this.props.handleSignUp(this.state)
+    this.props.history.push('/home')
   }
 
   handleChange = (e) => {
@@ -20,17 +22,20 @@ class SignUp extends React.Component{
 
   render(){
     return(
-      <form>
-        <label>Name</label>
-        <input placeholder='Name' name="name" onChange={this.handleChange}/>
-        <label>Username</label>
-        <input placeholder='Username' name="username" onChange={this.handleChange}/>
-        <label>Password</label>
-        <input type="password" placeholder='Password' name="password" onChange={this.handleChange}/>
-      <button onClick={this.handleSignUpSubmit} type='submit'>Submit</button>
-      </form>
+      <div>
+        <form>
+          <label>Name</label>
+          <input placeholder='Name' name="name" onChange={this.handleChange}/>
+          <label>Username</label>
+          <input placeholder='Username' name="username" onChange={this.handleChange}/>
+          <label>Password</label>
+          <input type="password" placeholder='Password' name="password" onChange={this.handleChange}/>
+          <button onClick={this.handleSignUpSubmit} type='submit'>Submit</button>
+        </form>
+        <Link to="/login">LOG IN</Link>
+      </div>
     )
   }
 }
 
-export default connect(null, {handleSignUp})(SignUp)
+export default withRouter(connect(null, {handleSignUp})(SignUp))

@@ -4,37 +4,9 @@ import moment from 'moment';
 let m = moment().format("DD/MM/YYYY");
 console.log(m)
 
-export function handleSignUp(values) {
-  return dispatch => {
-    fetch("http://localhost:3000/users", {
-       method: 'POST',
-       body: JSON.stringify(values),
-       headers: {"Content-Type": "application/json"}
-     })
-     .then(res => res.json())
-     .then(res => {
-       console.log(res)
-       dispatch({type: "UPDATE_USER", payload: res.user})
-      })
-  }
+export const getBill = (bill) => {
+  return {type: 'RENDER_TEXT', payload: bill}
 }
-
-export function handleLogin(values) {
-  return dispatch => {
-    fetch("http://localhost:3000/auth", {
-       method: 'POST',
-       body: JSON.stringify(values),
-       headers: {"Content-Type": "application/json"}
-     })
-     .then(res => res.json())
-     .then(res => {
-       // debugger
-       console.log(res)
-       dispatch({type: "UPDATE_USER", payload: res.user})
-      })
-  }
-}
-
 
 export function convertImg(imageSrc) {
   let img = imageSrc.replace("data:image/jpeg;base64,", "")
@@ -85,8 +57,7 @@ export function convertImg(imageSrc) {
         }
         return newArr
       }
-
-      dispatch({type: 'RENDER_TEXT', payload: billList()})
+      dispatch(getBill(billList()))
     })
   }
  }
@@ -101,9 +72,7 @@ export function convertImg(imageSrc) {
         'Accept': 'application/json',
         Authorization: localStorage.getItem("token")
       }
-    }).then(res => res.json()).then(res => {
-        dispatch({ type: "ADD_BILL", payload: res.data.attributes })
-      }
+    }).then(res => res.json()).then(res => dispatch({ type: "ADD_BILL", payload: res.data.attributes })
     )
   }
 
