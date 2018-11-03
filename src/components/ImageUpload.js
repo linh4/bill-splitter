@@ -15,7 +15,7 @@ class ImageUpload extends Component {
         });
         console.log(this.state.pictures)
     this.props.convertImg(this.state.pictures)
-    this.props.histore.push('/bills')
+    .then(() => console.log("in image upload", this))
    }
 
    render() {

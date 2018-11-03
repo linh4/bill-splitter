@@ -44,7 +44,7 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
 
-          <Route exact path="/bills/upload" render={(routerProps) => <ImageContainer {...routerProps} />} />
+          <Route exact path="/bills/upload" component={ImageContainer} />
           <Route exact path="/bills" component={BillContainer} />
           {/* <Route exact path="/bills" component={BillPage} /> */}
       </div>

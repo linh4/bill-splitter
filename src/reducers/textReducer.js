@@ -1,5 +1,5 @@
 const initialState = {
-  imgData: null,
+  // imgData: null,
   bill: [],
   billList: null
 }
@@ -11,11 +11,11 @@ const textReducer = (state = initialState, action) => {
         ...state,
         bill: [...state.bill, action.payload]
       }
-    case 'ADD_IMG':
-      return {
-        ...state,
-        imgData: action.payload
-      }
+    // case 'ADD_IMG':
+    //   return {
+    //     ...state,
+    //     imgData: action.payload
+    //   }
     case 'RENDER_TEXT':
       return {
         ...state,

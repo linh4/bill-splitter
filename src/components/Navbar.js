@@ -7,12 +7,7 @@ import { createBill } from '../actions/billAction'
 
 class Navbar extends React.Component {
 
-  componentDidMount() {
-    let token = localStorage.getItem('token')
-    if (token) {
-      return this.props.currentUser(token)
-    }
-  }
+
 
   handleLogout = () => {
     console.log('logged out')
@@ -20,16 +15,16 @@ class Navbar extends React.Component {
     this.props.history.push('/login')
   }
 
-  handleCreateBill = () => {
-    console.log('created bill')
-    this.props.createBill(this.props.currentUserI.id)
-    this.props.history.push('/bills/upload')
-  }
+  // handleCreateBill = () => {
+  //   console.log('created bill')
+  //   this.props.createBill(this.props.currentUserI.id)
+  //   this.props.history.push('/bills/upload')
+  // }
 
   render() {
   return (
     <div>
-        <button onClick={this.handleCreateBill}>New Bill</button>
+        {/* <button onClick={this.handleCreateBill}>New Bill</button> */}
 
         <Link to="/bills">
         <button>My Bills</button>
