@@ -11,11 +11,11 @@ const billReducer = (state = initialState, action) => {
         ...state,
         bills: [...state.bills, action.payload]
       }
-    case 'ADD_ITEMS':
-      return {
-        ...state,
-        items: [...state.items, action.payload]
-      }
+    case 'GET_ITEMS':
+    return {
+      ...state,
+      items: [...state.items, action.payload]
+    }
     default:
       return state
   }

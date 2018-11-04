@@ -18,8 +18,8 @@ class HomePage extends Component {
   handleCreateBill = () => {
     console.log('created bill')
     this.props.createBill(this.props.currentUserI.id)
-    console.log(this.props.bill)
     this.props.history.push('/bills/upload')
+
   }
 
   render() {
@@ -34,7 +34,6 @@ class HomePage extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUserI: state.user.currentUser,
-    bill: state.text.bill
     }
 };
 

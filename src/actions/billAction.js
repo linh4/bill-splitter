@@ -13,6 +13,10 @@ const addBill = (bill) => {
   return {type: 'ADD_BILL', payload: bill}
 }
 
+const getItems = (item) => {
+  return {type: 'GET_ITEMS', payload: item}
+}
+
 export const createBill = (userId) => {
   return dispatch => {
     return fetch("http://localhost:3000/bills", {
@@ -23,7 +27,6 @@ export const createBill = (userId) => {
         date: today
       })
      }).then(res => res.json()).then(res => dispatch(addBill(res)))
-   // )
  }
 }
 
@@ -55,15 +58,16 @@ export const createItems = (billId,imageSrc) => {
     .then(res => {
       return new Promise(async(resolve, reject) => {
         for (let i = 0; i < res.length; i++) {
-          await postItems(billId, res[i])
+          await postItems(billId, res[i]).then(res => res.json())
+             .then(data => dispatch(getItems(data)))
         }
       })
     })
    }
 }
 
- export const postItems = async (billId, item) => {
-     await fetch("http://localhost:3000/items", {
+ export const postItems = (billId, item) => {
+     return fetch("http://localhost:3000/items", {
        method: 'POST',
        headers: head,
        body: JSON.stringify({
@@ -72,8 +76,18 @@ export const createItems = (billId,imageSrc) => {
          price: item.price
        })
      })
-     .then(response => {
-             if(response.ok) return response.json();
-             throw new Error(response.statusText);
-           }).then(data => console.log(data))
+     // .then(response => {
+     //         if(response.ok) return response.json();
+     //         throw new Error(response.statusText);
+     //       })
+
+ }
+
+ export const fetchBill = (billId) => {
+   // return dispatch => {
+     return fetch(`http://localhost:300/bills/${billId}`, {
+       headers: head
+     })
+     .then(res => res.json()).then(res => console.log(res))
+   // }
  }

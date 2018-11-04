@@ -35,11 +35,13 @@ class App extends Component {
         {localStorage.token && this.props.loggedIn ? (
           <div>
             <Navbar />
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/home" component={HomePage} />
-            <Route exact path="/bills/upload" component={ImageContainer} />
-            <Route exact path="/bills" component={BillContainer} />
-            <Route exact path="/login" component={HomePage} />
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/home" component={HomePage} />
+              <Route exact path="/bills/upload" component={ImageContainer} />
+              <Route exact path="/bills/:id" component={BillContainer} />
+              <Route exact path="/login" component={HomePage} />
+          </Switch>
           </div>
         )
           : (
