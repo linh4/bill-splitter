@@ -10,12 +10,15 @@ class HomePage extends Component {
     let token = localStorage.getItem('token')
     if (token) {
       return this.props.currentUser(token)
+    } else {
+      console.log('error')
     }
   }
 
   handleCreateBill = () => {
     console.log('created bill')
     this.props.createBill(this.props.currentUserI.id)
+    console.log(this.props.bill)
     this.props.history.push('/bills/upload')
   }
 
@@ -29,10 +32,10 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state)
   return {
-    currentUserI: state.user.currentUser
-    };
+    currentUserI: state.user.currentUser,
+    bill: state.text.bill
+    }
 };
 
 export default withRouter(connect(mapStateToProps, {createBill, currentUser})(HomePage))

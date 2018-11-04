@@ -3,7 +3,7 @@ import React from 'react';
 const BillCard = (props) => {
   return (
     <div>
-      {props.bills[0]} - ${props.bills[1]}
+      {props.bill.title} - ${props.bill.price}
       <button>Edit</button>
       <button>Delete</button>
     </div>

@@ -1,22 +1,24 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {convertImg} from '../actions/billAction'
-// import ImageUploader from 'react-images-upload';
+import {createItems, postItems} from '../actions/billAction'
 import FileInputComponent from 'react-file-input-previews-base64'
 import { withRouter } from 'react-router-dom'
+import { currentUser } from '../actions/userAction'
 
 class ImageUpload extends Component {
 
-  state = { pictures: [] };
+  componentDidMount() {
+    let token = localStorage.getItem('token')
+    if (token) {
+      return this.props.currentUser(token)
+    }
+  }
 
-  onDrop = (picture) => {
-    this.setState({
-            pictures: [...this.state.pictures, picture],
-        });
-        console.log(this.state.pictures)
-    this.props.convertImg(this.state.pictures)
-    .then(() => console.log("in image upload", this))
-   }
+  handleUpload = (img) => {
+    let billId = this.props.bills.slice(-1)[0].id
+    this.props.createItems(billId,img[0].base64)
+    .then(() => this.props.history.push('/bills'))
+  }
 
    render() {
        return (
@@ -24,11 +26,20 @@ class ImageUpload extends Component {
           labelText="Select file"
           labelStyle={{fontSize:14}}
           multiple={true}
-          callbackFunction={(img)=>this.props.convertImg(img[0].base64)}
+          callbackFunction={(img)=>this.handleUpload(img)}
           accept="image/*"
           />
        );
    }
 }
 
-export default withRouter(connect(null, {convertImg})(ImageUpload))
+const mapStateToProps = (state) => {
+  console.log("inside state of imageupload", state)
+  return {
+    currentUserI: state.user.currentUser,
+    bills: state.text.bills,
+    fetchItems: state.text.fetchItems
+    };
+};
+
+export default withRouter(connect(mapStateToProps, {createItems, currentUser, postItems})(ImageUpload))

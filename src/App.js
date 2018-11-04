@@ -37,16 +37,19 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={HomePage} />
             <Route exact path="/home" component={HomePage} />
+            <Route exact path="/bills/upload" component={ImageContainer} />
+            <Route exact path="/bills" component={BillContainer} />
+            <Route exact path="/login" component={HomePage} />
           </div>
         )
-          : <Route exact path="/" component={Login} />}
-
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={SignUp} />
-
-          <Route exact path="/bills/upload" component={ImageContainer} />
-          <Route exact path="/bills" component={BillContainer} />
-          {/* <Route exact path="/bills" component={BillPage} /> */}
+          : (
+          <div>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/login" component={Login} />
+          </div>
+          )
+        }
+        <Route exact path="/signup" component={SignUp} />
       </div>
     );
   }
@@ -54,7 +57,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     currentUserI: state.user.currentUser,
     loggedIn: state.user.loggedIn

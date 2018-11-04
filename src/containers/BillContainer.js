@@ -6,23 +6,23 @@ import { withRouter } from 'react-router-dom'
 
 class BillContainer extends Component {
 
-  total = () => {
-    let arr = []
-    for ( let i in this.props.billList) {
-      arr.push(Number(this.props.billList[i][1]))
-    }
-    let sum = arr.reduce((a,b) => a + b, 0)
-    return parseFloat(sum).toFixed(2)
-  }
+  // total = () => {
+  //   let arr = []
+  //   for ( let i in this.props.billList) {
+  //     arr.push(Number(this.props.billList[i][1]))
+  //   }
+  //   let sum = arr.reduce((a,b) => a + b, 0)
+  //   return parseFloat(sum).toFixed(2)
+  // }
 
   render() {
     return (
       <div>
-        {this.props.billList && this.props.billList.map((bills, idx) => <BillCard key={idx} bills={bills} total={this.total} />)}
-        TOTAL - ${this.total()}
+        {this.props.billList && this.props.bill.items.map((bill, idx) => <BillCard key={idx} bill={bill} />)}
+        {/* TOTAL - ${this.total()} */}
         <button>next</button>
         <br/>
-        <button onClick={this.props.history.goBack}>Back</button>
+        {/* <button onClick={this.props.history.push('/home')}>Back</button> */}
       </div>
       )
   }
@@ -30,8 +30,9 @@ class BillContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    imgData: state.imgData,
-    billList: state.text.billList
+    // imgData: state.imgData,
+    // billList: state.text.billList
+    bill: state.text.bill
     };
 };
 
