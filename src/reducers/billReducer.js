@@ -1,11 +1,10 @@
 const initialState = {
   bill: {},
-  items: []
+  items: [],
+  selectedItem: {}
 }
 
 const billReducer = (state = initialState, action) => {
-
-  let item;
 
   switch (action.type) {
     case 'GET_BILL':
@@ -18,10 +17,20 @@ const billReducer = (state = initialState, action) => {
       ...state,
       items: action.payload
     }
-    case 'EDIT_ITEM':
+    case 'SELECT_ITEM':
+    console.log("inside store state", action.payload)
       return {
         ...state,
+        selectedItem: action.payload
       }
+    case 'EDIT_ITEM':
+      const newItems = state.items.map(item => {
+        if (item.id === action.payload.id) {
+          return {...item, ...action.payload}
+        }
+        return item
+      })
+    return {...state, items: newItems}
     case 'DELETE_ITEM':
       return {
         ...state,

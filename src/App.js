@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import ImageContainer from './containers/ImageContainer'
 import BillContainer from './containers/BillContainer'
 import FormContainer from './containers/FormContainer'
+import EditForm from './components/EditForm'
 import HomePage from './containers/HomePage'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
@@ -41,6 +42,7 @@ class App extends Component {
               <Route exact path="/bills/:id/upload" render={(routerProps) => <ImageContainer {...routerProps} /> } />
               <Route exact path="/bills/:id" render={(routerProps) => <BillContainer {...routerProps} /> } />
               <Route exact path="/bills/:id/edit" render={(routerProps) => <FormContainer {...routerProps} />}  />
+              <Route exact path="/items/:id/edit" render={(routerProps) => <EditForm {...routerProps} />} />
               <Route exact path="/login" component={HomePage} />
           </Switch>
           </div>

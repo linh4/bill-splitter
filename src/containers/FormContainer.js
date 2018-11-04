@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Form from '../components/Form'
 import { withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 import { fetchBill} from '../actions/billAction'
-import { deleteItem } from '../actions/itemAction'
+import { getItem, deleteItem } from '../actions/itemAction'
 
 class FormContainer extends Component {
 
@@ -12,7 +11,9 @@ class FormContainer extends Component {
     this.props.fetchBill(billId)
   }
 
-  handleItemEdit = (e) => {
+  handleSelect = (item) => {
+    console.log("inside handleselect form FormContainer", item)
+    this.props.history.push(`/items/${item.id}/edit`)
   }
 
   handleItemDelete = (id) => {
@@ -27,7 +28,7 @@ class FormContainer extends Component {
       return (
         <div key={item.id}>
         {item.title} - ${item.price}
-        <button onClick={this.handleItemEdit}>Edit</button>
+        <button onClick={() => this.handleSelect(item)}>Edit</button>
         <button onClick={() => this.handleItemDelete(item.id)}>Delete</button>
       </div>
       )
@@ -49,4 +50,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchBill, deleteItem})(FormContainer))
+export default withRouter(connect(mapStateToProps, {fetchBill, deleteItem, getItem})(FormContainer))
