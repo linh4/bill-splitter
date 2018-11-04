@@ -1,20 +1,20 @@
 const initialState = {
   // imgData: null,
-  bills: [],
-  items: []
+  bill: null,
+  items: null
 }
 
 const billReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_BILL':
+    case 'GET_BILL':
       return {
         ...state,
-        bills: [...state.bills, action.payload]
+        bill: action.payload
       }
     case 'GET_ITEMS':
     return {
       ...state,
-      items: [...state.items, action.payload]
+      items: action.payload
     }
     default:
       return state

@@ -23,20 +23,5 @@ const helperFunction = (data) => {
   // let total = itemList(billList())
   let array = billList()
   return array.map(b => ({title: b[0], price: Number(b[1])}))
-
 }
-
-// const itemList = (billList) => {
-//   let priceArr = []
-//   for ( let i in billList) {
-//     priceArr.push(Number(billList[i][1]))
-//   }
-//   let sum = priceArr.reduce((a,b) => a + b, 0)
-//   console.log(sum)
-//   return parseFloat(sum).toFixed(2)
-// }
-
-// const renderItemPrice = (billList) => {
-//   billList.map(b => ({item: b[0], price: b[1]}))
-// }
 export default helperFunction

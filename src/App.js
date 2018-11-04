@@ -5,7 +5,7 @@ import {Route, withRouter, Switch } from 'react-router-dom';
 import { connect } from 'react-redux'
 import ImageContainer from './containers/ImageContainer'
 import BillContainer from './containers/BillContainer'
-import Form from './containers/Form'
+import Form from './components/Form'
 import HomePage from './containers/HomePage'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
@@ -38,8 +38,8 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route exact path="/home" component={HomePage} />
-              <Route exact path="/bills/upload" component={ImageContainer} />
-              <Route exact path="/bills/:id" component={BillContainer} />
+              <Route exact path="/bills/:id/upload" render={(routerProps)=> <ImageContainer {...routerProps} /> } />
+              <Route exact path="/bills/:id" render={(routerProps)=> <BillContainer {...routerProps} /> } />
               <Route exact path="/login" component={HomePage} />
           </Switch>
           </div>

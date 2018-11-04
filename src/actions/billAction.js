@@ -9,8 +9,8 @@ let head = {
   Authorization: localStorage.getItem("token")
  }
 
-const addBill = (bill) => {
-  return {type: 'ADD_BILL', payload: bill}
+const renderBill = (bill) => {
+  return {type: 'GET_BILL', payload: bill}
 }
 
 const getItems = (item) => {
@@ -26,8 +26,17 @@ export const createBill = (userId) => {
         user_id: userId,
         date: today
       })
-     }).then(res => res.json()).then(res => dispatch(addBill(res)))
+     })
+     .then(res => res.json())
  }
+}
+
+export const getBill = (billId) => {
+  return dispatch => {
+    return fetch(`http://localhost:3000/bills/${billId}`, {
+      headers: head
+    }).then(res => res.json()).then(res => dispatch(renderBill(res)))
+  }
 }
 
 export const createItems = (billId,imageSrc) => {
@@ -58,15 +67,14 @@ export const createItems = (billId,imageSrc) => {
     .then(res => {
       return new Promise(async(resolve, reject) => {
         for (let i = 0; i < res.length; i++) {
-          await postItems(billId, res[i]).then(res => res.json())
-             .then(data => dispatch(getItems(data)))
+          await postItems(billId, res[i])
         }
       })
     })
    }
 }
 
- export const postItems = (billId, item) => {
+ const postItems = (billId, item) => {
      return fetch("http://localhost:3000/items", {
        method: 'POST',
        headers: head,
@@ -76,18 +84,19 @@ export const createItems = (billId,imageSrc) => {
          price: item.price
        })
      })
-     // .then(response => {
-     //         if(response.ok) return response.json();
-     //         throw new Error(response.statusText);
-     //       })
+     .then(response => {
+       if(response.ok) return response.json();
+       throw new Error(response.statusText);
+     })
 
  }
 
  export const fetchBill = (billId) => {
-   // return dispatch => {
-     return fetch(`http://localhost:300/bills/${billId}`, {
+   return dispatch => {
+     return fetch(`http://localhost:3000/bills/${billId}`, {
        headers: head
      })
-     .then(res => res.json()).then(res => console.log(res))
-   // }
+     .then(res => res.json())
+     .then(res => dispatch(getItems(res.items)))
+   }
  }

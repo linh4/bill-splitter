@@ -62,7 +62,8 @@ export const currentUser = (token) => {
         Authorization: localStorage.getItem("token")
       }
     })
-      .then(res => res.json())
+      .then(res => {if(res.ok) return res.json()
+              alert('please log in')})
       .then(user => dispatch(getCurrentUser(user)))
   };
 }

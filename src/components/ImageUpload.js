@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {createItems, postItems, fetchBill} from '../actions/billAction'
+import {createItems, getBill} from '../actions/billAction'
 import FileInputComponent from 'react-file-input-previews-base64'
 import { withRouter } from 'react-router-dom'
 import { currentUser } from '../actions/userAction'
@@ -10,14 +10,16 @@ class ImageUpload extends Component {
   componentDidMount() {
     let token = localStorage.getItem('token')
     if (token) {
-      return this.props.currentUser(token)
+      this.props.currentUser(token)
+      return this.props.getBill(this.props.match.params.id)
+    } else {
+      alert('Please Log In')
     }
   }
 
   handleUpload = (img) => {
-    let billId = this.props.bills.slice(-1)[0].id
+    let billId = this.props.bill.id
     this.props.createItems(billId, img[0].base64)
-    .then(data => console.log(data))
     this.props.history.push(`/bills/${billId}`)
   }
 
@@ -35,11 +37,11 @@ class ImageUpload extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("inside state of imageupload", state)
+  console.log("in image upload", state)
   return {
     currentUserI: state.user.currentUser,
-    bills: state.text.bills,
+    bill: state.text.bill,
     };
 };
 
-export default withRouter(connect(mapStateToProps, {createItems, currentUser, postItems, fetchBill})(ImageUpload))
+export default withRouter(connect(mapStateToProps, {createItems, currentUser, getBill})(ImageUpload))

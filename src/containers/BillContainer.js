@@ -2,40 +2,54 @@ import React, { Component } from 'react';
 import BillCard from '../components/BillCard'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { fetchBill} from '../actions/billAction'
 
 
 class BillContainer extends Component {
 
-  // total = () => {
-  //   let arr = []
-  //   for ( let i in this.props.billList) {
-  //     arr.push(Number(this.props.billList[i][1]))
-  //   }
-  //   let sum = arr.reduce((a,b) => a + b, 0)
-  //   return parseFloat(sum).toFixed(2)
-  // }
-// const timer = ms => new Promise(res => setTimeout(res, ms));
-filterItems = (props) => props.items.filter(item => item.bill_id === props.bill.id)
+  state = {
+    render: false
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ render: true });
+      this.props.fetchBill(this.props.match.params.id)
+    }, 800)
+  }
+
+  total = (props) => {
+    let arr = []
+    for ( let i in props) {
+      arr.push(props[i].price)
+    }
+    let sum = arr.reduce((a,b) => a + b, 0)
+    return parseFloat(sum).toFixed(2)
+  }
 
   render() {
+  if (!this.props.items) {
+    return <div>Loading...</div>
+  } else {
     return (
       <div>
-        {this.props.items ? this.filterItems(this.props).map((bill, idx) => <BillCard key={idx} bill={bill} />) : console.log('hi')}
-        {/* TOTAL - ${this.total()} */}
-        <button>next</button>
+        {this.props.items.map((bill, idx) => <BillCard key={idx} bill={bill} />)}
+        TOTAL - ${this.total(this.props.items)}
         <br/>
-        {/* <button onClick={this.props.history.push('/home')}>Back</button> */}
+        <button>Edit</button>
+        <button>Delete</button>
       </div>
       )
+    }
   }
 }
 
 const mapStateToProps = (state) => {
-  // console.log("inside bill container", state)
+  console.log("inside bill container", state)
   return {
     items: state.text.items,
-    bill: state.text.bills.slice(-1)[0]
+    bill: state.text.bill
     };
 };
 
-export default withRouter(connect(mapStateToProps)(BillContainer))
+export default withRouter(connect(mapStateToProps, {fetchBill})(BillContainer))
