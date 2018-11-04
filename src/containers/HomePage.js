@@ -16,7 +16,6 @@ class HomePage extends Component {
   }
 
   handleCreateBill = () => {
-    console.log('created bill')
     this.props.createBill(this.props.currentUserI.id)
     .then(data => this.props.history.push(`/bills/${data.id}/upload`))
   }

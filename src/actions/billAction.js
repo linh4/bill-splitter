@@ -97,6 +97,9 @@ export const createItems = (billId,imageSrc) => {
        headers: head
      })
      .then(res => res.json())
-     .then(res => dispatch(getItems(res.items)))
+     .then(res => {
+       console.log("inside fetchbill", res.items)
+       return dispatch(getItems(res.items))
+     })
    }
  }

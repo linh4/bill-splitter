@@ -7,15 +7,11 @@ import { fetchBill} from '../actions/billAction'
 
 class BillContainer extends Component {
 
-  state = {
-    render: false
-  }
-
   componentDidMount() {
+    console.log('wait to fetch')
     setTimeout(() => {
-      this.setState({ render: true });
       this.props.fetchBill(this.props.match.params.id)
-    }, 800)
+    }, 700)
   }
 
   total = (props) => {
@@ -27,20 +23,23 @@ class BillContainer extends Component {
     return parseFloat(sum).toFixed(2)
   }
 
+  handleEdit = () => {
+    let id = this.props.match.params.id
+    this.props.history.push(`/bills/${id}/edit`)
+  }
+
   render() {
-  if (!this.props.items) {
-    return <div>Loading...</div>
-  } else {
+  if (this.props.items.length < 1) {
+    return <div>No item yet...</div>
+  }
     return (
       <div>
         {this.props.items.map((bill, idx) => <BillCard key={idx} bill={bill} />)}
         TOTAL - ${this.total(this.props.items)}
         <br/>
-        <button>Edit</button>
-        <button>Delete</button>
+        <button onClick={this.handleEdit}>Modify</button>
       </div>
       )
-    }
   }
 }
 

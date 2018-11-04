@@ -1,10 +1,12 @@
 const initialState = {
-  // imgData: null,
-  bill: null,
-  items: null
+  bill: {},
+  items: []
 }
 
 const billReducer = (state = initialState, action) => {
+
+  let item;
+
   switch (action.type) {
     case 'GET_BILL':
       return {
@@ -16,6 +18,15 @@ const billReducer = (state = initialState, action) => {
       ...state,
       items: action.payload
     }
+    case 'EDIT_ITEM':
+      return {
+        ...state,
+      }
+    case 'DELETE_ITEM':
+      return {
+        ...state,
+        items: state.items.filter(item => item.id !== action.payload)
+      }
     default:
       return state
   }
