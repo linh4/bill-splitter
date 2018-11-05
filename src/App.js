@@ -5,14 +5,15 @@ import {Route, withRouter, Switch } from 'react-router-dom';
 import { connect } from 'react-redux'
 import ImageContainer from './containers/ImageContainer'
 import BillContainer from './containers/BillContainer'
-import FormContainer from './containers/FormContainer'
-import EditForm from './components/EditForm'
+import ItemFormContainer from './containers/ItemFormContainer'
+import ItemEditForm from './components/ItemEditForm'
 import HomePage from './containers/HomePage'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Navbar from './components/Navbar'
 import BillPage from './containers/BillPage'
-import { Redirect } from 'react-router-dom';
+import PayerFormContainer from './containers/PayerFormContainer'
+import BillPayerContainer from './containers/BillPayerContainer'
 import { currentUser } from './actions/userAction'
 
 
@@ -23,14 +24,13 @@ class App extends Component {
     if (token) {
         return this.props.currentUser(token)
     } else if (!token && this.props.currentUserI != null) {
-        console.log(this.props.currentUserI)
+        console.log("????")
     }
   }
 
   render() {
-    // if (!localStorage.getItem('token') && !this.props.currentUser.id) {
-    //   return <Route exact path="/" component={Login} />
-    // }else {
+  //   if (!localStorage.getItem('token') && !this.props.currentUser.id) {
+  //   return this.props.history.push('/login')}
     return (
       <div className="App">
         {localStorage.token && this.props.loggedIn ? (
@@ -41,8 +41,10 @@ class App extends Component {
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/bills/:id/upload" render={(routerProps) => <ImageContainer {...routerProps} /> } />
               <Route exact path="/bills/:id" render={(routerProps) => <BillContainer {...routerProps} /> } />
-              <Route exact path="/bills/:id/edit" render={(routerProps) => <FormContainer {...routerProps} />}  />
-              <Route exact path="/items/:id/edit" render={(routerProps) => <EditForm {...routerProps} />} />
+              <Route exact path="/bills/:id/edit" render={(routerProps) => <ItemFormContainer {...routerProps} />}  />
+              <Route exact path="/items/:id/edit" render={(routerProps) => <ItemEditForm {...routerProps} />} />
+              <Route exact path="/items/:id/payers" render={(routerProps) => <PayerFormContainer {...routerProps} />} />
+              <Route exac path="/bills/:id/payers" render={(routerProps) => <BillPayerContainer {...routerProps} />} />
               <Route exact path="/login" component={HomePage} />
           </Switch>
           </div>
@@ -51,14 +53,13 @@ class App extends Component {
           <div>
             <Route exact path="/" component={Login} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={SignUp} />
           </div>
           )
         }
-        <Route exact path="/signup" component={SignUp} />
       </div>
-    );
+    )
   }
-// }
 }
 
 const mapStateToProps = (state) => {

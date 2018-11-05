@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 
-const BillCard = (props) => {
-  return (
-    <div>
-      {props.bill.title} - ${props.bill.price}
-    </div>
-  )
+class BillCard extends Component {
+
+  handlePayer = (itemId) => {
+    this.props.history.push(`/items/${itemId}/payers`)
+  }
+
+  render() {
+    const item = this.props.item
+    return (
+      <div>
+        <div onClick={() => this.handlePayer(item.id)}>
+          {item.title} - ${parseFloat(item.price).toFixed(2)}
+        </div>
+      </div>
+    )
+  }
 }
 
-export default BillCard;
+export default withRouter(BillCard)

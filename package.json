@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "base-64": "^0.1.0",
     "moment": "^2.22.2",
     "react": "^16.6.0",
     "react-bootstrap": "^0.32.4",
+    "react-checkbox-group": "^4.0.1",
     "react-dom": "^16.6.0",
     "react-file-input-previews-base64": "^1.0.6",
     "react-redux": "^5.1.0",

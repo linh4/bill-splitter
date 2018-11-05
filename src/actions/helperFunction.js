@@ -20,7 +20,6 @@ const helperFunction = (data) => {
     }
     return newArr
   }
-  // let total = itemList(billList())
   let array = billList()
   return array.map(b => ({title: b[0], price: Number(b[1])}))
 }

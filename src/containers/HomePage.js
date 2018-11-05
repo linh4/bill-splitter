@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { logoutUser, currentUser } from '../actions/userAction'
+import { currentUser } from '../actions/userAction'
 import { createBill, getBill } from '../actions/billAction'
 
 class HomePage extends Component {

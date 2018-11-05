@@ -9,9 +9,7 @@ class BillContainer extends Component {
 
   componentDidMount() {
     console.log('wait to fetch')
-    setTimeout(() => {
       this.props.fetchBill(this.props.match.params.id)
-    }, 700)
   }
 
   total = (props) => {
@@ -28,16 +26,22 @@ class BillContainer extends Component {
     this.props.history.push(`/bills/${id}/edit`)
   }
 
+  handleNext = () => {
+    let id = this.props.match.params.id
+    this.props.history.push(`/bills/${id}/payers`)
+  }
+
   render() {
   if (this.props.items.length < 1) {
     return <div>No item yet...</div>
   }
     return (
       <div>
-        {this.props.items.map((bill, idx) => <BillCard key={idx} bill={bill} />)}
+        {this.props.items.map((item, idx) => <BillCard key={idx} item={item} />)}
         TOTAL - ${this.total(this.props.items)}
         <br/>
         <button onClick={this.handleEdit}>Modify</button>
+        <button onClick={this.handleNext}>Next</button>
       </div>
       )
   }

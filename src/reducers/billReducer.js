@@ -1,12 +1,18 @@
 const initialState = {
   bill: {},
   items: [],
-  selectedItem: {}
+  selectedItem: {},
+  itemArr: []
 }
 
 const billReducer = (state = initialState, action) => {
 
   switch (action.type) {
+    case 'SAVE_ARRAY':
+      return {
+        ...state,
+        itemArr: action.payload
+      }
     case 'GET_BILL':
       return {
         ...state,

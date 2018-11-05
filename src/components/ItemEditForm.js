@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux'
 import { getItem, editItem } from '../actions/itemAction'
 
-class EditForm extends React.Component {
+class ItemEditForm extends React.Component {
 
   state = {
     id: 0,
@@ -22,10 +22,11 @@ class EditForm extends React.Component {
 
   componentDidUpdate (prevState, prevProps) {
     if (prevProps.id !== this.props.selectedItem.id) {
+      let item = this.props.selectedItem
       this.setState({
-        id: this.props.selectedItem.id,
-        title: this.props.selectedItem.title,
-        price: this.props.selectedItem.price
+        id: item.id,
+        title: item.title,
+        price: parseFloat(item.price).toFixed(2)
       })
     }
   }
@@ -61,4 +62,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {getItem, editItem})(EditForm)
+export default connect(mapStateToProps, {getItem, editItem})(ItemEditForm)

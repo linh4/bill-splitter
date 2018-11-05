@@ -17,6 +17,10 @@ const getItems = (item) => {
   return {type: 'GET_ITEMS', payload: item}
 }
 
+const itemArr = (arr) => {
+  return {type: 'SAVE_ARRAY', payload: arr}
+}
+
 export const createBill = (userId) => {
   return dispatch => {
     return fetch("http://localhost:3000/bills", {
@@ -64,31 +68,32 @@ export const createItems = (billId,imageSrc) => {
     })
     .then(res => res.json())
     .then(data => helperFunction(data))
+    // .then(res => dispatch(itemArr(res)))
     .then(res => {
-      return new Promise(async(resolve, reject) => {
-        for (let i = 0; i < res.length; i++) {
-          await postItems(billId, res[i])
-        }
-      })
+      for (let i = 0; i < res.length; i++) {
+       postItems(billId, res[i])
+      }
+      return res
     })
+    .then(res => console.log("inside return promise from post items", res))
+    // .then(res => fetchBill(billId))
    }
 }
 
- const postItems = (billId, item) => {
+ export const postItems = (billId, item) => {
      return fetch("http://localhost:3000/items", {
        method: 'POST',
        headers: head,
        body: JSON.stringify({
          bill_id: billId,
          title: item.title,
-         price: item.price
+         price: item.price.toFixed(2)
        })
      })
      .then(response => {
        if(response.ok) return response.json();
        throw new Error(response.statusText);
      })
-
  }
 
  export const fetchBill = (billId) => {

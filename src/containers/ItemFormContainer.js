@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { fetchBill} from '../actions/billAction'
 import { getItem, deleteItem } from '../actions/itemAction'
 
-class FormContainer extends Component {
+class ItemFormContainer extends Component {
 
   componentDidMount() {
     let billId = this.props.match.params.id
@@ -12,7 +12,7 @@ class FormContainer extends Component {
   }
 
   handleSelect = (item) => {
-    console.log("inside handleselect form FormContainer", item)
+    console.log("inside handleselect form ItemFormContainer", item)
     this.props.history.push(`/items/${item.id}/edit`)
   }
 
@@ -27,7 +27,7 @@ class FormContainer extends Component {
     const renderItems = this.props.items.map(item => {
       return (
         <div key={item.id}>
-        {item.title} - ${item.price}
+        {item.title} - ${parseFloat(item.price).toFixed(2)}
         <button onClick={() => this.handleSelect(item)}>Edit</button>
         <button onClick={() => this.handleItemDelete(item.id)}>Delete</button>
       </div>
@@ -50,4 +50,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchBill, deleteItem, getItem})(FormContainer))
+export default withRouter(connect(mapStateToProps, {fetchBill, deleteItem, getItem})(ItemFormContainer))
