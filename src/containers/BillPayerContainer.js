@@ -30,6 +30,7 @@ class BillPayerContainer extends Component {
       <div>
         <p>Click each item to assign payers</p>
         {renderItems}
+        <button onClick={this.props.history.goBack}>Back</button>
         <button>Next</button>
       </div>
     )

@@ -11,7 +11,7 @@ class BillCard extends Component {
     const item = this.props.item
     return (
       <div>
-        <div onClick={() => this.handlePayer(item.id)}>
+        <div>
           {item.title} - ${parseFloat(item.price).toFixed(2)}
         </div>
       </div>

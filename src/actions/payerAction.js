@@ -6,6 +6,10 @@ const getPayer = (payers) => {
   return {type: 'GET_PAYER', payload: payers}
 }
 
+const removePayer = (payerId) => {
+  return {type: 'DELETE_PAYER', payload: payerId}
+}
+
 let head = {
   "Content-Type": "application/json",
   'Accept': 'application/json',
@@ -17,10 +21,10 @@ export const createPayer = (name) => {
     return fetch("http://localhost:3000/payers", {
       method: 'POST',
       headers: head,
-      body: JSON.stringify({name: name})
+      body: JSON.stringify(name)
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => dispatch(addPayer(data)))
   }
 }
 
@@ -31,5 +35,16 @@ export const fetchPayer = () => {
     })
     .then(res => res.json())
     .then(data => dispatch(getPayer(data)))
+  }
+}
+
+export const deletePayer = (payerId) => {
+  return dispatch => {
+    return fetch(`http://localhost:3000/payers/${payerId}`, {
+      method: 'DELETE',
+      headers: head
+    })
+    .then(res => res.text())
+    .then(data => dispatch(removePayer(payerId)))
   }
 }

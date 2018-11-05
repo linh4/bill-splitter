@@ -14,6 +14,11 @@ const payerReducer = (state = initialState, action) => {
         ...state,
         payers: [...state.payers, action.payload]
       }
+    case 'DELETE_PAYER':
+      return {
+        ...state,
+        payers: state.payers.filter(payer => payer.id !== action.payload)
+      }
     default:
       return state
   }

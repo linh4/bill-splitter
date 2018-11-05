@@ -8,6 +8,15 @@ import {fetchBill, postItems} from '../actions/billAction'
 
 class ImageUpload extends Component {
 
+  state = {
+    img: null,
+    display: 'block'
+  }
+
+  handleChange = (img) => {
+    this.setState({img: img})
+  }
+
   componentDidMount() {
     let token = localStorage.getItem('token')
     if (token) {
@@ -18,23 +27,39 @@ class ImageUpload extends Component {
     }
   }
 
-  handleUpload = (img) => {
-    let billId = this.props.bill.id
-    this.props.createItems(billId, img[0].base64)
-    // .then(() => this.props.fetchBill(billId))
-    .then(() => this.props.history.push(`/bills/${billId}`))
-    // this.props.history.push(`/bills/${billId}`)
+  handleUpload = () => {
+    if (this.state.img) {
+      let billId = this.props.bill.id
+      this.props.createItems(billId, this.state.img[0].base64)
+      .then(() => this.props.fetchBill(billId))
+      .then(() => this.props.history.push(`/bills/${billId}`))
+      // this.props.history.push(`/bills/${billId}`)
+    }
+  }
+
+  handleDisplay = () => {
+    this.setState({display: 'none'})
   }
 
    render() {
        return (
-         <FileInputComponent
-          labelText="Select file"
-          labelStyle={{fontSize:14}}
-          multiple={true}
-          callbackFunction={(img)=>this.handleUpload(img)}
-          accept="image/*"
-          />
+         <div>
+           <FileInputComponent
+            labelText="Select file"
+            labelStyle={{fontSize:14}}
+            multiple={true}
+            imagePreview={true}
+            callbackFunction={(img)=>this.handleChange(img)}
+            accept="image/*"
+            buttonComponent={<button type="button" style={{display: this.state.display}} onClick={this.handleDisplay} >Attach</button>}
+            />
+            {
+              this.state.img && <button onClick={this.handleUpload}>Submit</button>
+            }
+
+         </div>
+
+
        );
    }
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PayerForm from '../components/PayerForm'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { fetchPayer } from '../actions/payerAction'
+import { Route, withRouter } from 'react-router-dom'
+import { fetchPayer, deletePayer } from '../actions/payerAction'
 import CheckBoxForm from '../components/CheckBoxForm';
 import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 
@@ -10,7 +10,8 @@ class PayerFormContainer extends Component {
 
   state = {
     isChecked: false,
-    arr: []
+    arr: [],
+    renderForm: false
   }
 
   componentDidMount() {
@@ -37,29 +38,52 @@ class PayerFormContainer extends Component {
     // }
   }
 
+  handleAddPayer = (e) => {
+    this.setState({renderForm: true})
+  }
+
+  handleDeletePayer = (id) => {
+    this.props.deletePayer(id)
+  }
+
   render() {
     // console.log(this.state)
-    const payers = this.props.payers;
-    console.log(payers)
-    const payerList = payers.map((payer, i) =>
-      <div key={i}>
-        <label>
-          <input type="checkbox" value={payer.name} onChange={this.onAddingItem} />
-        </label>
-        {payer.name}
-      </div>
-    )
-    return (
-      <div>{payerList}</div>
-    )
+    if (this.props.payers.length < 1 ) {
+      return (<div>
+        <button onClick={this.handleAddPayer}>Add Payer</button>
+        {this.state.renderForm ?
+          <PayerForm />
+          : null
+        }
+      </div>)
+    }
+    else {
+      const payers = this.props.payers;
+      const payerList = payers.map((payer, i) =>
+        <div key={i}>
+          <label>
+            <input type="checkbox" value={payer.name || ''} onChange={this.onAddingItem} />
+          </label>
+          {payer.name}
+          <button onClick={() => this.handleDeletePayer(payer.id)}>X</button>
+        </div>
+      )
+      return (
+        <div>
+          {payerList}
+          <PayerForm />
+          <button onClick={this.props.history.goBack}>Done</button>
+        </div>
+      )
+    }
   }
 }
 
 const mapStateToProps = (state) => {
-  // console.log("inside PayerFormContainer", state.payer)
+  console.log("inside PayerFormContainer", state.payer)
   return {
     payers: state.payer.payers
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchPayer})(PayerFormContainer))
+export default withRouter(connect(mapStateToProps, {fetchPayer, deletePayer})(PayerFormContainer))
