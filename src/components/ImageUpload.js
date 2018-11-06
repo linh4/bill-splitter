@@ -28,12 +28,17 @@ class ImageUpload extends Component {
     return this.props.createItems(billId, this.state.img[0].base64)
   }
 
-  handleUpload = () => {
-    let billId = this.props.bill.id
+  loopArr = (billId) => {
     let arr = this.props.itemArr
-    for (let i = 0; i < arr.length; i++) {
+    for (let i in arr) {
        this.props.postItems(billId, arr[i])
       }
+    return arr
+  }
+
+  handleSave = () => {
+    let billId = this.props.bill.id
+    this.loopArr(billId)
     return this.props.fetchBill(billId)
     .then(() => (this.props.items.length = 0))
     .then(() => this.props.history.push(`/bills/${billId}`))
@@ -63,7 +68,7 @@ class ImageUpload extends Component {
                       :
                       <div>Loading...</div>}
                 <div>
-                  <button onClick={this.handleUpload}>Save</button>
+                  <button onClick={this.handleSave}>Save</button>
                   <p>***Click Attach again to upload another image***</p>
                 </div>
               </div>)

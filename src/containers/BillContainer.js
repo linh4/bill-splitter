@@ -9,7 +9,8 @@ class BillContainer extends Component {
 
   componentDidMount() {
     console.log('wait to fetch')
-      this.props.fetchBill(this.props.match.params.id)
+    let billId = this.props.match.params.id
+    this.props.fetchBill(billId)
   }
 
   total = (props) => {
