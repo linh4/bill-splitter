@@ -81,6 +81,7 @@ export const createItems = (billId,imageSrc) => {
 }
 
  export const postItems = (billId, item) => {
+   return dispatch => {
      return fetch("http://localhost:3000/items", {
        method: 'POST',
        headers: head,
@@ -94,6 +95,7 @@ export const createItems = (billId,imageSrc) => {
        if(response.ok) return response.json();
        throw new Error(response.statusText);
      })
+   }
  }
 
  export const fetchBill = (billId) => {
