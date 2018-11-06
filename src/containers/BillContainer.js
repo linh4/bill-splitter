@@ -35,9 +35,10 @@ class BillContainer extends Component {
   if (this.props.items.length < 1) {
     return <div>No item yet...</div>
   }
+    let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
     return (
       <div>
-        {this.props.items.map((item, idx) => <BillCard key={idx} item={item} />)}
+        {sortedItems.map((item, idx) => <BillCard key={idx} item={item} />)}
         TOTAL - ${this.total(this.props.items)}
         <br/>
         <button onClick={this.handleEdit}>Modify</button>

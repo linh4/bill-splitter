@@ -9,12 +9,7 @@ import {fetchBill, postItems} from '../actions/billAction'
 class ImageUpload extends Component {
 
   state = {
-    img: null,
-    display: 'block'
-  }
-
-  handleChange = (img) => {
-    this.setState({img: img})
+    img: null
   }
 
   componentDidMount() {
@@ -27,39 +22,53 @@ class ImageUpload extends Component {
     }
   }
 
-  handleUpload = () => {
-    if (this.state.img) {
-      let billId = this.props.bill.id
-      this.props.createItems(billId, this.state.img[0].base64)
-      .then(() => this.props.fetchBill(billId))
-      .then(() => this.props.history.push(`/bills/${billId}`))
-      // this.props.history.push(`/bills/${billId}`)
-    }
+  handleChange = (img) => {
+    this.setState({img: img})
+    let billId = this.props.bill.id
+    this.props.createItems(billId, this.state.img[0].base64)
   }
 
-  handleDisplay = () => {
-    this.setState({display: 'none'})
+  handleUpload = () => {
+    let billId = this.props.bill.id
+    let arr = this.props.itemArr
+    for (let i = 0; i < arr.length; i++) {
+       postItems(billId, arr[i])
+      }
+    this.props.fetchBill(billId)
+    .then(() => (this.props.items.length = 0))
+    .then(() => this.props.history.push(`/bills/${billId}`))
   }
+
+
 
    render() {
+     // window.onbeforeunload = function() { return "Are you sure you want to leave?"; }
        return (
          <div>
            <FileInputComponent
             labelText="Select file"
             labelStyle={{fontSize:14}}
             multiple={true}
-            imagePreview={true}
+            imagePreview={false}
             callbackFunction={(img)=>this.handleChange(img)}
             accept="image/*"
-            buttonComponent={<button type="button" style={{display: this.state.display}} onClick={this.handleDisplay} >Attach</button>}
+            buttonComponent={<button type="button">Attach</button>}
             />
             {
-              this.state.img && <button onClick={this.handleUpload}>Submit</button>
+              this.state.img && this.props.itemArr.length > 0 && (<div>
+                  {this.props.itemArr ?
+                    this.props.itemArr.map((item, idx) =>
+                      <div key={idx}>{item.title} - ${parseFloat(item.price).toFixed(2)}</div>
+                      )
+                      :
+                      <div>Loading...</div>}
+                <div>
+                  <button onClick={this.handleUpload}>Save</button>
+                  <p>***Click Attach again to upload another image***</p>
+                </div>
+              </div>)
             }
-
          </div>
-
-
        );
    }
 }
@@ -69,7 +78,8 @@ const mapStateToProps = (state) => {
   return {
     currentUserI: state.user.currentUser,
     bill: state.text.bill,
-    itemArr: state.text.itemArr
+    itemArr: state.text.itemArr,
+    items: state.text.items
     };
 };
 

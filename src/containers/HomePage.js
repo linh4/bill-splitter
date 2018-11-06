@@ -18,6 +18,7 @@ class HomePage extends Component {
   handleCreateBill = () => {
     this.props.createBill(this.props.currentUserI.id)
     .then(data => this.props.history.push(`/bills/${data.id}/upload`))
+    .then(() => (this.props.itemArr.length = 0))
   }
 
   render() {
@@ -33,7 +34,8 @@ const mapStateToProps = (state) => {
   console.log("in homepage", state)
   return {
     currentUserI: state.user.currentUser,
-    bill: state.text.bill
+    bill: state.text.bill,
+    itemArr: state.text.itemArr
     }
 };
 

@@ -11,7 +11,7 @@ class ItemEditForm extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getItem(this.props.match.params.id)
+    this.props.getItem(this.props.match.params.id) 
   }
 
   handleChange = (event) => {

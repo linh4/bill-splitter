@@ -11,7 +11,7 @@ const billReducer = (state = initialState, action) => {
     case 'SAVE_ARRAY':
       return {
         ...state,
-        itemArr: action.payload
+        itemArr: state.itemArr.concat(action.payload)
       }
     case 'GET_BILL':
       return {

@@ -68,14 +68,14 @@ export const createItems = (billId,imageSrc) => {
     })
     .then(res => res.json())
     .then(data => helperFunction(data))
-    // .then(res => dispatch(itemArr(res)))
-    .then(res => {
-      for (let i = 0; i < res.length; i++) {
-       postItems(billId, res[i])
-      }
-      return res
-    })
-    .then(res => console.log("inside return promise from post items", res))
+    .then(res => dispatch(itemArr(res)))
+    // .then(res => {
+    //   for (let i = 0; i < res.length; i++) {
+    //    postItems(billId, res[i])
+    //   }
+    //   return res
+    // })
+    // .then(res => console.log("inside return promise from post items", res))
     // .then(res => fetchBill(billId))
    }
 }
