@@ -4,7 +4,7 @@ import {createItems, getBill} from '../actions/billAction'
 import FileInputComponent from 'react-file-input-previews-base64'
 import { withRouter } from 'react-router-dom'
 import { currentUser } from '../actions/userAction'
-import {fetchBill, postItems} from '../actions/billAction'
+import {postItems} from '../actions/billAction'
 
 class ImageUpload extends Component {
 
@@ -28,23 +28,12 @@ class ImageUpload extends Component {
     return this.props.createItems(billId, this.state.img[0].base64)
   }
 
-  loopArr = (billId) => {
-    let arr = this.props.itemArr
-    for (let i in arr) {
-       this.props.postItems(billId, arr[i])
-      }
-    return arr
-  }
-
   handleSave = () => {
     let billId = this.props.bill.id
-    this.loopArr(billId)
-    return this.props.fetchBill(billId)
-    .then(() => (this.props.items.length = 0))
-    .then(() => this.props.history.push(`/bills/${billId}`))
+    let arr = this.props.items
+    this.props.postItems(billId, arr)
+    this.props.history.push(`/bills/${billId}`)
   }
-
-
 
    render() {
      // window.onbeforeunload = function() { return "Are you sure you want to leave?"; }
@@ -60,9 +49,9 @@ class ImageUpload extends Component {
             buttonComponent={<button type="button">Attach</button>}
             />
             {
-              this.state.img && this.props.itemArr.length > 0 && (<div>
-                  {this.props.itemArr ?
-                    this.props.itemArr.map((item, idx) =>
+              this.state.img && this.props.items.length > 0 && (<div>
+                  {this.props.items ?
+                    this.props.items.map((item, idx) =>
                       <div key={idx}>{item.title} - ${parseFloat(item.price).toFixed(2)}</div>
                       )
                       :
@@ -83,9 +72,8 @@ const mapStateToProps = (state) => {
   return {
     currentUserI: state.user.currentUser,
     bill: state.text.bill,
-    itemArr: state.text.itemArr,
     items: state.text.items
     };
 };
 
-export default withRouter(connect(mapStateToProps, {createItems, currentUser, getBill, fetchBill, postItems})(ImageUpload))
+export default withRouter(connect(mapStateToProps, {createItems, currentUser, getBill, postItems})(ImageUpload))

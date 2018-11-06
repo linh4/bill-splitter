@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import BillCard from '../components/BillCard'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fetchBill} from '../actions/billAction'
+import { fetchBill, clearItems} from '../actions/billAction'
 
 
 class BillContainer extends Component {
 
   componentDidMount() {
     console.log('wait to fetch')
-    let billId = this.props.match.params.id
-    this.props.fetchBill(billId)
+    if (this.props.items.length < 1) {
+      let billId = this.props.match.params.id
+      this.props.fetchBill(billId)
+    }
   }
 
   total = (props) => {
@@ -24,6 +26,7 @@ class BillContainer extends Component {
 
   handleEdit = () => {
     let id = this.props.match.params.id
+    this.props.clearItems()
     this.props.history.push(`/bills/${id}/edit`)
   }
 
@@ -37,6 +40,7 @@ class BillContainer extends Component {
     return <div>No item yet...</div>
   }
     let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
+    let billId = this.props.match.params.id
     return (
       <div>
         {sortedItems.map((item, idx) => <BillCard key={idx} item={item} />)}
@@ -57,4 +61,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchBill})(BillContainer))
+export default withRouter(connect(mapStateToProps, {fetchBill, clearItems})(BillContainer))

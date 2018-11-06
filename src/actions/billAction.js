@@ -13,12 +13,12 @@ const renderBill = (bill) => {
   return {type: 'GET_BILL', payload: bill}
 }
 
-const getItems = (item) => {
-  return {type: 'GET_ITEMS', payload: item}
+const itemArr = (arr) => {
+  return {type: 'GET_ITEMS', payload: arr}
 }
 
-const itemArr = (arr) => {
-  return {type: 'SAVE_ARRAY', payload: arr}
+export const clearItems = () => {
+  return {type: 'RESET_ITEMS'}
 }
 
 export const createBill = (userId) => {
@@ -87,14 +87,13 @@ export const createItems = (billId,imageSrc) => {
        headers: head,
        body: JSON.stringify({
          bill_id: billId,
-         title: item.title,
-         price: item.price.toFixed(2)
+         item: item
        })
      })
-     .then(response => {
-       if(response.ok) return response.json();
-       throw new Error(response.statusText);
-     })
+     // .then(response => {
+     //   if(response.ok) return response.text();
+     //   throw new Error(response.statusText);
+     // }).then(data => console.log(data))
    }
  }
 
@@ -106,7 +105,7 @@ export const createItems = (billId,imageSrc) => {
      .then(res => res.json())
      .then(res => {
        console.log("inside fetchbill", res.items)
-       return dispatch(getItems(res.items))
+       return dispatch(itemArr(res.items))
      })
    }
  }

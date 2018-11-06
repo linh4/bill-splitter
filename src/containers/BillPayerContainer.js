@@ -6,7 +6,10 @@ import { fetchBill} from '../actions/billAction'
 class BillPayerContainer extends Component {
 
   componentDidMount() {
-    this.props.fetchBill(this.props.match.params.id)
+    if (this.props.items.length < 1) {
+      let billId = this.props.match.params.id
+      this.props.fetchBill(billId)
+    }
   }
 
   selectPayers = (id) => {

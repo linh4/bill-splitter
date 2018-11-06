@@ -39,6 +39,8 @@ class PayerFormContainer extends Component {
   }
 
   handleAddPayer = (e) => {
+    // debugger
+    e.target.style.display = 'none'
     this.setState({renderForm: true})
   }
 
@@ -50,7 +52,7 @@ class PayerFormContainer extends Component {
     // console.log(this.state)
     if (this.props.payers.length < 1 ) {
       return (<div>
-        <button onClick={this.handleAddPayer}>Add Payer</button>
+        <button onClick={(e) => this.handleAddPayer(e)}>Add Payer</button>
         {this.state.renderForm ?
           <PayerForm />
           : null

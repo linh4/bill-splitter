@@ -7,17 +7,25 @@ import { getItem, deleteItem } from '../actions/itemAction'
 class ItemFormContainer extends Component {
 
   componentDidMount() {
-    let billId = this.props.match.params.id
-    this.props.fetchBill(billId)
+    if (this.props.items.length < 1) {
+      let billId = this.props.match.params.id
+      this.props.fetchBill(billId)
+    }
   }
 
-  handleSelect = (item) => {
+  handleEdit = (item) => {
     console.log("inside handleselect form ItemFormContainer", item)
     this.props.history.push(`/items/${item.id}/edit`)
   }
 
   handleItemDelete = (id) => {
     this.props.deleteItem(id)
+  }
+
+  handleDone = () => {
+    debugger
+    // this.props.clearItems()
+    return this.props.history.goBack
   }
 
   render() {
@@ -29,7 +37,7 @@ class ItemFormContainer extends Component {
       return (
         <div key={item.id}>
         {item.title} - ${parseFloat(item.price).toFixed(2)}
-        <button onClick={() => this.handleSelect(item)}>Edit</button>
+        <button onClick={() => this.handleEdit(item)}>Edit</button>
         <button onClick={() => this.handleItemDelete(item.id)}>Delete</button>
       </div>
       )

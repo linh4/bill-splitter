@@ -2,27 +2,21 @@ const initialState = {
   bill: {},
   items: [],
   selectedItem: {},
-  itemArr: []
 }
 
 const billReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case 'SAVE_ARRAY':
+    case 'GET_ITEMS':
       return {
         ...state,
-        itemArr: state.itemArr.concat(action.payload)
+        items: state.items.concat(action.payload)
       }
     case 'GET_BILL':
       return {
         ...state,
         bill: action.payload
       }
-    case 'GET_ITEMS':
-    return {
-      ...state,
-      items: action.payload
-    }
     case 'SELECT_ITEM':
     console.log("inside store state", action.payload)
       return {
@@ -42,6 +36,8 @@ const billReducer = (state = initialState, action) => {
         ...state,
         items: state.items.filter(item => item.id !== action.payload)
       }
+    case 'RESET_ITEMS':
+      return {items: []}
     default:
       return state
   }
