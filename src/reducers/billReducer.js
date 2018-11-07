@@ -2,23 +2,33 @@ const initialState = {
   bill: {},
   items: [],
   selectedItem: {},
+  wholeBill: null
 }
 
 const billReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case 'GET_ITEMS':
-      return {
-        ...state,
-        items: state.items.concat(action.payload)
+      if (action.payload.hasOwnProperty('payers')) {
+        return {
+          ...state,
+          items: state.items.concat(action.payload.items),
+          wholeBill: action.payload
+        }
       }
+      else {
+        return {
+          ...state,
+          items: state.items.concat(action.payload)
+        }
+      }
+
     case 'GET_BILL':
       return {
         ...state,
         bill: action.payload
       }
     case 'SELECT_ITEM':
-    console.log("inside store state", action.payload)
       return {
         ...state,
         selectedItem: action.payload

@@ -6,7 +6,7 @@ import { fetchBill} from '../actions/billAction'
 class BillPayerContainer extends Component {
 
   componentDidMount() {
-    if (this.props.items.length < 1) {
+    if (!this.props.wholeBill) {
       let billId = this.props.match.params.id
       this.props.fetchBill(billId)
     }
@@ -16,16 +16,30 @@ class BillPayerContainer extends Component {
     this.props.history.push(`/items/${id}/payers`)
   }
 
+
+  handleBack = () => {
+    let billId = this.props.match.params.id
+    this.props.history.push(`/bills/${billId}`)
+  }
+
+  renderPayers = (item) => {
+    if (item.payers.length === 0 ) {
+      return <p>Unassigned</p>
+    } else {
+      return item.payers.map(payer => <p key={payer.id}>{payer.name}</p>)
+    }
+  }
   render() {
-    if (this.props.items.length < 0) {
+    if (!this.props.wholeBill) {
       return <div>Loading...</div>
     }
-    let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
-    const renderItems = sortedItems.map(item => {
+    // let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
+    // const renderItems = sortedItems.map(item => {
+    const renderItems = this.props.wholeBill.items.map(item => {
       return (
         <div key={item.id} onClick={() => this.selectPayers(item.id)}>
         {item.title} - ${parseFloat(item.price).toFixed(2)}
-        <p>Unassigned</p>
+        {this.renderPayers(item)}
         <hr/>
       </div>
       )
@@ -34,7 +48,7 @@ class BillPayerContainer extends Component {
       <div>
         <p>Click each item to assign payers</p>
         {renderItems}
-        <button onClick={this.props.history.goBack}>Back</button>
+        <button onClick={this.handleBack}>Back</button>
         <button>Next</button>
       </div>
     )
@@ -42,8 +56,11 @@ class BillPayerContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("inside assignPayers state", state.text.wholeBill)
   return {
-    items: state.text.items
+    items: state.text.items,
+    selectedPayers: state.payer.selectedPayers,
+    wholeBill: state.text.wholeBill
     };
 };
 

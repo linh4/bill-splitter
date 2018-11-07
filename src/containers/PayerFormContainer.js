@@ -2,54 +2,62 @@ import React, { Component } from 'react';
 import PayerForm from '../components/PayerForm'
 import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
-import { fetchPayer, deletePayer } from '../actions/payerAction'
 import CheckBoxForm from '../components/CheckBoxForm';
 import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
+import {getItem} from '../actions/itemAction'
+import { fetchPayer, deletePayer, postItemPayer, selectPayers } from '../actions/payerAction'
 
 class PayerFormContainer extends Component {
 
   state = {
+    renderForm: false,
     isChecked: false,
-    arr: [],
-    renderForm: false
+    payerArr: [],
   }
 
   componentDidMount() {
+    console.log("inside payer form fetching")
+    let itemId = this.props.match.params.id
+    this.props.getItem(itemId)
     this.props.fetchPayer()
   }
 
-  onAddingItem = (item) => {
-    const isChecked = item.target.checked;
-    const value =  item.target.value;
-    console.log(value)
-    this.setState({isChecked: !this.state.isChecked});
+  onAddingItem = (payer) => {
+    const isChecked = payer.target.checked
+    const id = payer.target.id
+    this.setState({isChecked: !this.state.isChecked})
     if (isChecked) {
       console.log('checked!')
-      console.log(this.state.arr)
-      return this.state.arr.push(value)
+      return this.setState({payerArr: [...this.state.payerArr, id]})
     } else {
       console.log('not checked')
+      const newPayers = this.state.payerArr.filter(payer => payer !== id)
+      return this.setState({payerArr: newPayers })
     }
-    // if (isChecked)
-      // this.setState(prevState => ({payers: [...prevState.payers, value] }));
-    // else {
-      // const newPayers = this.state.payers.filter(payer => payer !== value)
-      // this.setState({ addedPayers: newAddedPayers });
-    // }
   }
 
   handleAddPayer = (e) => {
-    // debugger
     e.target.style.display = 'none'
     this.setState({renderForm: true})
   }
 
-  handleDeletePayer = (id) => {
-    this.props.deletePayer(id)
+  handleDeletePayer = (e, payer) => {
+    let text = e.target.parentNode.textContent.slice(0, -1)
+    const newPayers = this.state.payerArr.filter(payer => payer !== text)
+    this.setState({payerArr: newPayers })
+    return this.props.deletePayer(payer.id)
+  }
+
+  handleDone = () => {
+    let id = this.props.selectedItem.id
+    // this.props.selectPayers(this.state.payerArr)
+    let billId = this.props.selectedItem.bill_id
+    this.props.postItemPayer(id, this.state.payerArr)
+    .then(() => this.props.history.push(`/bills/${billId}/assignPayers`))
   }
 
   render() {
-    // console.log(this.state)
+    console.log(this.state.payerArr)
     if (this.props.payers.length < 1 ) {
       return (<div>
         <button onClick={(e) => this.handleAddPayer(e)}>Add Payer</button>
@@ -61,20 +69,20 @@ class PayerFormContainer extends Component {
     }
     else {
       const payers = this.props.payers;
-      const payerList = payers.map((payer, i) =>
-        <div key={i}>
-          <label>
-            <input type="checkbox" value={payer.name || ''} onChange={this.onAddingItem} />
-          </label>
+      const payerList = payers.map((payer, idx) =>
+        <div key={idx}>
+          <input type="checkbox" id={idx+1} value={payer.name || ''} onChange={this.onAddingItem} />
           {payer.name}
-          <button onClick={() => this.handleDeletePayer(payer.id)}>X</button>
+          <button onClick={(e) => this.handleDeletePayer(e, payer)}>X</button>
         </div>
       )
       return (
         <div>
           {payerList}
           <PayerForm />
-          <button onClick={this.props.history.goBack}>Done</button>
+          ***Names should be different****
+          <br/>
+          <button onClick={this.handleDone}>Done</button>
         </div>
       )
     }
@@ -82,10 +90,13 @@ class PayerFormContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("inside PayerFormContainer", state.payer)
+  console.log("inside PayerFormContainer", state)
   return {
-    payers: state.payer.payers
+    bill: state.text.bill,
+    items: state.text.items,
+    payers: state.payer.payers,
+    selectedItem: state.text.selectedItem
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchPayer, deletePayer})(PayerFormContainer))
+export default withRouter(connect(mapStateToProps, {fetchPayer, deletePayer, postItemPayer,selectPayers, getItem})(PayerFormContainer))

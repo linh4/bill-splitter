@@ -23,10 +23,10 @@ class ItemFormContainer extends Component {
   }
 
   handleDone = () => {
-    debugger
-    // this.props.clearItems()
-    return this.props.history.goBack
+    let billId = this.props.match.params.id
+    return this.props.history.push(`/bills/${billId}`)
   }
+
 
   render() {
     if (this.props.items.length < 0) {
@@ -45,7 +45,7 @@ class ItemFormContainer extends Component {
     return (
       <div>
         {renderItems}
-        <button onClick={this.props.history.goBack}>Done</button>
+        <button onClick={this.handleDone}>Done</button>
       </div>
     )
   }

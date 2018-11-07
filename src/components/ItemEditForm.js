@@ -11,7 +11,7 @@ class ItemEditForm extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getItem(this.props.match.params.id) 
+    this.props.getItem(this.props.match.params.id)
   }
 
   handleChange = (event) => {
@@ -35,7 +35,7 @@ class ItemEditForm extends React.Component {
     e.preventDefault()
     let billId = this.props.selectedItem.bill.id
     this.props.editItem(this.state)
-    .then(() => this.props.history.push(`/bills/${billId}`))
+    .then(() => this.props.history.push(`/bills/${billId}/edit`))
   }
 
   render() {

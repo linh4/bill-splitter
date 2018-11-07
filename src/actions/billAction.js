@@ -90,10 +90,6 @@ export const createItems = (billId,imageSrc) => {
          item: item
        })
      })
-     // .then(response => {
-     //   if(response.ok) return response.text();
-     //   throw new Error(response.statusText);
-     // }).then(data => console.log(data))
    }
  }
 
@@ -103,9 +99,6 @@ export const createItems = (billId,imageSrc) => {
        headers: head
      })
      .then(res => res.json())
-     .then(res => {
-       console.log("inside fetchbill", res.items)
-       return dispatch(itemArr(res.items))
-     })
+     .then(res => dispatch(itemArr(res)))
    }
  }

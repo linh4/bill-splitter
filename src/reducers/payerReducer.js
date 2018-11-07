@@ -1,5 +1,6 @@
 const initialState = {
-  payers: []
+  payers: [],
+  selectedPayers: []
 }
 
 const payerReducer = (state = initialState, action) => {
@@ -18,6 +19,11 @@ const payerReducer = (state = initialState, action) => {
       return {
         ...state,
         payers: state.payers.filter(payer => payer.id !== action.payload)
+      }
+    case 'SELECT_PAYERS':
+      return {
+        ...state,
+        selectedPayers: action.payload
       }
     default:
       return state

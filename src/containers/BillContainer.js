@@ -32,7 +32,8 @@ class BillContainer extends Component {
 
   handleNext = () => {
     let id = this.props.match.params.id
-    this.props.history.push(`/bills/${id}/payers`)
+    this.props.clearItems()
+    this.props.history.push(`/bills/${id}/assignPayers`)
   }
 
   render() {
@@ -40,7 +41,6 @@ class BillContainer extends Component {
     return <div>No item yet...</div>
   }
     let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
-    let billId = this.props.match.params.id
     return (
       <div>
         {sortedItems.map((item, idx) => <BillCard key={idx} item={item} />)}

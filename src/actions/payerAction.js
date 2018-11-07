@@ -10,6 +10,10 @@ const removePayer = (payerId) => {
   return {type: 'DELETE_PAYER', payload: payerId}
 }
 
+export const selectPayers = (payers) => {
+  return {type: 'SELECT_PAYERS', payload: payers}
+}
+
 let head = {
   "Content-Type": "application/json",
   'Accept': 'application/json',
@@ -46,5 +50,21 @@ export const deletePayer = (payerId) => {
     })
     .then(res => res.text())
     .then(data => dispatch(removePayer(payerId)))
+  }
+}
+
+export const postItemPayer = (itemId, payers) => {
+  console.log(itemId, payers)
+  return dispatch => {
+    return fetch("http://localhost:3000/item_payers", {
+      method: 'POST',
+      headers: head,
+      body: JSON.stringify({
+        item_id: itemId,
+        payer_id: payers
+      })
+    })
+    // .then(res => res.json())
+    // .then(console.log)
   }
 }

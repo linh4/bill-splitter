@@ -44,7 +44,7 @@ class App extends Component {
               <Route exact path="/bills/:id/edit" render={(routerProps) => <ItemFormContainer {...routerProps} />}  />
               <Route exact path="/items/:id/edit" render={(routerProps) => <ItemEditForm {...routerProps} />} />
               <Route exact path="/items/:id/payers" render={(routerProps) => <PayerFormContainer {...routerProps} />} />
-              <Route exac path="/bills/:id/payers" render={(routerProps) => <BillPayerContainer {...routerProps} />} />
+              <Route exac path="/bills/:id/assignPayers" render={(routerProps) => <BillPayerContainer {...routerProps} />} />
               <Route exact path="/login" component={HomePage} />
           </Switch>
           </div>
