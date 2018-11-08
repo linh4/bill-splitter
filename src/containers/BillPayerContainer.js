@@ -26,7 +26,9 @@ class BillPayerContainer extends Component {
     if (item.payers.length === 0 ) {
       return <p>Unassigned</p>
     } else {
-      return item.payers.map(payer => <p key={payer.id}>{payer.name}</p>)
+      return item.payers.map(payer => {
+        return <p key={payer.id}>{payer.name}</p>
+      })
     }
   }
   render() {

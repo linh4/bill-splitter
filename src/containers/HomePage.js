@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { currentUser } from '../actions/userAction'
-import { createBill, getBill, clearItems } from '../actions/billAction'
+import { createBill, getBill, clearItems, clearBill } from '../actions/billAction'
 
 class HomePage extends Component {
 
@@ -17,6 +17,7 @@ class HomePage extends Component {
 
   handleCreateBill = () => {
     this.props.clearItems()
+    this.props.clearBill()
     this.props.createBill(this.props.currentUserI.id)
     .then(data => this.props.history.push(`/bills/${data.id}/upload`))
   }
@@ -39,4 +40,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default withRouter(connect(mapStateToProps, {createBill, currentUser, getBill, clearItems})(HomePage))
+export default withRouter(connect(mapStateToProps, {createBill, currentUser, getBill, clearItems, clearBill})(HomePage))

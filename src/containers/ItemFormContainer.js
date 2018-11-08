@@ -32,8 +32,8 @@ class ItemFormContainer extends Component {
     if (this.props.items.length < 0) {
       return <div>Loading...</div>
     }
-    let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
-    const renderItems = sortedItems.map(item => {
+    // let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
+    const renderItems = this.props.items.map(item => {
       return (
         <div key={item.id}>
         {item.title} - ${parseFloat(item.price).toFixed(2)}

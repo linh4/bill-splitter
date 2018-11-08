@@ -5,6 +5,7 @@ import { Route, withRouter } from 'react-router-dom'
 import CheckBoxForm from '../components/CheckBoxForm';
 import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 import {getItem} from '../actions/itemAction'
+import {clearBill} from '../actions/billAction'
 import { fetchPayer, deletePayer, postItemPayer, selectPayers } from '../actions/payerAction'
 
 class PayerFormContainer extends Component {
@@ -50,9 +51,9 @@ class PayerFormContainer extends Component {
 
   handleDone = () => {
     let id = this.props.selectedItem.id
-    // this.props.selectPayers(this.state.payerArr)
     let billId = this.props.selectedItem.bill_id
     this.props.postItemPayer(id, this.state.payerArr)
+    .then(() => this.props.clearBill())
     .then(() => this.props.history.push(`/bills/${billId}/assignPayers`))
   }
 
@@ -71,7 +72,7 @@ class PayerFormContainer extends Component {
       const payers = this.props.payers;
       const payerList = payers.map((payer, idx) =>
         <div key={idx}>
-          <input type="checkbox" id={idx+1} value={payer.name || ''} onChange={this.onAddingItem} />
+          <input type="checkbox" id={payer.id} value={payer.name || ''} onChange={this.onAddingItem} />
           {payer.name}
           <button onClick={(e) => this.handleDeletePayer(e, payer)}>X</button>
         </div>
@@ -99,4 +100,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchPayer, deletePayer, postItemPayer,selectPayers, getItem})(PayerFormContainer))
+export default withRouter(connect(mapStateToProps, {fetchPayer, deletePayer, postItemPayer,selectPayers, getItem, clearBill})(PayerFormContainer))

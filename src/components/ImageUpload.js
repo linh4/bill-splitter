@@ -43,7 +43,7 @@ class ImageUpload extends Component {
             labelText="Select file"
             labelStyle={{fontSize:14}}
             multiple={true}
-            imagePreview={false}
+            imagePreview={true}
             callbackFunction={(img)=>this.handleChange(img)}
             accept="image/*"
             buttonComponent={<button type="button">Attach</button>}

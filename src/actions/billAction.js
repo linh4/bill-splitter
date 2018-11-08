@@ -21,6 +21,10 @@ export const clearItems = () => {
   return {type: 'RESET_ITEMS'}
 }
 
+export const clearBill = () => {
+  return {type: 'RESET_BILL'}
+}
+
 export const createBill = (userId) => {
   return dispatch => {
     return fetch("http://localhost:3000/bills", {

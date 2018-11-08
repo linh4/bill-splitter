@@ -12,7 +12,7 @@ const billReducer = (state = initialState, action) => {
       if (action.payload.hasOwnProperty('payers')) {
         return {
           ...state,
-          items: state.items.concat(action.payload.items),
+          items: action.payload.items,
           wholeBill: action.payload
         }
       }
@@ -47,7 +47,15 @@ const billReducer = (state = initialState, action) => {
         items: state.items.filter(item => item.id !== action.payload)
       }
     case 'RESET_ITEMS':
-      return {items: []}
+      return {
+        ...state,
+        items: []
+      }
+    case 'RESET_BILL':
+      return {
+        ...state,
+        wholeBill: null
+      }
     default:
       return state
   }
