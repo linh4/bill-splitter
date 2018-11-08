@@ -9,6 +9,7 @@ class BillPayerContainer extends Component {
     if (!this.props.wholeBill) {
       let billId = this.props.match.params.id
       this.props.fetchBill(billId)
+      .catch(() => console.log('error'))
     }
   }
 

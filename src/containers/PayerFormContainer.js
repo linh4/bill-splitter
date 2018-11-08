@@ -5,7 +5,7 @@ import { Route, withRouter } from 'react-router-dom'
 import CheckBoxForm from '../components/CheckBoxForm';
 import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 import {getItem} from '../actions/itemAction'
-import {clearBill} from '../actions/billAction'
+import {fetchBill, clearBill} from '../actions/billAction'
 import { fetchPayer, deletePayer, postItemPayer, selectPayers } from '../actions/payerAction'
 
 class PayerFormContainer extends Component {
@@ -20,7 +20,12 @@ class PayerFormContainer extends Component {
     console.log("inside payer form fetching")
     let itemId = this.props.match.params.id
     this.props.getItem(itemId)
-    this.props.fetchPayer()
+    .then(() => {
+      if (this.props.selectedItem) {
+        let billId = this.props.selectedItem.bill_id
+        return this.props.fetchBill(billId)
+      }
+    })
   }
 
   onAddingItem = (payer) => {
@@ -38,15 +43,17 @@ class PayerFormContainer extends Component {
   }
 
   handleAddPayer = (e) => {
+    document.getElementById("back").style.display = 'none'
     e.target.style.display = 'none'
     this.setState({renderForm: true})
   }
 
   handleDeletePayer = (e, payer) => {
-    let text = e.target.parentNode.textContent.slice(0, -1)
-    const newPayers = this.state.payerArr.filter(payer => payer !== text)
+    const id = e.target.parentElement.children[0].id
+    const newPayers = this.state.payerArr.filter(payer => payer !== id)
     this.setState({payerArr: newPayers })
-    return this.props.deletePayer(payer.id)
+    this.props.deletePayer(payer.id)
+    .then(() => this.setState({renderForm: false}))
   }
 
   handleDone = () => {
@@ -59,12 +66,16 @@ class PayerFormContainer extends Component {
 
   render() {
     console.log(this.state.payerArr)
-    if (this.props.payers.length < 1 ) {
+    if (this.props.payers.length === 0) {
       return (<div>
         <button onClick={(e) => this.handleAddPayer(e)}>Add Payer</button>
-        {this.state.renderForm ?
+        <br/>
+        <button onClick={this.handleDone} id="back">Back</button>
+        {this.state.renderForm ? (<div>
           <PayerForm />
-          : null
+          <button onClick={this.handleDone}>Back</button>
+          </div>)
+        : null
         }
       </div>)
     }
@@ -96,8 +107,9 @@ const mapStateToProps = (state) => {
     bill: state.text.bill,
     items: state.text.items,
     payers: state.payer.payers,
-    selectedItem: state.text.selectedItem
+    selectedItem: state.text.selectedItem,
+    wholeBill: state.text.wholeBill
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchPayer, deletePayer, postItemPayer,selectPayers, getItem, clearBill})(PayerFormContainer))
+export default withRouter(connect(mapStateToProps, {fetchBill, fetchPayer, deletePayer, postItemPayer,selectPayers, getItem, clearBill})(PayerFormContainer))

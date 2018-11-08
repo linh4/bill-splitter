@@ -12,6 +12,7 @@ class BillContainer extends Component {
     if (this.props.items.length < 1) {
       let billId = this.props.match.params.id
       this.props.fetchBill(billId)
+      .catch(() => console.log('error'))
     }
   }
 
@@ -37,9 +38,10 @@ class BillContainer extends Component {
   }
 
   render() {
-  if (this.props.items.length < 1) {
+  if (this.props.items.length === 0) {
     return <div>No item yet...</div>
   }
+  else {
     let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
     return (
       <div>
@@ -50,6 +52,8 @@ class BillContainer extends Component {
         <button onClick={this.handleNext}>Next</button>
       </div>
       )
+    }
+
   }
 }
 
@@ -57,7 +61,8 @@ const mapStateToProps = (state) => {
   console.log("inside bill container", state)
   return {
     items: state.text.items,
-    bill: state.text.bill
+    bill: state.text.bill,
+    wholeBill: state.text.wholeBill
     };
 };
 

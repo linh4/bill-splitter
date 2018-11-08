@@ -103,6 +103,12 @@ export const createItems = (billId,imageSrc) => {
        headers: head
      })
      .then(res => res.json())
-     .then(res => dispatch(itemArr(res)))
+     .then(res => {
+       if (res.error) {
+         throw new Error ('log in error')
+       } else {
+         dispatch(itemArr(res))
+       }
+     })
    }
  }

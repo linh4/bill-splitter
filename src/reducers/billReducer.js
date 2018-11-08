@@ -1,7 +1,7 @@
 const initialState = {
   bill: {},
   items: [],
-  selectedItem: {},
+  selectedItem: null,
   wholeBill: null
 }
 

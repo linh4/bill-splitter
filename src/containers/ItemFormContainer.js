@@ -10,6 +10,7 @@ class ItemFormContainer extends Component {
     if (this.props.items.length < 1) {
       let billId = this.props.match.params.id
       this.props.fetchBill(billId)
+      .catch(() => console.log('error'))
     }
   }
 
