@@ -59,16 +59,19 @@ class BillContainer extends Component {
       return <div>No item yet...</div>
     }
     else {
-      let finalTotal = this.total(this.props.wholeBill.items) + this.props.tax
+      console.log("inside tax", this.props.tax)
+      // let finalTotal = this.total(this.props.wholeBill.items) + this.props.tax
+      let total = this.total(this.props.wholeBill.items)
+      let finalTotal = total + (total * this.props.tax / 100)
       let sortedItems = this.props.wholeBill.items.sort((a,b) => a.id - b.id)
       return (
         <div>
           {sortedItems.map((item, idx) => <BillCard key={idx} item={item} />)}
-          TAX - ${this.props.tax}
+          TAX - %{parseFloat(this.props.tax).toFixed(2)}
           <br/>
           TOTAL - ${parseFloat(finalTotal).toFixed(2)}
           <br/>
-          {this.state.renderForm ? <Tax toggle={this.toggle} total={this.total(this.props.items)} /> : null}
+          {this.state.renderForm ? <Tax toggle={this.toggle} taxFromBill={this.props.tax} /> : null}
           <button onClick={this.handleEdit}>Modify</button>
           <button onClick={this.toggle}>Tax</button>
           <button onClick={this.handleNext}>Next</button>
@@ -81,7 +84,7 @@ class BillContainer extends Component {
 const mapStateToProps = (state) => {
   console.log("inside bill container", state)
   return {
-    items: state.text.items,
+    // items: state.text.items,
     bill: state.text.bill,
     wholeBill: state.text.wholeBill,
     tax: state.text.tax

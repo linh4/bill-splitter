@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { postTax, clearTax} from '../actions/billAction'
+import { postTax} from '../actions/billAction'
 
 class Tax extends Component {
 
   state = {
-    tax: 0
-  }
-
-  componentDidUpdate (prevState, prevProps) {
-    console.log("inside didupdate", typeof prevProps.tax)
-    console.log('props', this.props)
-    if (prevProps.tax !== this.props.tax) {
-      // debugger
-      this.setState({
-        tax: this.props.tax
-      })
-    }
+    tax: this.props.taxFromBill
   }
 
   handleChange = (e) => {
@@ -32,11 +21,10 @@ class Tax extends Component {
   }
 
   render() {
-    console.log("inside tax", this.props)
     return (
       <div>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input type="number" step="any" onChange={(e) => this.handleChange(e)}/>
+          <input type="number" value={this.state.tax} step="any" onChange={(e) => this.handleChange(e)}/>
           <input type="submit"/>
         </form>
       </div>
@@ -44,4 +32,4 @@ class Tax extends Component {
   }
 }
 
-export default withRouter(connect(state => ({tax: state.text.wholeBill.tax}), {postTax, clearTax})(Tax))
+export default withRouter(connect(null, {postTax})(Tax))

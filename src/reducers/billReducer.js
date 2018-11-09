@@ -64,11 +64,6 @@ const billReducer = (state = initialState, action) => {
         ...state,
         tax: action.payload
       }
-    // case 'CLEAR_TAX':
-    //   return {
-    //     ...state,
-    //     tax: 0
-    //   }
     default:
       return state
   }

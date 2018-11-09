@@ -29,10 +29,6 @@ const addTax = (tax) => {
   return {type: 'ADD_TAX', payload: tax}
 }
 
-export const clearTax = () => {
-  return {type: 'CLEAR_TAX'}
-}
-
 export const createBill = (userId) => {
   return dispatch => {
     return fetch("http://localhost:3000/bills", {
@@ -81,14 +77,6 @@ export const createItems = (billId,imageSrc) => {
     .then(res => res.json())
     .then(data => helperFunction(data))
     .then(res => dispatch(itemArr(res)))
-    // .then(res => {
-    //   for (let i = 0; i < res.length; i++) {
-    //    postItems(billId, res[i])
-    //   }
-    //   return res
-    // })
-    // .then(res => console.log("inside return promise from post items", res))
-    // .then(res => fetchBill(billId))
    }
 }
 
@@ -123,6 +111,7 @@ export const createItems = (billId,imageSrc) => {
  }
 
  export const postTax = (billId, tax) => {
+   console.log("i'm inside postTax: ", tax)
    return dispatch => {
      return fetch(`http://localhost:3000/bills/${billId}`, {
        method: 'PATCH',
@@ -134,7 +123,6 @@ export const createItems = (billId,imageSrc) => {
        if (res.error) {
          throw new Error ('log in error')
        } else {
-         console.log("inside post",res)
          dispatch(addTax(res.tax))
        }
      })
