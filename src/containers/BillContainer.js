@@ -53,15 +53,18 @@ class BillContainer extends Component {
 
   render() {
     if (this.props.wholeBill === null) {
+      return <div>Loading</div>
+    }
+    else if (this.props.wholeBill.items.length === 0) {
       return <div>No item yet...</div>
     }
     else {
-      let finalTotal = this.total(this.props.wholeBill.items) + this.props.wholeBill.tax
+      let finalTotal = this.total(this.props.wholeBill.items) + this.props.tax
       let sortedItems = this.props.wholeBill.items.sort((a,b) => a.id - b.id)
       return (
         <div>
           {sortedItems.map((item, idx) => <BillCard key={idx} item={item} />)}
-          TAX - ${this.props.wholeBill.tax}
+          TAX - ${this.props.tax}
           <br/>
           TOTAL - ${parseFloat(finalTotal).toFixed(2)}
           <br/>

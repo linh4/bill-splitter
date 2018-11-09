@@ -101,7 +101,7 @@ export const createItems = (billId,imageSrc) => {
          bill_id: billId,
          item: item
        })
-     }).then(res => res.json())
+     })
      .then(data => dispatch(clearItems()))
    }
  }

@@ -7,11 +7,11 @@ import { getItem, deleteItem } from '../actions/itemAction'
 class ItemFormContainer extends Component {
 
   componentDidMount() {
-    if (this.props.items.length < 1) {
+    // if (this.props.items.length === 0) {
       let billId = this.props.match.params.id
       this.props.fetchBill(billId)
       .catch(() => console.log('error'))
-    }
+    // }
   }
 
   handleEdit = (item) => {
@@ -19,8 +19,9 @@ class ItemFormContainer extends Component {
     this.props.history.push(`/items/${item.id}/edit`)
   }
 
-  handleItemDelete = (id) => {
+  handleItemDelete = (e, id) => {
     this.props.deleteItem(id)
+    // return e.target.parentElement.remove()
   }
 
   handleDone = () => {
@@ -30,8 +31,11 @@ class ItemFormContainer extends Component {
 
 
   render() {
-    if (this.props.items.length < 0) {
-      return <div>Loading...</div>
+    if (this.props.items.length === 0) {
+      return (<div>
+        <p>No item yet...</p>
+        <button onClick={this.props.history.goBack}>Back</button>
+      </div>)
     }
     // let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
     const renderItems = this.props.items.map(item => {
@@ -39,7 +43,7 @@ class ItemFormContainer extends Component {
         <div key={item.id}>
         {item.title} - ${parseFloat(item.price).toFixed(2)}
         <button onClick={() => this.handleEdit(item)}>Edit</button>
-        <button onClick={() => this.handleItemDelete(item.id)}>Delete</button>
+        <button onClick={(e) => this.handleItemDelete(e, item.id)}>Delete</button>
       </div>
       )
     })

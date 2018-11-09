@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import Tip from '../components/Tip'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fetchBill} from '../actions/billAction'
 
 class BillPayerContainer extends Component {
+
+  state = {
+    renderTip: false
+  }
 
   componentDidMount() {
     if (!this.props.wholeBill) {
@@ -34,7 +39,11 @@ class BillPayerContainer extends Component {
   }
 
   handleNext = () => {
-    
+    this.setState({renderTip: true})
+  }
+
+  handleDisplay = () => {
+    this.setState({renderTip: false})
   }
 
   render() {
@@ -55,7 +64,10 @@ class BillPayerContainer extends Component {
         <p>Click each item to assign payers</p>
         {renderItems}
         <button onClick={this.handleBack}>Back</button>
-        <button onClick={this.hanldeNext}>Next</button>
+        <button onClick={this.handleNext}>Next</button>
+
+        {this.state.renderTip ? <Tip handleDisplay={this.handleDisplay} /> : null}
+
       </div>
     )
   }
