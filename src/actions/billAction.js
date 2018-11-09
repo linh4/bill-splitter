@@ -25,6 +25,14 @@ export const clearBill = () => {
   return {type: 'RESET_BILL'}
 }
 
+const addTax = (tax) => {
+  return {type: 'ADD_TAX', payload: tax}
+}
+
+export const clearTax = () => {
+  return {type: 'CLEAR_TAX'}
+}
+
 export const createBill = (userId) => {
   return dispatch => {
     return fetch("http://localhost:3000/bills", {
@@ -93,7 +101,8 @@ export const createItems = (billId,imageSrc) => {
          bill_id: billId,
          item: item
        })
-     })
+     }).then(res => res.json())
+     .then(data => dispatch(clearItems()))
    }
  }
 
@@ -108,6 +117,25 @@ export const createItems = (billId,imageSrc) => {
          throw new Error ('log in error')
        } else {
          dispatch(itemArr(res))
+       }
+     })
+   }
+ }
+
+ export const postTax = (billId, tax) => {
+   return dispatch => {
+     return fetch(`http://localhost:3000/bills/${billId}`, {
+       method: 'PATCH',
+       headers: head,
+       body: JSON.stringify({tax: tax})
+     })
+     .then(res => res.json())
+     .then(res => {
+       if (res.error) {
+         throw new Error ('log in error')
+       } else {
+         console.log("inside post",res)
+         dispatch(addTax(res.tax))
        }
      })
    }

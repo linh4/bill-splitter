@@ -2,7 +2,8 @@ const initialState = {
   bill: {},
   items: [],
   selectedItem: null,
-  wholeBill: null
+  wholeBill: null,
+  tax: 0
 }
 
 const billReducer = (state = initialState, action) => {
@@ -12,7 +13,7 @@ const billReducer = (state = initialState, action) => {
       if (action.payload.hasOwnProperty('payers')) {
         return {
           ...state,
-          items: action.payload.items,
+          // items: action.payload.items,
           wholeBill: action.payload
         }
       }
@@ -56,6 +57,16 @@ const billReducer = (state = initialState, action) => {
         ...state,
         wholeBill: null
       }
+    case 'ADD_TAX':
+      return {
+        ...state,
+        tax: action.payload
+      }
+    // case 'CLEAR_TAX':
+    //   return {
+    //     ...state,
+    //     tax: 0
+    //   }
     default:
       return state
   }

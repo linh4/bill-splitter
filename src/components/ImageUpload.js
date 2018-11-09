@@ -4,7 +4,7 @@ import {createItems, getBill} from '../actions/billAction'
 import FileInputComponent from 'react-file-input-previews-base64'
 import { withRouter } from 'react-router-dom'
 import { currentUser } from '../actions/userAction'
-import {postItems} from '../actions/billAction'
+import {postItems, clearItems} from '../actions/billAction'
 
 class ImageUpload extends Component {
 
@@ -32,7 +32,7 @@ class ImageUpload extends Component {
     let billId = this.props.bill.id
     let arr = this.props.items
     this.props.postItems(billId, arr)
-    this.props.history.push(`/bills/${billId}`)
+    .then(() => this.props.history.push(`/bills/${billId}`))
   }
 
    render() {
@@ -76,4 +76,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {createItems, currentUser, getBill, postItems})(ImageUpload))
+export default withRouter(connect(mapStateToProps, {createItems, currentUser, getBill, postItems, clearItems})(ImageUpload))

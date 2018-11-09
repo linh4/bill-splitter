@@ -64,30 +64,40 @@ class PayerFormContainer extends Component {
     .then(() => this.props.history.push(`/bills/${billId}/assignPayers`))
   }
 
+  renderPayerList = (payer,idx) => {
+    return (<div key={idx}>
+      <input type="checkbox" id={payer.id} value={payer.name || ''} onChange={this.onAddingItem} />
+      {payer.name}
+      <button onClick={(e) => this.handleDeletePayer(e, payer)}>X</button>
+    </div>
+    )
+  }
+
   render() {
     console.log(this.state.payerArr)
     if (this.props.payers.length === 0) {
-      return (<div>
-        <button onClick={(e) => this.handleAddPayer(e)}>Add Payer</button>
-        <br/>
-        <button onClick={this.handleDone} id="back">Back</button>
-        {this.state.renderForm ? (<div>
-          <PayerForm />
-          <button onClick={this.handleDone}>Back</button>
-          </div>)
-        : null
-        }
-      </div>)
+      if (this.props.wholeBill) {
+        // debugger
+        const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
+        return (
+          <div>
+            {payers.map((payer, idx) => this.renderPayerList(payer, idx))}
+          <button onClick={(e) => this.handleAddPayer(e)}>Add Payer</button>
+          <br/>
+          <button onClick={this.handleDone} id="back">Back</button>
+          {this.state.renderForm ? (<div>
+            <PayerForm />
+            <button onClick={this.handleDone}>Back</button>
+            </div>)
+          : null
+          }
+        </div>)
+      }
+      return null
     }
     else {
-      const payers = this.props.payers;
-      const payerList = payers.map((payer, idx) =>
-        <div key={idx}>
-          <input type="checkbox" id={payer.id} value={payer.name || ''} onChange={this.onAddingItem} />
-          {payer.name}
-          <button onClick={(e) => this.handleDeletePayer(e, payer)}>X</button>
-        </div>
-      )
+      const payerState = this.props.payers
+      const payerList = payerState.map((payer, idx) => this.renderPayerList(payer, idx))
       return (
         <div>
           {payerList}

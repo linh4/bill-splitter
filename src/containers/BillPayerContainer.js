@@ -32,12 +32,15 @@ class BillPayerContainer extends Component {
       })
     }
   }
+
+  handleNext = () => {
+    
+  }
+
   render() {
     if (!this.props.wholeBill) {
       return <div>Loading...</div>
     }
-    // let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
-    // const renderItems = sortedItems.map(item => {
     const renderItems = this.props.wholeBill.items.map(item => {
       return (
         <div key={item.id} onClick={() => this.selectPayers(item.id)}>
@@ -52,7 +55,7 @@ class BillPayerContainer extends Component {
         <p>Click each item to assign payers</p>
         {renderItems}
         <button onClick={this.handleBack}>Back</button>
-        <button>Next</button>
+        <button onClick={this.hanldeNext}>Next</button>
       </div>
     )
   }
