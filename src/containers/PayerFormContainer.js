@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PayerForm from '../components/PayerForm'
+import _ from 'lodash'
 import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
 import CheckBoxForm from '../components/CheckBoxForm';
@@ -74,40 +75,60 @@ class PayerFormContainer extends Component {
   }
 
   render() {
-    console.log(this.state.payerArr)
-    if (this.props.payers.length === 0) {
-      if (this.props.wholeBill) {
-        // debugger
-        const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
-        return (
-          <div>
-            {payers.map((payer, idx) => this.renderPayerList(payer, idx))}
-          <button onClick={(e) => this.handleAddPayer(e)}>Add Payer</button>
-          <br/>
-          <button onClick={this.handleDone} id="back">Back</button>
-          {this.state.renderForm ? (<div>
-            <PayerForm />
-            <button onClick={this.handleDone}>Back</button>
-            </div>)
-          : null
-          }
-        </div>)
-      }
-      return null
+    if (!this.props.wholeBill) {
+      return <div>Loading</div>
     }
     else {
-      const payerState = this.props.payers
-      const payerList = payerState.map((payer, idx) => this.renderPayerList(payer, idx))
-      return (
-        <div>
-          {payerList}
-          <PayerForm />
-          ***Names should be different****
-          <br/>
-          <button onClick={this.handleDone}>Done</button>
-        </div>
-      )
+      const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
+      let payerArr = this.props.payers.concat(payers)
+      let uniquePayers = _.uniqBy(payerArr, 'id')
+      return (<div>
+        {uniquePayers.map((payer, idx) => this.renderPayerList(payer, idx))}
+        <PayerForm />
+        ***Names should be different****
+        <br/>
+        <button onClick={this.handleDone}>Done</button>
+      </div>)
     }
+
+
+    // if (this.props.payers.length === 0) {
+    //   if (this.props.wholeBill) {
+    //     const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
+    //     // let payerArr = this.props.payers.concat(payers)
+    //     return (
+    //       <div>
+    //         {payers.map((payer, idx) => this.renderPayerList(payer, idx))}
+    //       <button onClick={(e) => this.handleAddPayer(e)}>Add Payer</button>
+    //       <br/>
+    //       <button onClick={this.handleDone} id="back">Back</button>
+    //       {this.state.renderForm ? (<div>
+    //         <PayerForm />
+    //         <button onClick={this.handleDone}>Back</button>
+    //         </div>)
+    //       : null
+    //       }
+    //     </div>)
+    //   }
+      // return null
+    // }
+    // else {
+    //   // const payerState = this.props.payers
+    //   if (this.props.wholeBill) {
+    //     const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
+    //     let payerArr = this.props.payers.concat(payers)
+    //     // const payerList = payerArr.map((payer, idx) => this.renderPayerList(payer, idx))
+    //     return (
+    //       <div>
+    //         {payerArr.map((payer, idx) => this.renderPayerList(payer, idx))}
+    //         <PayerForm />
+    //         ***Names should be different****
+    //         <br/>
+    //         <button onClick={this.handleDone}>Done</button>
+        //   </div>
+        // )
+      // }
+    // }
   }
 }
 

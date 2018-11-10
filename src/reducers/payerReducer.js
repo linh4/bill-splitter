@@ -25,6 +25,11 @@ const payerReducer = (state = initialState, action) => {
         ...state,
         selectedPayers: action.payload
       }
+    case 'CLEAR_PAYERS':
+      return {
+        ...state,
+        payers: []
+      }
     default:
       return state
   }

@@ -3,6 +3,7 @@ import Tip from '../components/Tip'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fetchBill} from '../actions/billAction'
+import _ from 'lodash'
 
 class BillPayerContainer extends Component {
 
@@ -32,7 +33,8 @@ class BillPayerContainer extends Component {
     if (item.payers.length === 0 ) {
       return <p>Unassigned</p>
     } else {
-      return item.payers.map(payer => {
+      let payers = _.uniqBy(item.payers, 'id')
+      return payers.map(payer => {
         return <p key={payer.id}>{payer.name}</p>
       })
     }

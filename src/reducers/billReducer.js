@@ -10,7 +10,6 @@ const billReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case 'GET_ITEMS':
-    console.log("inside reducer", action.payload.tax)
       if (action.payload.hasOwnProperty('payers')) {
         return {
           ...state,

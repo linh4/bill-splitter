@@ -13,6 +13,9 @@ const removePayer = (payerId) => {
 export const selectPayers = (payers) => {
   return {type: 'SELECT_PAYERS', payload: payers}
 }
+export const clearPayers = () => {
+  return {type: 'CLEAR_PAYERS'}
+}
 
 let head = {
   "Content-Type": "application/json",
