@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { itemArr } from '../../actions/billAction'
+import { fetchBill } from '../../actions/billAction'
+import { createItem } from '../../actions/itemAction'
 
 class ItemCreateFormContainer extends Component {
 
@@ -19,22 +20,25 @@ class ItemCreateFormContainer extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.state.title !== '' && this.state.price !== '') {
-      this.props.itemArr(this.state)
+      let billId = this.props.match.params.id
+      let arr = []
+      arr.push(this.state)
+      this.props.createItem(billId, arr)
+      .then(() => this.props.fetchBill(billId))
       return this.setState({
-        title: '',
-        price: ''})
+          title: '',
+          price: 0})
     }
   }
 
   render() {
-
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>Title</label>
-          <input type="text" name="title" onChange={this.handleChange}/>
+          <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
           <label>Price</label>
-          <input type="number" name="price" step="any" onChange={this.handleChange}/>
+          <input type="number" name="price" step="any" value={this.state.price} onChange={this.handleChange}/>
           <br/>
           <input type="submit" value="Add Item"/>
         </form>
@@ -50,4 +54,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {itemArr})(ItemCreateFormContainer))
+export default withRouter(connect(mapStateToProps, {createItem, fetchBill})(ItemCreateFormContainer))

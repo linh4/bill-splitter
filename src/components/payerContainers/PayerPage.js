@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getThisPayer } from '../../actions/payerAction'
 import { fetchBill } from '../../actions/billAction'
+import { convertNum } from '../../actions/convertFunction'
 
 class PayerPage extends Component {
 
@@ -23,24 +24,30 @@ class PayerPage extends Component {
     return result
   }
 
+  totalBeforeTax = (item) => {
+    return parseFloat(item.price/item.payers.length).toFixed(2)
+  }
+
   render() {
     if (!this.props.selectedPayer) {
       return <div>Loading...</div>
     }
-    console.log(this.props.wholeBill)
     return (
       <div>
         <p>{this.props.selectedPayer.name}</p>
+        <hr/>
         {this.props.selectedPayer.items.map(item => {
           return (<div key={item.id}>
-            <p>{item.title} - ${item.price/item.payers.length}</p>
+            <p> {convertNum(this.totalBeforeTax(item)/item.price)} {item.title} - ${this.totalBeforeTax(item)}</p>
           </div>)
           })
         }
         {this.props.wholeBill && (<div>
+          <hr/>
           <p>TAX - %{this.props.wholeBill.tax}</p>
           <p>TIP - %{this.props.wholeBill.tip}</p>
-          <p>TOTAL - ${this.totalPrice(this.props.selectedPayer.items)}</p>
+          <hr/>
+          <p>TOTAL - ${parseFloat(this.totalPrice(this.props.selectedPayer.items)).toFixed(2)}</p>
         </div>)}
         <button onClick={this.props.history.goBack}>Back</button>
       </div>

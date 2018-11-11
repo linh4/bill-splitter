@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BillPage from './billContainers/BillPage'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { currentUser } from '../actions/userAction'
@@ -27,6 +28,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
+        <BillPage />
         <button onClick={this.handleCreateBill}>New Bill</button>
       </div>
     )

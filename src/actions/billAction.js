@@ -21,12 +21,17 @@ export const clearItems = () => {
   return {type: 'RESET_ITEMS'}
 }
 
+
 export const clearBill = () => {
   return {type: 'RESET_BILL'}
 }
 
 const addTax = (tax) => {
   return {type: 'ADD_TAX', payload: tax}
+}
+
+const renderBills = (bills) => {
+  return {type: 'RENDER_BILLS', payload: bills}
 }
 
 export const createBill = (userId) => {
@@ -80,20 +85,6 @@ export const createItems = (billId,imageSrc) => {
    }
 }
 
- export const postItems = (billId, item) => {
-   return dispatch => {
-     return fetch("http://localhost:3000/items", {
-       method: 'POST',
-       headers: head,
-       body: JSON.stringify({
-         bill_id: billId,
-         item: item
-       })
-     })
-     .then(data => dispatch(clearItems()))
-   }
- }
-
  export const fetchBill = (billId) => {
    return dispatch => {
      return fetch(`http://localhost:3000/bills/${billId}`, {
@@ -137,5 +128,15 @@ export const createItems = (billId,imageSrc) => {
      })
       .then(res => res.json())
       .then(data => console.log("inside posttip",data))
+   }
+ }
+
+ export const getAllBills = () => {
+   return dispatch => {
+     return fetch("http://localhost:3000/bills", {
+       headers: head
+     })
+     .then(res => res.json())
+     .then(data => dispatch(renderBills(data)))
    }
  }

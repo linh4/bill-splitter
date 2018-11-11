@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import ItemCreateFormContainer from './ItemCreateFormContainer'
 import { withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 import { fetchBill} from '../../actions/billAction'
 import { getItem, deleteItem } from '../../actions/itemAction'
 
 class ItemEditFormContainer extends Component {
+
+  state = {
+    renderForm: false
+  }
 
   componentDidMount() {
     // if (this.props.items.length === 0) {
@@ -29,12 +34,30 @@ class ItemEditFormContainer extends Component {
     return this.props.history.push(`/bills/${billId}`)
   }
 
+  handleAdd = () => {
+    document.getElementById('add').style.display = 'none'
+    this.setState({renderForm: true})
+  }
+
+  // handleSave = () => {
+  //   let billId = this.props.match.params.id
+  //   let arr = this.props.items
+  //   this.props.postItems(billId, arr)
+  //   .then(() => this.props.history.push(`/bills/${billId}`))
+  // }
+
 
   render() {
     if (this.props.items.length === 0) {
       return (<div>
-        <p>No item yet...</p>
-        <button onClick={this.props.history.goBack}>Back</button>
+        <button onClick={this.handleAdd} id="add">Add Item</button>
+        {this.state.renderForm ? (<div>
+          <ItemCreateFormContainer />
+        </div>)
+          : null
+        }
+        <br/>
+        <button onClick={this.props.history.goBack} id="back">Back</button>
       </div>)
     }
     // let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
@@ -50,6 +73,7 @@ class ItemEditFormContainer extends Component {
     return (
       <div>
         {renderItems}
+        <ItemCreateFormContainer />
         <button onClick={this.handleDone}>Done</button>
       </div>
     )

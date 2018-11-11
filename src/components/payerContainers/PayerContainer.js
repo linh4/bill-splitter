@@ -29,6 +29,10 @@ class PayerContainer extends Component {
     // console.log('hi')
   }
 
+  handleDone = () => {
+    this.props.history.push('/home')
+  }
+
   render() {
     if (this.props.payerArr.length === 0) {
       return <div>Loading....</div>
@@ -42,11 +46,11 @@ class PayerContainer extends Component {
         {filterPayers.map(payer => (<div key={payer.id}>
           {/* <PayerPage payer={payer} /> */}
           <p onClick={() => this.handlePayer(payer.id)}>{payer.name}</p>
-          ${this.totalPrice(payer.items)}
+          ${parseFloat(this.totalPrice(payer.items)).toFixed(2)}
           <hr/>
         </div>))
         }
-        <button>Done</button>
+        <button onClick={this.handleDone}>Done</button>
       </div>
     )
   }

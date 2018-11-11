@@ -33,7 +33,7 @@ class BillContainer extends Component {
   handleEdit = () => {
     let id = this.props.match.params.id
     this.props.clearItems()
-    this.props.history.push(`/bills/${id}/edit`)
+    this.props.history.push(`/bills/${id}/items`)
   }
 
   handleTax = () => {

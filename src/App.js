@@ -7,7 +7,6 @@ import ImageContainer from './components/imageContainers/ImageContainer.js'
 import BillContainer from './components/billContainers/BillContainer.js'
 import ItemEditFormContainer from './components/itemContainers/ItemEditFormContainer.js'
 import ItemEditForm from './components/itemContainers/ItemEditForm.js'
-import ItemContainer from './components/itemContainers/ItemContainer.js'
 import HomePage from './components/HomePage'
 import Login from './components/userContainers/Login.js'
 import SignUp from './components/userContainers/SignUp.js'
@@ -44,8 +43,7 @@ class App extends Component {
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/bills/:id/upload" render={(routerProps) => <ImageContainer {...routerProps} /> } />
               <Route exact path="/bills/:id" render={(routerProps) => <BillContainer {...routerProps} /> } />
-              <Route exac path="/bills/:id/items" render={(routerProps) => <ItemContainer {...routerProps} />} />
-              <Route exact path="/bills/:id/edit" render={(routerProps) => <ItemEditFormContainer {...routerProps} />}  />
+              <Route exact path="/bills/:id/items" render={(routerProps) => <ItemEditFormContainer {...routerProps} />}  />
               <Route exact path="/items/:id/edit" render={(routerProps) => <ItemEditForm {...routerProps} />} />
               <Route exact path="/items/:id/payers" render={(routerProps) => <PayerFormContainer {...routerProps} />} />
               <Route exac path="/bills/:id/assignPayers" render={(routerProps) => <BillPayerContainer {...routerProps} />} />

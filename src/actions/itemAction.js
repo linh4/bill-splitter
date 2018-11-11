@@ -10,15 +10,27 @@ const selectItem = (item) => {
   return {type: "SELECT_ITEM", payload: item}
 }
 
-// export const addItem = (item) => {
-//   return {type: 'ADD_ITEM', payload: item}
-// }
-
 let head = {
   "Content-Type": "application/json",
   'Accept': 'application/json',
   Authorization: localStorage.getItem("token")
 }
+
+
+ export const postItems = (billId, item) => {
+   return dispatch => {
+     return fetch("http://localhost:3000/items", {
+       method: 'POST',
+       headers: head,
+       body: JSON.stringify({
+         bill_id: billId,
+         item: item
+       })
+     })
+     .then(res => res.text())
+     .then(data => console.log(data))
+   }
+ }
 
 export const getItem = (itemId) => {
   return dispatch => {
@@ -59,11 +71,11 @@ export const createItem = (billId, item) => {
       method: 'POST',
       headers: head,
       body: JSON.stringify({
-        bill_id: parseInt(billId),
+        bill_id: billId,
         item: item
       })
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
+    // .then(res => res.text())
+    // .then(data => console.log(data))
   }
 }
