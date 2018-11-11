@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import PayerForm from '../components/PayerForm'
+import PayerForm from './PayerForm'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import CheckBoxForm from '../components/CheckBoxForm';
-import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
-import {getItem} from '../actions/itemAction'
-import {fetchBill, clearBill} from '../actions/billAction'
-import { deletePayer, postItemPayer, getPayer } from '../actions/payerAction'
+// import CheckBoxForm from '../components/CheckBoxForm';
+// import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
+import {getItem} from '../../actions/itemAction'
+import {fetchBill, clearBill} from '../../actions/billAction'
+import { deletePayer, postItemPayer, getPayer } from '../../actions/payerAction'
 
 class PayerFormContainer extends Component {
 
@@ -20,7 +20,6 @@ class PayerFormContainer extends Component {
   componentDidMount() {
     console.log("inside payer form fetching")
     let itemId = this.props.match.params.id
-
     this.props.getItem(itemId)
     .then(() => {
       if (this.props.selectedItem) {

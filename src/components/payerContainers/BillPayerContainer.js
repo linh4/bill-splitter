@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Tip from '../components/Tip'
+import Tip from '../billContainers/Tip'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fetchBill} from '../actions/billAction'
+import { fetchBill} from '../../actions/billAction'
 import _ from 'lodash'
 
 class BillPayerContainer extends Component {

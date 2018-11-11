@@ -1,5 +1,7 @@
 const initialState = {
   payers: [],
+  payerArr: [],
+  selectedPayer: null
 }
 
 const payerReducer = (state = initialState, action) => {
@@ -23,6 +25,16 @@ const payerReducer = (state = initialState, action) => {
       return {
         ...state,
         payers: []
+      }
+    case 'FETCH_PAYERS':
+      return {
+        ...state,
+        payerArr: action.payload
+      }
+    case 'SELECTED_PAYER':
+      return {
+        ...state,
+        selectedPayer: action.payload
       }
     default:
       return state

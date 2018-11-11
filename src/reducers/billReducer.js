@@ -3,7 +3,8 @@ const initialState = {
   items: [],
   selectedItem: null,
   wholeBill: null,
-  tax: 0
+  tax: 0,
+  tip: 0
 }
 
 const billReducer = (state = initialState, action) => {
@@ -15,7 +16,8 @@ const billReducer = (state = initialState, action) => {
           ...state,
           items: action.payload.items,
           wholeBill: action.payload,
-          tax: action.payload.tax
+          tax: action.payload.tax,
+          tip: action.payload.tip
         }
       }
       else {

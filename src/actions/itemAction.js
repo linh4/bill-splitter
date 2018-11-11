@@ -48,3 +48,19 @@ export const deleteItem = (itemId) => {
     .then(data => dispatch(getDeleteItem(itemId)))
   }
 }
+
+export const createItem = (billId, item) => {
+  return dispatch => {
+    return fetch("http://localhost:3000/items", {
+      method: 'POST',
+      headers: head,
+      body: JSON.stringify({
+        bill_id: billId,
+        title: item.title,
+        price: item.price
+      })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+  }
+}

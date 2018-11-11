@@ -14,6 +14,14 @@ export const clearPayers = () => {
   return {type: 'CLEAR_PAYERS'}
 }
 
+const payerArr = (payers) => {
+  return {type: 'FETCH_PAYERS', payload: payers}
+}
+
+const selectPayer = (payer) => {
+  return {type: 'SELECTED_PAYER', payload: payer}
+}
+
 let head = {
   "Content-Type": "application/json",
   'Accept': 'application/json',
@@ -56,5 +64,25 @@ export const postItemPayer = (itemId, payers) => {
     })
     // .then(res => res.json())
     // .then(console.log)
+  }
+}
+
+export const fetchPayers = () => {
+  return dispatch => {
+    return fetch("http://localhost:3000/payers", {
+      headers: head
+    })
+    .then(res => res.json())
+    .then(data => dispatch(payerArr(data)))
+  }
+}
+
+export const getThisPayer = (payerId) => {
+  return dispatch => {
+    return fetch(`http://localhost:3000/payers/${payerId}`, {
+      headers: head
+    })
+    .then(res => res.json())
+    .then(data => dispatch(selectPayer(data)))
   }
 }

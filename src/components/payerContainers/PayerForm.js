@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {createPayer} from '../actions/payerAction.js'
+import {createPayer} from '../../actions/payerAction.js'
 import { withRouter } from 'react-router-dom'
 
 

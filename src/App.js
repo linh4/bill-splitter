@@ -3,17 +3,20 @@ import './App.css';
 // import CameraContainer from './containers/CameraContainer'
 import {Route, withRouter, Switch } from 'react-router-dom';
 import { connect } from 'react-redux'
-import ImageContainer from './containers/ImageContainer'
-import BillContainer from './containers/BillContainer'
-import ItemFormContainer from './containers/ItemFormContainer'
-import ItemEditForm from './components/ItemEditForm'
-import HomePage from './containers/HomePage'
-import Login from './components/Login'
-import SignUp from './components/SignUp'
+import ImageContainer from './components/imageContainers/ImageContainer.js'
+import BillContainer from './components/billContainers/BillContainer.js'
+import ItemEditFormContainer from './components/itemContainers/ItemEditFormContainer.js'
+import ItemEditForm from './components/itemContainers/ItemEditForm.js'
+import ItemCreateFormContainer from './components/itemContainers/ItemCreateFormContainer.js'
+import HomePage from './components/HomePage'
+import Login from './components/userContainers/Login.js'
+import SignUp from './components/userContainers/SignUp.js'
 import Navbar from './components/Navbar'
-import BillPage from './containers/BillPage'
-import PayerFormContainer from './containers/PayerFormContainer'
-import BillPayerContainer from './containers/BillPayerContainer'
+// import BillPage from './components/billContainers/BillPage'
+import PayerFormContainer from './components/payerContainers/PayerFormContainer.js'
+import BillPayerContainer from './components/payerContainers/BillPayerContainer.js'
+import PayerContainer from './components/payerContainers/PayerContainer.js'
+import PayerPage from './components/payerContainers/PayerPage.js'
 import { currentUser } from './actions/userAction'
 
 
@@ -41,10 +44,13 @@ class App extends Component {
               <Route exact path="/home" component={HomePage} />
               <Route exact path="/bills/:id/upload" render={(routerProps) => <ImageContainer {...routerProps} /> } />
               <Route exact path="/bills/:id" render={(routerProps) => <BillContainer {...routerProps} /> } />
-              <Route exact path="/bills/:id/edit" render={(routerProps) => <ItemFormContainer {...routerProps} />}  />
+              <Route exac path="/bills/:id/items" render={(routerProps) => <ItemCreateFormContainer {...routerProps} />} />
+              <Route exact path="/bills/:id/edit" render={(routerProps) => <ItemEditFormContainer {...routerProps} />}  />
               <Route exact path="/items/:id/edit" render={(routerProps) => <ItemEditForm {...routerProps} />} />
               <Route exact path="/items/:id/payers" render={(routerProps) => <PayerFormContainer {...routerProps} />} />
               <Route exac path="/bills/:id/assignPayers" render={(routerProps) => <BillPayerContainer {...routerProps} />} />
+              <Route exac path="/bills/:id/payers/:id" render={(routerProps) => <PayerPage {...routerProps} />} />
+              <Route exac path="/bills/:id/payers" render={(routerProps) => <PayerContainer {...routerProps} />} />
               <Route exact path="/login" component={HomePage} />
           </Switch>
           </div>

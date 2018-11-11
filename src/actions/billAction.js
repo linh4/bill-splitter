@@ -111,7 +111,6 @@ export const createItems = (billId,imageSrc) => {
  }
 
  export const postTax = (billId, tax) => {
-   console.log("i'm inside postTax: ", tax)
    return dispatch => {
      return fetch(`http://localhost:3000/bills/${billId}`, {
        method: 'PATCH',
@@ -126,5 +125,17 @@ export const createItems = (billId,imageSrc) => {
          dispatch(addTax(res.tax))
        }
      })
+   }
+ }
+
+ export const postTip = (billId, tip) => {
+   return dispatch => {
+     return fetch(`http://localhost:3000/bills/${billId}`, {
+       method: 'PATCH',
+       headers: head,
+       body: JSON.stringify({tip: tip})
+     })
+      .then(res => res.json())
+      .then(data => console.log("inside posttip",data))
    }
  }

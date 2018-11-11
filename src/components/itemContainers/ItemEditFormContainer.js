@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
-import { fetchBill} from '../actions/billAction'
-import { getItem, deleteItem } from '../actions/itemAction'
+import { fetchBill} from '../../actions/billAction'
+import { getItem, deleteItem } from '../../actions/itemAction'
 
-class ItemFormContainer extends Component {
+class ItemEditFormContainer extends Component {
 
   componentDidMount() {
     // if (this.props.items.length === 0) {
@@ -64,4 +64,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchBill, deleteItem, getItem})(ItemFormContainer))
+export default withRouter(connect(mapStateToProps, {fetchBill, deleteItem, getItem})(ItemEditFormContainer))

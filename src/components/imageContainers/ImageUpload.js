@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {createItems, getBill} from '../actions/billAction'
+import {createItems, getBill} from '../../actions/billAction'
 import FileInputComponent from 'react-file-input-previews-base64'
 import { withRouter } from 'react-router-dom'
-import { currentUser } from '../actions/userAction'
-import {postItems, clearItems} from '../actions/billAction'
+import { currentUser } from '../../actions/userAction'
+import {postItems, clearItems} from '../../actions/billAction'
 
 class ImageUpload extends Component {
 
@@ -35,10 +35,18 @@ class ImageUpload extends Component {
     .then(() => this.props.history.push(`/bills/${billId}`))
   }
 
+  handleCreate = () => {
+    let id = this.props.match.params.id
+    this.props.history.push(`/bills/${id}/items`)
+  }
+
    render() {
      // window.onbeforeunload = function() { return "Are you sure you want to leave?"; }
        return (
          <div>
+           <br/>
+           <button onClick={this.handleCreate}>Create Items Manually</button>
+
            <FileInputComponent
             labelText="Select file"
             labelStyle={{fontSize:14}}
@@ -48,6 +56,7 @@ class ImageUpload extends Component {
             accept="image/*"
             buttonComponent={<button type="button">Attach</button>}
             />
+
             {
               this.state.img && this.props.items.length > 0 && (<div>
                   {this.props.items ?

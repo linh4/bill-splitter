@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import BillCard from '../components/BillCard'
-import Tax from '../components/Tax'
+import BillCard from './BillCard'
+import Tax from './Tax'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fetchBill, clearItems} from '../actions/billAction'
+import { fetchBill, clearItems} from '../../actions/billAction'
 
 
 class BillContainer extends Component {

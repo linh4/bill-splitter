@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { postTax} from '../actions/billAction'
+import { postTax} from '../../actions/billAction'
 
 class Tax extends Component {
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {handleSignUp} from '../actions/userAction.js'
+import {handleSignUp} from '../../actions/userAction.js'
 import {Link, withRouter } from 'react-router-dom'
 
 class SignUp extends React.Component{
