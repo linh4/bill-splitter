@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {createPayer, clearPayers} from '../actions/payerAction.js'
+import {createPayer} from '../actions/payerAction.js'
 import { withRouter } from 'react-router-dom'
 
 
@@ -34,4 +34,4 @@ class PayerForm extends React.Component {
   }
 }
 
-export default withRouter(connect(null, {createPayer, clearPayers})(PayerForm))
+export default withRouter(connect(null, {createPayer})(PayerForm))

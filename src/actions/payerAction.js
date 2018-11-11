@@ -1,20 +1,13 @@
-const addPayer = (payer) => {
+export const addPayer = (payer) => {
   return {type: 'ADD_PAYER', payload: payer}
 }
 
-const getPayer = (payers) => {
+export const getPayer = (payers) => {
   return {type: 'GET_PAYER', payload: payers}
 }
 
 const removePayer = (payerId) => {
   return {type: 'DELETE_PAYER', payload: payerId}
-}
-
-export const selectPayers = (payers) => {
-  return {type: 'SELECT_PAYERS', payload: payers}
-}
-export const clearPayers = () => {
-  return {type: 'CLEAR_PAYERS'}
 }
 
 let head = {
@@ -32,16 +25,6 @@ export const createPayer = (name) => {
     })
     .then(res => res.json())
     .then(data => dispatch(addPayer(data)))
-  }
-}
-
-export const fetchPayer = () => {
-  return dispatch => {
-    return fetch("http://localhost:3000/payers", {
-      headers: head
-    })
-    .then(res => res.json())
-    .then(data => dispatch(getPayer(data)))
   }
 }
 

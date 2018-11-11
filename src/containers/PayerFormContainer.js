@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PayerForm from '../components/PayerForm'
 import _ from 'lodash'
 import { connect } from 'react-redux'
-import { Route, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import CheckBoxForm from '../components/CheckBoxForm';
 import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 import {getItem} from '../actions/itemAction'
 import {fetchBill, clearBill} from '../actions/billAction'
-import { fetchPayer, deletePayer, postItemPayer, selectPayers } from '../actions/payerAction'
+import { deletePayer, postItemPayer, getPayer } from '../actions/payerAction'
 
 class PayerFormContainer extends Component {
 
@@ -20,13 +20,22 @@ class PayerFormContainer extends Component {
   componentDidMount() {
     console.log("inside payer form fetching")
     let itemId = this.props.match.params.id
+
     this.props.getItem(itemId)
     .then(() => {
       if (this.props.selectedItem) {
         let billId = this.props.selectedItem.bill_id
-        return this.props.fetchBill(billId)
+        this.props.fetchBill(billId)
+        .then(() => this.combinePayers())
       }
     })
+  }
+
+  combinePayers = () => {
+    const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
+    let payerArr = this.props.payers.concat(payers)
+    let uniquePayers = _.uniqBy(payerArr, 'id')
+    this.props.getPayer(uniquePayers)
   }
 
   onAddingItem = (payer) => {
@@ -54,7 +63,7 @@ class PayerFormContainer extends Component {
     const newPayers = this.state.payerArr.filter(payer => payer !== id)
     this.setState({payerArr: newPayers })
     this.props.deletePayer(payer.id)
-    .then(() => this.setState({renderForm: false}))
+    // .then(() => this.setState({renderForm: false}))
   }
 
   handleDone = () => {
@@ -79,56 +88,14 @@ class PayerFormContainer extends Component {
       return <div>Loading</div>
     }
     else {
-      const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
-      let payerArr = this.props.payers.concat(payers)
-      let uniquePayers = _.uniqBy(payerArr, 'id')
       return (<div>
-        {uniquePayers.map((payer, idx) => this.renderPayerList(payer, idx))}
+        {this.props.payers.map((payer, idx) => this.renderPayerList(payer, idx))}
         <PayerForm />
         ***Names should be different****
         <br/>
         <button onClick={this.handleDone}>Done</button>
       </div>)
     }
-
-
-    // if (this.props.payers.length === 0) {
-    //   if (this.props.wholeBill) {
-    //     const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
-    //     // let payerArr = this.props.payers.concat(payers)
-    //     return (
-    //       <div>
-    //         {payers.map((payer, idx) => this.renderPayerList(payer, idx))}
-    //       <button onClick={(e) => this.handleAddPayer(e)}>Add Payer</button>
-    //       <br/>
-    //       <button onClick={this.handleDone} id="back">Back</button>
-    //       {this.state.renderForm ? (<div>
-    //         <PayerForm />
-    //         <button onClick={this.handleDone}>Back</button>
-    //         </div>)
-    //       : null
-    //       }
-    //     </div>)
-    //   }
-      // return null
-    // }
-    // else {
-    //   // const payerState = this.props.payers
-    //   if (this.props.wholeBill) {
-    //     const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
-    //     let payerArr = this.props.payers.concat(payers)
-    //     // const payerList = payerArr.map((payer, idx) => this.renderPayerList(payer, idx))
-    //     return (
-    //       <div>
-    //         {payerArr.map((payer, idx) => this.renderPayerList(payer, idx))}
-    //         <PayerForm />
-    //         ***Names should be different****
-    //         <br/>
-    //         <button onClick={this.handleDone}>Done</button>
-        //   </div>
-        // )
-      // }
-    // }
   }
 }
 
@@ -143,4 +110,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchBill, fetchPayer, deletePayer, postItemPayer,selectPayers, getItem, clearBill})(PayerFormContainer))
+export default withRouter(connect(mapStateToProps, {fetchBill, deletePayer, postItemPayer, getItem, clearBill, getPayer})(PayerFormContainer))
