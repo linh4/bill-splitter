@@ -32,6 +32,12 @@ const billReducer = (state = initialState, action) => {
         ...state,
         bill: action.payload
       }
+    // 
+    // case 'ADD_ITEM':
+    //   return {
+    //     ...state,
+    //     items: action.payload
+    //   }
     case 'SELECT_ITEM':
       return {
         ...state,

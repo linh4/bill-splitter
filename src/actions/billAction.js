@@ -13,7 +13,7 @@ const renderBill = (bill) => {
   return {type: 'GET_BILL', payload: bill}
 }
 
-const itemArr = (arr) => {
+export const itemArr = (arr) => {
   return {type: 'GET_ITEMS', payload: arr}
 }
 

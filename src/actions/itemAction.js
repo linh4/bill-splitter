@@ -10,6 +10,10 @@ const selectItem = (item) => {
   return {type: "SELECT_ITEM", payload: item}
 }
 
+// export const addItem = (item) => {
+//   return {type: 'ADD_ITEM', payload: item}
+// }
+
 let head = {
   "Content-Type": "application/json",
   'Accept': 'application/json',
@@ -55,9 +59,8 @@ export const createItem = (billId, item) => {
       method: 'POST',
       headers: head,
       body: JSON.stringify({
-        bill_id: billId,
-        title: item.title,
-        price: item.price
+        bill_id: parseInt(billId),
+        item: item
       })
     })
     .then(res => res.json())
