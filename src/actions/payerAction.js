@@ -10,6 +10,10 @@ const removePayer = (payerId) => {
   return {type: 'DELETE_PAYER', payload: payerId}
 }
 
+export const clearPayers = () => {
+  return {type: 'CLEAR_PAYERS'}
+}
+
 let head = {
   "Content-Type": "application/json",
   'Accept': 'application/json',
