@@ -22,7 +22,6 @@ const selectPayer = (payer) => {
   return {type: 'SELECTED_PAYER', payload: payer}
 }
 
-const URL = "https://split-b-api.herokuapp.com/"
 let head = {
   "Content-Type": "application/json",
   'Accept': 'application/json',
@@ -31,7 +30,7 @@ let head = {
 
 export const createPayer = (name) => {
   return dispatch => {
-    return fetch("https://split-b-api.herokuapp.com//payers", {
+    return fetch("https://split-b-api.herokuapp.com/payers", {
       method: 'POST',
       headers: head,
       body: JSON.stringify(name)
@@ -43,7 +42,7 @@ export const createPayer = (name) => {
 
 export const deletePayer = (payerId) => {
   return dispatch => {
-    return fetch(`https://split-b-api.herokuapp.com//payers/${payerId}`, {
+    return fetch(`https://split-b-api.herokuapp.com/payers/${payerId}`, {
       method: 'DELETE',
       headers: head
     })
@@ -55,7 +54,7 @@ export const deletePayer = (payerId) => {
 export const postItemPayer = (itemId, payers) => {
   console.log(itemId, payers)
   return dispatch => {
-    return fetch("https://split-b-api.herokuapp.com//item_payers", {
+    return fetch("https://split-b-api.herokuapp.com/item_payers", {
       method: 'POST',
       headers: head,
       body: JSON.stringify({
@@ -70,7 +69,7 @@ export const postItemPayer = (itemId, payers) => {
 
 export const fetchPayers = () => {
   return dispatch => {
-    return fetch("https://split-b-api.herokuapp.com//payers", {
+    return fetch("https://split-b-api.herokuapp.com/payers", {
       headers: head
     })
     .then(res => res.json())
@@ -80,7 +79,7 @@ export const fetchPayers = () => {
 
 export const getThisPayer = (payerId) => {
   return dispatch => {
-    return fetch(`https://split-b-api.herokuapp.com//payers/${payerId}`, {
+    return fetch(`https://split-b-api.herokuapp.com/payers/${payerId}`, {
       headers: head
     })
     .then(res => res.json())

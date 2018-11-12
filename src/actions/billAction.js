@@ -2,7 +2,6 @@ import API_KEY from '../keys.js'
 import helperFunction from './helperFunction'
 import moment from 'moment';
 
-const URL = "https://split-b-api.herokuapp.com/"
 let today = moment().format("DD/MM/YYYY");
 let head = {
   "Content-Type": "application/json",

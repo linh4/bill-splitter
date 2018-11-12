@@ -10,7 +10,7 @@ class BillPage extends Component {
     this.props.getAllBills()
   }
 
-  renderPayers = (bill) => bill.payers.reduce((a,b) => a.concat(b))
+  renderPayers = (bill) => [].concat(...bill.payers)
 
   handleClick = (bill) => {
     if (this.renderPayers(bill).length === 0) {
@@ -20,10 +20,8 @@ class BillPage extends Component {
     }
   }
 
-
   handleDelete = (id) => {
     this.props.deleteBill(id)
-    // .then(() => this.props.history.push('/home'))
   }
 
   render() {

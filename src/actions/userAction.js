@@ -11,8 +11,6 @@ const getCurrentUser = (user) => {
   return {type: 'CURRENT_USER', payload: user}
 }
 
-const URL = "https://split-b-api.herokuapp.com/"
-
 export function handleSignUp(values) {
   return dispatch => {
     return fetch("https://split-b-api.herokuapp.com/users", {
