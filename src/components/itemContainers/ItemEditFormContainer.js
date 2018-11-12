@@ -60,8 +60,8 @@ class ItemEditFormContainer extends Component {
         <button onClick={this.props.history.goBack} id="back">Back</button>
       </div>)
     }
-    // let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
-    const renderItems = this.props.items.map(item => {
+    let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
+    const renderItems = sortedItems.map(item => {
       return (
         <div key={item.id}>
         {item.title} - ${parseFloat(item.price).toFixed(2)}

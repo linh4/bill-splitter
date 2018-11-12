@@ -4,12 +4,19 @@ const initialState = {
   selectedItem: null,
   wholeBill: null,
   tax: 0,
-  tip: 0
+  tip: 0,
+  allBill: [],
+  name: null
 }
 
 const billReducer = (state = initialState, action) => {
 
   switch (action.type) {
+    case 'RENDER_BILLS':
+      return {
+        ...state,
+        allBill: action.payload
+      }
     case 'GET_ITEMS':
       if (action.payload.hasOwnProperty('payers')) {
         return {
@@ -17,7 +24,8 @@ const billReducer = (state = initialState, action) => {
           items: action.payload.items,
           wholeBill: action.payload,
           tax: action.payload.tax,
-          tip: action.payload.tip
+          tip: action.payload.tip,
+          name: action.payload.date
         }
       }
       else {
@@ -32,12 +40,11 @@ const billReducer = (state = initialState, action) => {
         ...state,
         bill: action.payload
       }
-    // 
-    // case 'ADD_ITEM':
-    //   return {
-    //     ...state,
-    //     items: action.payload
-    //   }
+    case 'DELETE_BILL':
+      return {
+        ...state,
+        allBill: state.allBill.filter(bill => bill.id !== action.payload)
+      }
     case 'SELECT_ITEM':
       return {
         ...state,
@@ -70,6 +77,16 @@ const billReducer = (state = initialState, action) => {
       return {
         ...state,
         tax: action.payload
+      }
+    case 'ADD_TIP':
+      return {
+        ...state,
+        tip: action.payload
+      }
+    case 'ADD_NAME':
+      return {
+        ...state,
+        name: action.payload
       }
     default:
       return state

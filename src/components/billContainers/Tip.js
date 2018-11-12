@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
-import Slider, { Range, createSliderWithTooltip  } from 'rc-slider';
+import Slider, { createSliderWithTooltip  } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { postTip } from '../../actions/billAction'
 
@@ -64,8 +64,8 @@ class Tip extends Component {
   handleNext = () => {
     console.log(this.state.value)
     let id = this.props.match.params.id
-    this.props.postTip(id, this.state.value)
-    this.props.history.push(`/bills/${id}/payers`)
+    this.props.postTip(id, this.props.wholeBill.date, this.props.wholeBill.tax, this.state.value)
+    .then(() => this.props.history.push(`/bills/${id}/payers`))
   }
 
   render() {
@@ -92,4 +92,11 @@ class Tip extends Component {
   }
 }
 
-export default withRouter(connect(null, {postTip})(Tip))
+const mapStateToProps = (state) => {
+  return {
+    tax: state.text.tax,
+    wholeBill: state.text.wholeBill
+    };
+};
+
+export default withRouter(connect(mapStateToProps, {postTip})(Tip))

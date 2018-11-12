@@ -8,10 +8,12 @@ import { convertNum } from '../../actions/convertFunction'
 class PayerPage extends Component {
 
   componentDidMount() {
-    let id = this.props.match.params.id
-    this.props.getThisPayer(id)
+    // if (!this.props.wholeBill) {
     let billId = this.props.match.url.slice(7, 9)
     this.props.fetchBill(billId)
+    let id = this.props.match.params.id
+    this.props.getThisPayer(id)
+    // }
   }
 
   totalPrice = (items) => {
@@ -24,8 +26,13 @@ class PayerPage extends Component {
     return result
   }
 
-  totalBeforeTax = (item) => {
+  costEachItem = (item) => {
     return parseFloat(item.price/item.payers.length).toFixed(2)
+  }
+
+  numToFraction = (item) => {
+    let num = parseFloat(this.costEachItem(item)/item.price).toFixed(2)
+    return convertNum(num)
   }
 
   render() {
@@ -38,7 +45,7 @@ class PayerPage extends Component {
         <hr/>
         {this.props.selectedPayer.items.map(item => {
           return (<div key={item.id}>
-            <p> {convertNum(this.totalBeforeTax(item)/item.price)} {item.title} - ${this.totalBeforeTax(item)}</p>
+            <p> {this.numToFraction(item)} {item.title} - ${this.costEachItem(item)}</p>
           </div>)
           })
         }

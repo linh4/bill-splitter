@@ -31,7 +31,7 @@ class BillPayerContainer extends Component {
 
   renderPayers = (item) => {
     if (item.payers.length === 0 ) {
-      return <p>Unassigned</p>
+      return <p className="unassigned">Unassigned</p>
     } else {
       let payers = _.uniqBy(item.payers, 'id')
       return payers.map(payer => {
@@ -41,7 +41,12 @@ class BillPayerContainer extends Component {
   }
 
   handleNext = () => {
-    this.setState({renderTip: true})
+    let payer = document.querySelector('.unassigned')
+    if (payer) {
+      alert('All items need to be assigned')
+    } else {
+      this.setState({renderTip: true})
+    }
   }
 
   handleDisplay = () => {

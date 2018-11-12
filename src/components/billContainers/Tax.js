@@ -16,15 +16,15 @@ class Tax extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     let billId = this.props.match.params.id
-    this.props.postTax(billId, this.state.tax)
-    this.props.toggle()
+    this.props.postTax(billId, this.props.wholeBill.date, this.state.tax)
+    .then(() => this.props.toggle())
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input type="number" value={this.state.tax} step="any" onChange={(e) => this.handleChange(e)}/>
+        <form onSubmit={this.handleSubmit}>
+          <input type="number" value={this.state.tax} step="any" onChange={this.handleChange}/>
           <input type="submit"/>
         </form>
       </div>
@@ -32,4 +32,10 @@ class Tax extends Component {
   }
 }
 
-export default withRouter(connect(null, {postTax})(Tax))
+const mapStateToProps = (state) => {
+  return {
+    wholeBill: state.text.wholeBill
+    };
+};
+
+export default withRouter(connect(mapStateToProps, {postTax})(Tax))

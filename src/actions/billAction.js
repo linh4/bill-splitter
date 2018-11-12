@@ -21,7 +21,6 @@ export const clearItems = () => {
   return {type: 'RESET_ITEMS'}
 }
 
-
 export const clearBill = () => {
   return {type: 'RESET_BILL'}
 }
@@ -30,8 +29,20 @@ const addTax = (tax) => {
   return {type: 'ADD_TAX', payload: tax}
 }
 
+const addTip = (tip) => {
+  return {type: 'ADD_TIP', payload: tip}
+}
+
 const renderBills = (bills) => {
   return {type: 'RENDER_BILLS', payload: bills}
+}
+
+const addname = (name) => {
+  return {type: 'ADD_NAME', payload: name}
+}
+
+const removeBill = (billId) => {
+  return {type: 'DELETE_BILL', payload: billId}
 }
 
 export const createBill = (userId) => {
@@ -101,33 +112,34 @@ export const createItems = (billId,imageSrc) => {
    }
  }
 
- export const postTax = (billId, tax) => {
+ export const postTax = (billId, date, tax) => {
    return dispatch => {
      return fetch(`http://localhost:3000/bills/${billId}`, {
        method: 'PATCH',
        headers: head,
-       body: JSON.stringify({tax: tax})
+       body: JSON.stringify({
+         date: date,
+         tax: tax
+       })
      })
      .then(res => res.json())
-     .then(res => {
-       if (res.error) {
-         throw new Error ('log in error')
-       } else {
-         dispatch(addTax(res.tax))
-       }
-     })
+     .then(res => dispatch(addTax(res.tax)))
    }
  }
 
- export const postTip = (billId, tip) => {
+ export const postTip = (billId, date, tax, tip) => {
    return dispatch => {
      return fetch(`http://localhost:3000/bills/${billId}`, {
        method: 'PATCH',
        headers: head,
-       body: JSON.stringify({tip: tip})
+       body: JSON.stringify({
+         date: date,
+         tax: tax,
+         tip: tip
+       })
      })
       .then(res => res.json())
-      .then(data => console.log("inside posttip",data))
+      .then(data => dispatch(addTip(data.tip)))
    }
  }
 
@@ -138,5 +150,30 @@ export const createItems = (billId,imageSrc) => {
      })
      .then(res => res.json())
      .then(data => dispatch(renderBills(data)))
+   }
+ }
+
+ export const changeName = (billId, name) => {
+   return dispatch => {
+     return fetch(`http://localhost:3000/bills/${billId}`, {
+       method: 'PATCH',
+       headers: head,
+       body: JSON.stringify({
+         date: name
+       })
+     })
+     .then(res => res.json())
+     .then(data => dispatch(addname(data.date)))
+   }
+ }
+
+ export const deleteBill = (billId) => {
+   return dispatch => {
+     return fetch(`http://localhost:3000/bills/${billId}`, {
+       method: 'DELETE',
+       headers: head
+     })
+     .then(res => res.text())
+     .then(data => dispatch(removeBill(billId)))
    }
  }

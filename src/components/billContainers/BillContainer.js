@@ -3,7 +3,7 @@ import BillCard from './BillCard'
 import Tax from './Tax'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fetchBill, clearItems} from '../../actions/billAction'
+import { fetchBill, clearItems, clearBill} from '../../actions/billAction'
 
 
 class BillContainer extends Component {
@@ -44,6 +44,7 @@ class BillContainer extends Component {
   handleNext = () => {
     let id = this.props.match.params.id
     this.props.clearItems()
+    this.props.clearBill()
     this.props.history.push(`/bills/${id}/assignPayers`)
   }
 
@@ -91,4 +92,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchBill, clearItems})(BillContainer))
+export default withRouter(connect(mapStateToProps, {fetchBill, clearItems, clearBill})(BillContainer))

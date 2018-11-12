@@ -88,6 +88,7 @@ class PayerFormContainer extends Component {
     }
     else {
       return (<div>
+        {this.props.selectedItem && this.props.selectedItem.title}
         {this.props.payers.map((payer, idx) => this.renderPayerList(payer, idx))}
         <PayerForm />
         ***Names should be different****

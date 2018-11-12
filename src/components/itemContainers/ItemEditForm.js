@@ -35,7 +35,7 @@ class ItemEditForm extends React.Component {
     e.preventDefault()
     let billId = this.props.selectedItem.bill.id
     this.props.editItem(this.state)
-    .then(() => this.props.history.push(`/bills/${billId}/edit`))
+    .then(() => this.props.history.push(`/bills/${billId}/items`))
   }
 
   render() {

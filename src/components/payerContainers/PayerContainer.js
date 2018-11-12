@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import PayerPage from './PayerPage'
+import BillNameEdit from '../billContainers/BillNameEdit'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fetchBill} from '../../actions/billAction'
+import { fetchBill, deleteBill} from '../../actions/billAction'
 import { fetchPayers } from '../../actions/payerAction'
 
 class PayerContainer extends Component {
+
+    state = {
+      renderForm: false
+    }
 
   componentDidMount() {
     let id = this.props.match.params.id
@@ -26,11 +30,31 @@ class PayerContainer extends Component {
   handlePayer = (id) => {
     let billId = this.props.match.params.id
     this.props.history.push(`/bills/${billId}/payers/${id}`)
-    // console.log('hi')
   }
 
   handleDone = () => {
     this.props.history.push('/home')
+  }
+
+  handleEdit = () => {
+    this.setState({renderForm: true})
+  }
+
+  handleClose = () => {
+    this.setState({renderForm: false})
+  }
+
+  renderBill = (bill) => {
+    if (this.props.name) {
+      return (<div>
+        <p onClick={() => this.handleClick(bill)}> {this.props.name}</p>
+      </div>)
+    }
+    else {
+      return (<div>
+        <p onClick={() => this.handleClick(bill)}> {bill.date}</p>
+      </div>)
+    }
   }
 
   render() {
@@ -38,13 +62,14 @@ class PayerContainer extends Component {
       return <div>Loading....</div>
     }
     const filterPayers = this.props.payerArr.filter(payer => payer.bill_id[0] == this.props.match.params.id)
-    console.log(filterPayers)
     return(
       <div>
-        {/* <PayerPage payer={payer} /> */}
-        {/* {payer.items.map(item => <p key={item.id}>{item.title} - ${item.price/item.payers.length}</p>)} */}
+        {this.renderBill(this.props.wholeBill)}
+        <button onClick={this.handleEdit}>Edit</button>
+
+        {this.state.renderForm ? <BillNameEdit handleClose={this.handleClose} bill={this.props.wholeBill} /> : null}
+
         {filterPayers.map(payer => (<div key={payer.id}>
-          {/* <PayerPage payer={payer} /> */}
           <p onClick={() => this.handlePayer(payer.id)}>{payer.name}</p>
           ${parseFloat(this.totalPrice(payer.items)).toFixed(2)}
           <hr/>
@@ -61,8 +86,9 @@ const mapStateToProps = (state) => {
   return {
     wholeBill: state.text.wholeBill,
     payerArr: state.payer.payerArr,
-    items: state.text.items
+    items: state.text.items,
+    name: state.text.name
     };
 };
 
-export default withRouter(connect(mapStateToProps, {fetchBill, fetchPayers})(PayerContainer))
+export default withRouter(connect(mapStateToProps, {fetchBill, fetchPayers, deleteBill})(PayerContainer))
