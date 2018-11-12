@@ -44,6 +44,11 @@ class PayerContainer extends Component {
     this.setState({renderForm: false})
   }
 
+  handleBillEdit = () => {
+    let id = this.props.match.params.id
+    this.props.history.push(`/bills/${id}`)
+  }
+
   renderBill = (bill) => {
     if (this.props.name) {
       return (<div>
@@ -75,6 +80,7 @@ class PayerContainer extends Component {
           <hr/>
         </div>))
         }
+        <button onClick={this.handleBillEdit}>Edit</button>
         <button onClick={this.handleDone}>Done</button>
       </div>
     )

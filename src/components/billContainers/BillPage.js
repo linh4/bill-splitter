@@ -29,7 +29,7 @@ class BillPage extends Component {
       return <div>No bill yet....</div>
     }
     const filterBills = this.props.allBill.filter(bill => bill.user_id === this.props.currentUser.id)
-    const billList = filterBills.sort((a,b) => a.id - b.id)
+    const billList = filterBills.sort((a,b) => b.id - a.id)
     return (
       <div>
         {billList.map(bill => (<div key={bill.id}>
