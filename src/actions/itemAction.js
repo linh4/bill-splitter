@@ -10,6 +10,7 @@ const selectItem = (item) => {
   return {type: "SELECT_ITEM", payload: item}
 }
 
+const URL = "https://split-b-api.herokuapp.com/"
 let head = {
   "Content-Type": "application/json",
   'Accept': 'application/json',
@@ -19,7 +20,7 @@ let head = {
 
  export const postItems = (billId, item) => {
    return dispatch => {
-     return fetch("http://localhost:3000/items", {
+     return fetch("https://split-b-api.herokuapp.com//items", {
        method: 'POST',
        headers: head,
        body: JSON.stringify({
@@ -34,7 +35,7 @@ let head = {
 
 export const getItem = (itemId) => {
   return dispatch => {
-    return fetch(`http://localhost:3000/items/${itemId}`, {
+    return fetch(`https://split-b-api.herokuapp.com//items/${itemId}`, {
       header: head
     })
     .then(res => res.json())
@@ -44,7 +45,7 @@ export const getItem = (itemId) => {
 
 export const editItem = (item) => {
   return dispatch => {
-    return fetch(`http://localhost:3000/items/${item.id}`, {
+    return fetch(`https://split-b-api.herokuapp.com//items/${item.id}`, {
       method: 'PATCH',
       headers: head,
       body: JSON.stringify(item)
@@ -56,7 +57,7 @@ export const editItem = (item) => {
 
 export const deleteItem = (itemId) => {
   return dispatch => {
-    return fetch(`http://localhost:3000/items/${itemId}`, {
+    return fetch(`https://split-b-api.herokuapp.com//items/${itemId}`, {
       method: 'DELETE',
       headers: head
     })
@@ -67,7 +68,7 @@ export const deleteItem = (itemId) => {
 
 export const createItem = (billId, item) => {
   return dispatch => {
-    return fetch("http://localhost:3000/items", {
+    return fetch("https://split-b-api.herokuapp.com//items", {
       method: 'POST',
       headers: head,
       body: JSON.stringify({

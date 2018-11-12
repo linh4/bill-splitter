@@ -2,6 +2,7 @@ import API_KEY from '../keys.js'
 import helperFunction from './helperFunction'
 import moment from 'moment';
 
+const URL = "https://split-b-api.herokuapp.com/"
 let today = moment().format("DD/MM/YYYY");
 let head = {
   "Content-Type": "application/json",
@@ -47,7 +48,7 @@ const removeBill = (billId) => {
 
 export const createBill = (userId) => {
   return dispatch => {
-    return fetch("http://localhost:3000/bills", {
+    return fetch("https://split-b-api.herokuapp.com/bills", {
       method: 'POST',
       headers: head,
       body: JSON.stringify({
@@ -61,7 +62,7 @@ export const createBill = (userId) => {
 
 export const getBill = (billId) => {
   return dispatch => {
-    return fetch(`http://localhost:3000/bills/${billId}`, {
+    return fetch(`https://split-b-api.herokuapp.com/bills/${billId}`, {
       headers: head
     }).then(res => res.json()).then(res => dispatch(renderBill(res)))
   }
@@ -98,7 +99,7 @@ export const createItems = (billId,imageSrc) => {
 
  export const fetchBill = (billId) => {
    return dispatch => {
-     return fetch(`http://localhost:3000/bills/${billId}`, {
+     return fetch(`https://split-b-api.herokuapp.com/bills/${billId}`, {
        headers: head
      })
      .then(res => res.json())
@@ -114,7 +115,7 @@ export const createItems = (billId,imageSrc) => {
 
  export const postTax = (billId, date, tax) => {
    return dispatch => {
-     return fetch(`http://localhost:3000/bills/${billId}`, {
+     return fetch(`https://split-b-api.herokuapp.com/bills/${billId}`, {
        method: 'PATCH',
        headers: head,
        body: JSON.stringify({
@@ -129,7 +130,7 @@ export const createItems = (billId,imageSrc) => {
 
  export const postTip = (billId, date, tax, tip) => {
    return dispatch => {
-     return fetch(`http://localhost:3000/bills/${billId}`, {
+     return fetch(`https://split-b-api.herokuapp.com/bills/${billId}`, {
        method: 'PATCH',
        headers: head,
        body: JSON.stringify({
@@ -145,7 +146,7 @@ export const createItems = (billId,imageSrc) => {
 
  export const getAllBills = () => {
    return dispatch => {
-     return fetch("http://localhost:3000/bills", {
+     return fetch("https://split-b-api.herokuapp.com/bills", {
        headers: head
      })
      .then(res => res.json())
@@ -155,7 +156,7 @@ export const createItems = (billId,imageSrc) => {
 
  export const changeName = (billId, name) => {
    return dispatch => {
-     return fetch(`http://localhost:3000/bills/${billId}`, {
+     return fetch(`https://split-b-api.herokuapp.com/bills/${billId}`, {
        method: 'PATCH',
        headers: head,
        body: JSON.stringify({
@@ -169,7 +170,7 @@ export const createItems = (billId,imageSrc) => {
 
  export const deleteBill = (billId) => {
    return dispatch => {
-     return fetch(`http://localhost:3000/bills/${billId}`, {
+     return fetch(`https://split-b-api.herokuapp.com/bills/${billId}`, {
        method: 'DELETE',
        headers: head
      })

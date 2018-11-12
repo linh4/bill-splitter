@@ -11,9 +11,11 @@ const getCurrentUser = (user) => {
   return {type: 'CURRENT_USER', payload: user}
 }
 
+const URL = "https://split-b-api.herokuapp.com/"
+
 export function handleSignUp(values) {
   return dispatch => {
-    return fetch("http://localhost:3000/users", {
+    return fetch("https://split-b-api.herokuapp.com/users", {
        method: 'POST',
        body: JSON.stringify(values),
        headers: {"Content-Type": "application/json"}
@@ -32,7 +34,7 @@ export function handleSignUp(values) {
 
 export function handleLogin(values) {
   return dispatch => {
-    return fetch("http://localhost:3000/auth", {
+    return fetch("https://split-b-api.herokuapp.com/auth", {
        method: 'POST',
        body: JSON.stringify(values),
        headers: {"Content-Type": "application/json"}
@@ -55,7 +57,7 @@ export const logoutUser = () => {
 
 export const currentUser = (token) => {
   return (dispatch) => {
-    return fetch('http://localhost:3000/current_user', {
+    return fetch('https://split-b-api.herokuapp.com/current_user', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
