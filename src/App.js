@@ -11,7 +11,6 @@ import HomePage from './components/HomePage'
 import Login from './components/userContainers/Login.js'
 import SignUp from './components/userContainers/SignUp.js'
 import Navbar from './components/Navbar'
-// import BillPage from './components/billContainers/BillPage'
 import PayerFormContainer from './components/payerContainers/PayerFormContainer.js'
 import BillPayerContainer from './components/payerContainers/BillPayerContainer.js'
 import PayerContainer from './components/payerContainers/PayerContainer.js'
@@ -26,7 +25,7 @@ class App extends Component {
     if (token) {
         return this.props.currentUser(token)
     } else if (!token && this.props.currentUserI != null) {
-        console.log("????")
+        console.log("not login")
     }
   }
 
@@ -36,7 +35,7 @@ class App extends Component {
     return (
       <div className="App">
         {localStorage.token && this.props.loggedIn ? (
-          <div>
+          <div className="container">
             <Navbar />
             <Switch>
               <Route exact path="/" component={HomePage} />

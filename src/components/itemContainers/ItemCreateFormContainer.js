@@ -31,16 +31,36 @@ class ItemCreateFormContainer extends Component {
     }
   }
 
+  handleFocus = (e) => {
+    e.persist()
+    setTimeout(function() {
+      e.target.parentElement.lastElementChild.style.opacity = '0'
+    }, 100)
+  }
+
+  handleBlur = (e) => {
+    e.persist()
+    setTimeout(function() {
+      e.target.parentElement.lastElementChild.style.opacity = '1'
+    }, 300)
+  }
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>Title</label>
-          <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
-          <label>Price</label>
-          <input type="number" name="price" step="any" value={this.state.price} onChange={this.handleChange}/>
+        <form onSubmit={this.handleSubmit} className="add-form" onFocus={this.handleFocus} onBlur={this.handleBlur} >
+          <div className="input add-title">
+            <input type="text" name="title" value={this.state.title} onChange={this.handleChange} placeholder="title"/>
+            <span><i class="fas fa-tag"></i></span>
+          </div>
+          <div className="input add-price">
+            <input type="number " name="price" min="0" step="any" value={this.state.price} onChange={this.handleChange}/>
+            <span><i class="fas fa-dollar-sign"></i></span>
+          </div>
           <br/>
-          <input type="submit" value="Add Item"/>
+          <div className="add-btn">
+            <input type="submit" value="ADD"/>
+          </div>
         </form>
       </div>
     )

@@ -52,12 +52,12 @@ class PayerContainer extends Component {
   renderBill = (bill) => {
     if (this.props.name) {
       return (<div>
-        <p onClick={() => this.handleClick(bill)}> {this.props.name}</p>
+        <p> {this.props.name}</p>
       </div>)
     }
     else {
       return (<div>
-        <p onClick={() => this.handleClick(bill)}> {bill.date}</p>
+        <p> {bill.date}</p>
       </div>)
     }
   }

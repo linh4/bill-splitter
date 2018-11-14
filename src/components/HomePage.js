@@ -5,8 +5,14 @@ import { connect } from 'react-redux'
 import { currentUser } from '../actions/userAction'
 import {clearPayers} from '../actions/payerAction'
 import { createBill, getBill, clearItems, clearBill } from '../actions/billAction'
+import '../style/BillPage.css'
+import Modal from 'react-responsive-modal';
 
 class HomePage extends Component {
+
+  state = {
+    open: false,
+  }
 
   componentDidMount() {
     let token = localStorage.getItem('token')
@@ -17,20 +23,53 @@ class HomePage extends Component {
     }
   }
 
-  handleCreateBill = () => {
+  onOpenModal = () => {
+   this.setState({ open: true });
+  }
+
+  onCloseModal = () => {
+   this.setState({ open: false });
+  }
+
+  cleanBill = () => {
     this.props.clearItems()
     this.props.clearBill()
     this.props.clearPayers()
+  }
+
+  handleCreateManual = () => {
+    this.cleanBill()
+    this.props.createBill(this.props.currentUserI.id)
+    .then(data => this.props.history.push(`/bills/${data.id}/items`))
+  }
+
+  handleAttach = () => {
+    this.cleanBill()
     this.props.createBill(this.props.currentUserI.id)
     .then(data => this.props.history.push(`/bills/${data.id}/upload`))
   }
 
   render() {
+    const { open } = this.state;
     return (
-      <div>
-        <BillPage />
-        <button onClick={this.handleCreateBill}>New Bill</button>
-      </div>
+      <React.Fragment>
+        <div className="slideshow__indicator"></div>
+        <div className="home-page">
+          <p className="bill-title">Bill from __</p>
+          <BillPage />
+          <span className="plus-icon" onClick={this.onOpenModal}><i class="fas fa-plus-circle fa-spin-hover"></i></span>
+          <Modal open={open} onClose={this.onCloseModal} center>
+            <div onClick={this.handleCreateManual} className="create-box">
+              <span className="menu-icons"><i class="far fa-edit"></i></span>
+              <p className="create-bill">WRITE MANUALLY</p>
+            </div>
+            <div onClick={this.handleAttach} className="create-box">
+              <span className="menu-icons"><i className="far fa-image"></i></span>
+              <p className="create-bill">ATTACH FILE</p>
+            </div>
+        </Modal>
+        </div>
+      </React.Fragment>
     )
   }
 }

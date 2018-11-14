@@ -4,11 +4,14 @@ import { withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 import { fetchBill} from '../../actions/billAction'
 import { getItem, deleteItem } from '../../actions/itemAction'
+import '../../style/Form.css'
+import Modal from 'react-responsive-modal';
 
 class ItemEditFormContainer extends Component {
 
   state = {
-    renderForm: false
+    // renderForm: false,
+    open: false
   }
 
   componentDidMount() {
@@ -26,7 +29,6 @@ class ItemEditFormContainer extends Component {
 
   handleItemDelete = (e, id) => {
     this.props.deleteItem(id)
-    // return e.target.parentElement.remove()
   }
 
   handleDone = () => {
@@ -46,35 +48,57 @@ class ItemEditFormContainer extends Component {
   //   .then(() => this.props.history.push(`/bills/${billId}`))
   // }
 
+  onOpenModal = () => {
+   this.setState({ open: true });
+  }
+
+  onCloseModal = () => {
+   this.setState({ open: false });
+  }
+
+  // onClick={this.handleAdd}
 
   render() {
+    const {open} = this.state
     if (this.props.items.length === 0) {
-      return (<div>
-        <button onClick={this.handleAdd} id="add">Add Item</button>
-        {this.state.renderForm ? (<div>
-          <ItemCreateFormContainer />
+      return (
+        <div className="container">
+          <div className="home-page">
+            <button class="btn submit" id="add" onClick={this.onOpenModal}>Add Item</button>
+            <Modal open={open} onClose={this.onCloseModal} center>
+              <ItemCreateFormContainer />
+            </Modal>
+            {/* {this.state.renderForm ? (<div>
+              <ItemCreateFormContainer />
+            </div>)
+            : null
+            } */}
+            <br/>
+            <div onClick={this.props.history.goBack} id="back">
+              <span>&#10229;</span>
+              Go Back
+            </div>
+        </div>
+
         </div>)
-          : null
-        }
-        <br/>
-        <button onClick={this.props.history.goBack} id="back">Back</button>
-      </div>)
     }
     let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
     const renderItems = sortedItems.map(item => {
       return (
         <div key={item.id}>
-        {item.title} - ${parseFloat(item.price).toFixed(2)}
-        <button onClick={() => this.handleEdit(item)}>Edit</button>
-        <button onClick={(e) => this.handleItemDelete(e, item.id)}>Delete</button>
-      </div>
+          {item.title} - ${parseFloat(item.price).toFixed(2)}
+          <button onClick={() => this.handleEdit(item)}>Edit</button>
+          <button onClick={(e) => this.handleItemDelete(e, item.id)}>Delete</button>
+        </div>
       )
     })
     return (
-      <div>
-        {renderItems}
-        <ItemCreateFormContainer />
-        <button onClick={this.handleDone}>Done</button>
+      <div className="container">
+        <div className="home-page">
+          {renderItems}
+          <ItemCreateFormContainer />
+          <button onClick={this.handleDone}>Done</button>
+        </div>
       </div>
     )
   }

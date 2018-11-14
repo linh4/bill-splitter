@@ -40,8 +40,7 @@ class ItemEditForm extends React.Component {
 
   render() {
     return (
-      <div style={{ textAlign: "center" }}>
-        <div> </div>
+      <div>
         <form onSubmit={this.handleSubmit}>
           <label>Title</label>
           <input name="title" value={this.state.title} onChange={this.handleChange} />

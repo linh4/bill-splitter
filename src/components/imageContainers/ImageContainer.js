@@ -3,7 +3,7 @@ import ImageUpload from './ImageUpload'
 
 const ImageContainer = (props) => {
   return (
-    <div>
+    <div className="container">
       <ImageUpload />
     </div>
   )

@@ -10,9 +10,13 @@ class BillCard extends Component {
   render() {
     const item = this.props.item
     return (
-      <div>
-        <div>
-          {item.title} - ${parseFloat(item.price).toFixed(2)}
+      <div className="row">
+        <div className="item-title">
+          {item.title}
+        </div>
+        <div className="item-price">
+          <span>$</span>
+          <p className="price-number">{parseFloat(item.price).toFixed(2)}</p>
         </div>
       </div>
     )

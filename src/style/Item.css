@@ -1,0 +1,45 @@
+.row {
+  width: 80% !important;
+  margin: 0 auto;
+  font-size: 0.7em;
+  border-bottom: 1px solid #a8a8a8;
+}
+
+.item-title {
+  width: 70%;
+  text-align: left;
+}
+.item-price {
+  width: 30%;
+  text-align: right
+}
+.tax-box {
+
+}
+.tax {
+
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 0.5em;
+  font-style: italic;
+}
+
+.price-number {
+  display: inline-block;
+  width: 60px;
+}
+
+@media only screen and (max-width: 400px) {
+  .row {
+    width: 90% !important;
+    font-size: 0.5em;
+  }
+  .home-page {
+    margin-top: -10px;
+  }
+  .note {
+    font-size: 0.4em;
+  }
+}

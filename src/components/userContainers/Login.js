@@ -1,12 +1,12 @@
 import React from 'react'
+import '../../style/Form.css'
 import {connect} from 'react-redux'
 import {handleLogin} from '../../actions/userAction.js'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 
 class Login extends React.Component{
   state={
-    error: false,
     username: "",
     password: ""
   }
@@ -23,17 +23,40 @@ class Login extends React.Component{
     console.log("in submit", this.props.currentUser)
   }
 
+  handleFocus = (e) => {
+    e.persist()
+    setTimeout(function() {
+      e.target.parentElement.lastElementChild.style.opacity = '0'
+    }, 100)
+  }
+
+  handleBlur = (e) => {
+    e.persist()
+    setTimeout(function() {
+      e.target.parentElement.lastElementChild.style.opacity = '1'
+    }, 300)
+  }
+
+  handleSignup = () => {
+    this.props.history.push('/signup')
+  }
+
   render(){
       return(
         <div>
-          <form>
-            <label>Username</label>
-            <input placeholder='Username' name="username" onChange={this.handleChange}/>
-            <label>Password</label>
-            <input type="password" placeholder='Password' name="password" onChange={this.handleChange}/>
-            <button onClick={this.handleSubmit} type='submit'>Submit</button>
+          <form className="login-signup" onFocus={this.handleFocus} onBlur={this.handleBlur} >
+            <legend className="legend">Login</legend>
+            <div className="input">
+              <input placeholder='Username' name="username" onChange={this.handleChange} />
+              <span><i className="fas fa-user"></i></span>
+            </div>
+            <div className="input">
+              <input type="password" placeholder='Password' name="password" onChange={this.handleChange} />
+              <span><i className="fa fa-lock"></i></span>
+            </div>
+            <button className="submit btn" onClick={this.handleSubmit} type='submit'>SUBMIT</button>
+            <button className="signup btn" onClick={this.handleSignup}>SIGNUP</button>
           </form>
-          <Link to="/signup">SIGN UP</Link>
         </div>
       )
   }

@@ -1,32 +1,83 @@
-/* .App {
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Sans:400,700|Playfair+Display');
+
+.App {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+html, body{
+  width: 100%;
+  height: 100%;
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  color: #3f3f3f;
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.home-page {
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  height: 100%;
+}
+
+.btn {
+  outline:none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  letter-spacing:1px;
+  text-shadow:0;
+  font-size: 12px;
+  font-weight:bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.asking-box {
+  text-align: center;
+  padding: 10px;
+}
+
+.cancel {
+  background: #3f3f3f;
+  color: #fff;
+  /* margin-right: 20px; */
+  margin: 10px;
+}
+
+.yes {
+  background: #7d0013;
+  color: #fff;
+}
+
+#back {
+  margin: 20px auto;
+  width: 30%;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #373a47
+}
+#back:hover {
+  color: #AA1111;
+}
+
+@media only screen and (max-width: 400px) {
+  #back {
+    font-size: 0.6em;
   }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+}

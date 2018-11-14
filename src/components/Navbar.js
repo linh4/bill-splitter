@@ -1,12 +1,24 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logoutUser, currentUser } from '../actions/userAction'
+import { slide as Menu } from 'react-burger-menu'
+import '../style/Navbar.css'
 
 
 class Navbar extends React.Component {
 
+  state = {
+    menuOpen: false
+  }
 
+  handleStateChange (state) {
+    this.setState({menuOpen: state.isOpen})
+  }
+
+  closeMenu () {
+    this.setState({menuOpen: false})
+  }
 
   handleLogout = () => {
     console.log('logged out')
@@ -14,14 +26,22 @@ class Navbar extends React.Component {
     this.props.history.push('/login')
   }
 
+  handleHome = () => {
+    this.closeMenu()
+    this.props.history.push('/home')
+  }
+
   render() {
   return (
-    <div>
-        <Link to="/home">
-        <button>Home</button>
-      </Link>
-        <button onClick={this.handleLogout}>Log Out</button>
-    </div>
+    <React.Fragment>
+      <div id="outer-container">
+        <Menu right isOpen={this.state.menuOpen}
+          onStateChange={(state) => this.handleStateChange(state)}>
+          <p className="menu-item" onClick={this.handleHome}>HOME</p>
+          <p className="menu-item" onClick={this.handleLogout}>LOG OUT</p>
+        </Menu>
+      </div>
+    </React.Fragment>
     )
   }
 }

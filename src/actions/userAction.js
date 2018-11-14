@@ -21,7 +21,7 @@ export function handleSignUp(values) {
      .then(res => res.json())
      .then(user => {
        if (user.error) {
-         console.log(user.error)
+         alert('Wrong Information')
          throw new Error ('log in error')
        } else {
          return dispatch(signupUser(user))
@@ -40,7 +40,7 @@ export function handleLogin(values) {
      .then(res => res.json())
      .then(user => {
        if (!user.jwt) {
-         console.log('erroer')
+         alert('Wrong Information')
          throw new Error ('log in error')
        } else {
        return dispatch(loginUser(user)) //payload has user obj and jwt

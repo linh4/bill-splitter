@@ -1,0 +1,201 @@
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+/* Bill list style */
+.bill-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* margin-left: 100px; */
+  margin: 20px -40px 0 140px;
+  width: 60%;
+  font-family: 'PT Sans Narrow', sans-serif;
+  border-left: 1px solid #373a47;
+  border-bottom: 1px solid #373a47;
+  padding: 15px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+.bill-box:hover {
+  background: #AA1111;
+  color: #fff;
+}
+.delete-btn {
+  width: 16.66%;
+  margin-top: 40px;
+}
+span i.icons {
+  cursor: pointer;
+  color: #AA1111;
+}
+span i.icons:hover {
+  color: #373a47;
+}
+
+/* slideshow on the left side */
+.slideshow__indicator {
+  width: 10px;
+  background: #373a47;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  z-index: 100;
+  transform-origin: 0% 50%;
+  z-index: 6000;
+}
+.slideshow__indicator:last-child {
+  left: auto;
+  right: 0;
+  transform-origin: 100% 50%;
+}
+
+.bill-title {
+  text-align: left;
+  margin-left: 30px;
+  font-size: 18px;
+}
+
+.uncomplete {
+  color: #fff;
+  font-size: 0.7em;
+  background-color: #7d0013;
+  padding: 3px;
+}
+
+/* Modal style */
+
+.new-bill {
+  width: 130px;
+  background-color: #AA1111;
+  color: #fff;
+}
+.new-bill:hover {
+  color: #AA1111;
+  background-color: #fff;
+  border: 2px solid #AA1111;
+}
+
+/* modal box */
+.styles_overlay__CLSq- {
+  background: rgba(0, 0, 0, 0.5)
+}
+.styles_closeButton__20ID4 {
+  cursor: pointer;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid #cfcece;
+  right: -10px;
+  top: -10px;
+}
+.styles_modal__gNwvD {
+  padding: 5%;
+}
+
+.create-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  border: 1px solid black;
+  cursor: pointer;
+  background: #3e0610;
+  border-bottom: 4px solid #7d0013;
+}
+.create-box:nth-child(1){
+    margin-bottom: 20px;
+}
+.create-box:hover {
+  background-color: #7d0013;
+  transition: background-color .4s ease-in-out;
+}
+
+span.menu-icons {
+  padding-left: 0.6em;
+}
+
+span.menu-icons i {
+  position: relative;
+  margin: 15px auto;
+  font-size: 1.5em;
+  box-shadow: 0 0 0 30px transparent;
+  transform: translate3d(0, 0, 0);
+  transition: box-shadow .6s ease-in-out;
+  text-align: center;
+  color: #fff;
+}
+
+.fa-plus-circle {
+  font-size: 1.3rem;
+  color: #fff;
+  background: #AA1111;
+  position: relative;
+  border-radius: 50%;
+  font-size: 50px;
+  margin: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s ease;
+  border: 0
+}
+.fa-plus-circle:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border: 2px solid #fff;
+  transform: scale(0.8);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.fa-plus-circle:hover:after {
+  transform: scale(1);
+  box-shadow: 10px 0 20px rgba(0, 0, 0, 0.19), 6px 0 6px rgba(0, 0, 0, 0.23);
+  border-color: #AA1111;
+}
+.fa-plus-circle:hover{
+  color: #AA1111;
+  background-color: transparent;
+  transform: rotate(90deg);
+  cursor: pointer;
+  box-shadow: none;
+}
+
+
+.create-bill {
+  text-align: center;
+  padding: 30px;
+  letter-spacing:1px;
+  text-shadow:0;
+  font-size: 14px;
+  font-weight:bold;
+  color: #fff;
+}
+
+@media only screen and (max-width: 400px) {
+    .styles_modal__gNwvD {
+      padding: 10%;
+    }
+
+    .create-bill {
+      padding: 20px;
+    }
+
+    span.menu-icons i {
+      font-size: 1em;
+    }
+    .bill-box {
+      margin-left: 70px;
+      font-size: 0.7em;
+      padding: 10px;
+    }
+    .delete-btn {
+      margin: 5px auto 0 auto;
+    }
+
+}

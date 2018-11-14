@@ -57,6 +57,7 @@ class PayerPage extends Component {
           <p>TOTAL - ${parseFloat(this.totalPrice(this.props.selectedPayer.items)).toFixed(2)}</p>
         </div>)}
         <button onClick={this.props.history.goBack}>Back</button>
+        <button>Venmo</button>
       </div>
     )
   }

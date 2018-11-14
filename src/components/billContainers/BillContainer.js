@@ -57,7 +57,13 @@ class BillContainer extends Component {
       return <div>Loading</div>
     }
     else if (this.props.wholeBill.items.length === 0) {
-      return <div>No item yet...</div>
+      return (<div className="home-page">
+        <p>No item yet...</p>
+        <div onClick={this.props.history.goBack} id="back">
+          <span>&#10229;</span>
+          Go Back
+        </div>
+      </div>)
     }
     else {
       console.log("inside tax", this.props.tax)
@@ -66,12 +72,27 @@ class BillContainer extends Component {
       let finalTotal = total + (total * this.props.tax / 100)
       let sortedItems = this.props.wholeBill.items.sort((a,b) => a.id - b.id)
       return (
-        <div>
+        <div className="home-page">
           {sortedItems.map((item, idx) => <BillCard key={idx} item={item} />)}
-          TAX - %{parseFloat(this.props.tax).toFixed(2)}
-          <br/>
-          TOTAL - ${parseFloat(finalTotal).toFixed(2)}
-          <br/>
+          <div className="row tax-box">
+            <div className="item-title">
+              TAX
+            </div>
+            <div className="item-price">
+              <span>$</span>
+              <p className="price-number">{parseFloat(this.props.tax).toFixed(2)}</p>
+            </div>
+          </div>
+          <div className="row total-box">
+            <div className="item-title">
+              TOTAL
+            </div>
+            <div className="item-price">
+              <span>$</span>
+              <p className="price-number">{parseFloat(finalTotal).toFixed(2)}</p>
+            </div>
+          </div>
+
           {this.state.renderForm ? <Tax toggle={this.toggle} taxFromBill={this.props.tax} /> : null}
           <button onClick={this.handleEdit}>Modify</button>
           <button onClick={this.toggle}>Tax</button>
