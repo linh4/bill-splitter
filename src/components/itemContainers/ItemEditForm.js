@@ -38,18 +38,39 @@ class ItemEditForm extends React.Component {
     .then(() => this.props.history.push(`/bills/${billId}/items`))
   }
 
+  handleFocus = (e) => {
+    e.persist()
+    setTimeout(function() {
+      e.target.parentElement.lastElementChild.style.opacity = '0'
+    }, 100)
+  }
+
+  handleBlur = (e) => {
+    e.persist()
+    setTimeout(function() {
+      e.target.parentElement.lastElementChild.style.opacity = '1'
+    }, 300)
+  }
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>Title</label>
-          <input name="title" value={this.state.title} onChange={this.handleChange} />
-          <label>Price</label>
-          <input name="price" value={this.state.price} onChange={this.handleChange}/>
-          <input type="submit" />
-        </form>
+        <form onSubmit={this.handleSubmit} className="add-form" onFocus={this.handleFocus} onBlur={this.handleBlur} >
+          <div className="input add-title">
+            <input name="title" value={this.state.title} onChange={this.handleChange} />
+            <span><i class="fas fa-tag"></i></span>
+          </div>
 
-        <button onClick={this.props.history.goBack}>Back</button>
+          <div className="input add-price">
+            <input name="price" value={this.state.price} onChange={this.handleChange}/>
+            <span><i class="fas fa-dollar-sign"></i></span>
+          </div>
+
+          <div className="add-btn">
+            <input type="submit" value="EDIT"/>
+          </div>
+        </form>
+        {/* <button onClick={this.props.history.goBack}>Back</button> */}
       </div>
     );
   }

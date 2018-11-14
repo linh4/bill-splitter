@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ItemCreateFormContainer from './ItemCreateFormContainer'
+import ItemEditForm from './ItemEditForm'
 import { withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 import { fetchBill} from '../../actions/billAction'
@@ -86,9 +87,23 @@ class ItemEditFormContainer extends Component {
     const renderItems = sortedItems.map(item => {
       return (
         <div key={item.id}>
-          {item.title} - ${parseFloat(item.price).toFixed(2)}
-          <button onClick={() => this.handleEdit(item)}>Edit</button>
-          <button onClick={(e) => this.handleItemDelete(e, item.id)}>Delete</button>
+          <div className="row-items">
+            <div className="item-title">
+              {item.title}
+            </div>
+            <div className="item-price">
+              <span>$</span>
+              <p className="price-number">{parseFloat(item.price).toFixed(2)}</p>
+              <button onClick={() => this.handleEdit(item)}><i class="fas fa-pen"></i></button>
+              <button onClick={(e) => this.handleItemDelete(e, item.id)}><i class="far fa-trash-alt"></i></button>
+            </div>
+          </div>
+          {/* <button onClick={this.onOpenModal}>Edit</button>
+          <Modal open={open} onClose={this.onCloseModal} center>
+            <ItemEditForm />
+          </Modal> */}
+
+
         </div>
       )
     })
@@ -96,8 +111,12 @@ class ItemEditFormContainer extends Component {
       <div className="container">
         <div className="home-page">
           {renderItems}
-          <ItemCreateFormContainer />
-          <button onClick={this.handleDone}>Done</button>
+          {/* <ItemCreateFormContainer /> */}
+          <button className="btn signup done-btn" onClick={this.handleDone}>Done</button>
+          <button class="btn submit add-item-btn" id="add" onClick={this.onOpenModal}>Add Item</button>
+          <Modal open={open} onClose={this.onCloseModal} center>
+            <ItemCreateFormContainer />
+          </Modal>
         </div>
       </div>
     )

@@ -60,7 +60,15 @@ class BillPayerContainer extends Component {
     const renderItems = this.props.wholeBill.items.map(item => {
       return (
         <div key={item.id} onClick={() => this.selectPayers(item.id)}>
-        {item.title} - ${parseFloat(item.price).toFixed(2)}
+        <div className="row-items">
+          <div className="item-title">
+            {item.title}
+          </div>
+          <div className="item-price">
+            <span>$</span>
+            <p className="price-number">{parseFloat(item.price).toFixed(2)}</p>
+          </div>
+        </div>
         {this.renderPayers(item)}
         <hr/>
       </div>
@@ -70,8 +78,11 @@ class BillPayerContainer extends Component {
       <div>
         <p>Click each item to assign payers</p>
         {renderItems}
-        <button onClick={this.handleBack}>Back</button>
-        <button onClick={this.handleNext}>Next</button>
+        <button className="btn submit" onClick={this.handleNext}>Next</button>
+        <div onClick={this.handleBack} id="back">
+          <span>&#10229;</span>
+          Go Back
+        </div>
 
         {this.state.renderTip ? <Tip handleDisplay={this.handleDisplay} /> : null}
 

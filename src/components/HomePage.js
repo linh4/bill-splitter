@@ -55,12 +55,11 @@ class HomePage extends Component {
       <React.Fragment>
         <div className="slideshow__indicator"></div>
         <div className="home-page">
-          <p className="bill-title">Bill from __</p>
           <BillPage />
-          <span className="plus-icon" onClick={this.onOpenModal}><i class="fas fa-plus-circle fa-spin-hover"></i></span>
+          <span className="plus-icon" onClick={this.onOpenModal}><i className="fas fa-plus-circle fa-spin-hover"></i></span>
           <Modal open={open} onClose={this.onCloseModal} center>
             <div onClick={this.handleCreateManual} className="create-box">
-              <span className="menu-icons"><i class="far fa-edit"></i></span>
+              <span className="menu-icons"><i className="far fa-edit"></i></span>
               <p className="create-bill">WRITE MANUALLY</p>
             </div>
             <div onClick={this.handleAttach} className="create-box">

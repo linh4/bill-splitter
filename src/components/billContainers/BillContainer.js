@@ -74,29 +74,35 @@ class BillContainer extends Component {
       return (
         <div className="home-page">
           {sortedItems.map((item, idx) => <BillCard key={idx} item={item} />)}
-          <div className="row tax-box">
-            <div className="item-title">
+          <div className="row-items tax-box">
+            <div className="empty-div tax-div">
+              <button className="tax-btn" onClick={this.toggle}>+ ADD TAX</button>
+            </div>
+            <div className="item-total">
               TAX
             </div>
-            <div className="item-price">
+            <div className="item-total-price">
               <span>$</span>
-              <p className="price-number">{parseFloat(this.props.tax).toFixed(2)}</p>
+              <p className="price-number tax">{parseFloat(this.props.tax).toFixed(2)}</p>
             </div>
           </div>
-          <div className="row total-box">
-            <div className="item-title">
+          <div className="row-items total-box">
+            <div className="empty-div"></div>
+            <div className="item-total">
               TOTAL
             </div>
-            <div className="item-price">
+            <div className="item-total-price">
               <span>$</span>
-              <p className="price-number">{parseFloat(finalTotal).toFixed(2)}</p>
+              <p className="price-number total">{parseFloat(finalTotal).toFixed(2)}</p>
             </div>
           </div>
 
           {this.state.renderForm ? <Tax toggle={this.toggle} taxFromBill={this.props.tax} /> : null}
-          <button onClick={this.handleEdit}>Modify</button>
-          <button onClick={this.toggle}>Tax</button>
-          <button onClick={this.handleNext}>Next</button>
+          <div className="btn-box">
+            <button className="btn signup modify" onClick={this.handleEdit}>Modify</button>
+            {/* <button onClick={this.toggle}>Tax</button> */}
+            <button className="btn submit next" onClick={this.handleNext}>Next</button>
+          </div>
         </div>
         )
       }

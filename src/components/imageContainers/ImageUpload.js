@@ -61,7 +61,7 @@ class ImageUpload extends Component {
               this.state.img && this.props.items.length > 0 && (<div className="render-box">
                   {this.props.items ?
                     this.props.items.map((item, idx) =>
-                      <div key={idx} className="row">
+                      <div key={idx} className="row-items">
                         <div className="item-title">
                           {item.title}
                         </div>

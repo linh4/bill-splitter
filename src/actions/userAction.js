@@ -16,7 +16,10 @@ export function handleSignUp(values) {
     return fetch("https://split-b-api.herokuapp.com/users", {
        method: 'POST',
        body: JSON.stringify(values),
-       headers: {"Content-Type": "application/json"}
+       headers: {
+         "Content-Type": "application/json",
+         'Accept': 'application/json'
+       }
      })
      .then(res => res.json())
      .then(user => {

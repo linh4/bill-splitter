@@ -1,8 +1,9 @@
-.row {
-  width: 80% !important;
+/* set rows for items and price */
+.row-items {
+  width: 60% !important;
   margin: 0 auto;
   font-size: 0.7em;
-  border-bottom: 1px solid #a8a8a8;
+  display: flex;
 }
 
 .item-title {
@@ -11,13 +12,37 @@
 }
 .item-price {
   width: 30%;
-  text-align: right
+  text-align: right;
 }
-.tax-box {
 
+/* tax and total rows */
+.row-items.tax-box {
+  border-top: 1px solid #a8a8a8;
 }
-.tax {
+.row-items.total-box {
+  border-top: 2px solid #AA1111;
+  border-width: thick;
+}
+.empty-div {
+  width: 70%;
+}
+.empty-div.tax-div {
+  text-align: right;
+  margin-top: -3px;
+}
+.item-total {
+  width: 10%;
+  text-align: right;
+  font-style: italic;
+}
+.item-total-price {
+  width: 20%;
+  text-align: right;
+}
 
+.total {
+  font-weight: bold;
+  color: #7d0013;
 }
 
 .note {
@@ -31,9 +56,39 @@
   width: 60px;
 }
 
+/* button for modify, tax and next */
+.btn-box {
+  margin-top: 20px;
+}
+.btn.signup.modify {
+  margin-right: 30px;
+}
+.tax-btn {
+  color: #666666;
+  cursor: pointer;
+}
+.tax-btn:hover {
+  color: #fff;
+  background: #AA1111;
+}
+.add-item-btn {
+  margin-top: 30px;
+}
+.done-btn {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+
+@media only screen and (min-width: 401px) and (max-width:800px) {
+  .row-items {
+    width: 80% !important;
+  }
+}
+
 @media only screen and (max-width: 400px) {
-  .row {
-    width: 90% !important;
+  .row-items {
+    width: 80% !important;
     font-size: 0.5em;
   }
   .home-page {
@@ -41,5 +96,11 @@
   }
   .note {
     font-size: 0.4em;
+  }
+  .empty-div {
+    width: 50%;
+  }
+  .item-total-price {
+    width: 25%;
   }
 }
