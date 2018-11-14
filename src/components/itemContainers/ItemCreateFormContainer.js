@@ -23,6 +23,7 @@ class ItemCreateFormContainer extends Component {
       let billId = this.props.match.params.id
       let arr = []
       arr.push(this.state)
+      this.props.onClose()
       this.props.createItem(billId, arr)
       .then(() => this.props.fetchBill(billId))
       return this.setState({
@@ -51,11 +52,11 @@ class ItemCreateFormContainer extends Component {
         <form onSubmit={this.handleSubmit} className="add-form" onFocus={this.handleFocus} onBlur={this.handleBlur} >
           <div className="input add-title">
             <input type="text" name="title" value={this.state.title} onChange={this.handleChange} placeholder="title"/>
-            <span><i class="fas fa-tag"></i></span>
+            <span><i className="fas fa-tag"></i></span>
           </div>
           <div className="input add-price">
             <input type="number " name="price" min="0" step="any" value={this.state.price} onChange={this.handleChange}/>
-            <span><i class="fas fa-dollar-sign"></i></span>
+            <span><i className="fas fa-dollar-sign"></i></span>
           </div>
           <br/>
           <div className="add-btn">

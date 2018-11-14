@@ -36,6 +36,7 @@ class App extends Component {
       <div className="App">
         {localStorage.token && this.props.loggedIn ? (
           <div className="container">
+            <div className="slideshow__indicator"></div>
             <Navbar />
             <Switch>
               <Route exact path="/" component={HomePage} />

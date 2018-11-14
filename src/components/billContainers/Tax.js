@@ -17,15 +17,19 @@ class Tax extends Component {
     e.preventDefault()
     let billId = this.props.match.params.id
     this.props.postTax(billId, this.props.wholeBill.date, this.state.tax)
-    .then(() => this.props.toggle())
+    .then(() => this.props.onClose())
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input type="number" value={this.state.tax} step="any" onChange={this.handleChange}/>
-          <input type="submit"/>
+        <form onSubmit={this.handleSubmit} className="add-form" >
+          <div className="input">
+            <input type="number" value={this.state.tax} step="any" onChange={this.handleChange}/>
+          </div>
+          <div className="add-btn add-tax-btn">
+            <input type="submit" value="ADD"/>
+          </div>
         </form>
       </div>
     )

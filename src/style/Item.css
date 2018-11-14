@@ -66,6 +66,7 @@
 .tax-btn {
   color: #666666;
   cursor: pointer;
+  padding: 5px;
 }
 .tax-btn:hover {
   color: #fff;
@@ -78,6 +79,25 @@
   display: inline-block;
   margin-right: 20px;
 }
+
+/* edit page */
+.row-items.row-edit {
+  border-bottom: 1px solid #a8a8a8;
+  margin-top: 20px;
+}
+span.icon-edit-item {
+  /* width: 50px; */
+  margin-left: 10px;
+  cursor: pointer;
+}
+.fa-pen:hover {
+  color: #AA1111;
+}
+
+
+
+
+
 
 
 @media only screen and (min-width: 401px) and (max-width:800px) {

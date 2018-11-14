@@ -53,7 +53,6 @@ class HomePage extends Component {
     const { open } = this.state;
     return (
       <React.Fragment>
-        <div className="slideshow__indicator"></div>
         <div className="home-page">
           <BillPage />
           <span className="plus-icon" onClick={this.onOpenModal}><i className="fas fa-plus-circle fa-spin-hover"></i></span>
@@ -66,7 +65,7 @@ class HomePage extends Component {
               <span className="menu-icons"><i className="far fa-image"></i></span>
               <p className="create-bill">ATTACH FILE</p>
             </div>
-        </Modal>
+          </Modal>
         </div>
       </React.Fragment>
     )

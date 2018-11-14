@@ -4,12 +4,15 @@ import Tax from './Tax'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fetchBill, clearItems, clearBill} from '../../actions/billAction'
+import Modal from 'react-responsive-modal';
 
 
 class BillContainer extends Component {
 
   state = {
-    renderForm: false
+    renderForm: false,
+    openTax: false,
+    openAdd: false
   }
 
   componentDidMount() {
@@ -48,8 +51,45 @@ class BillContainer extends Component {
     this.props.history.push(`/bills/${id}/assignPayers`)
   }
 
-  toggle = () => {
-    this.setState({renderForm: !this.state.renderForm})
+  onOpenTaxModal = () => {
+   this.setState({ openTax: true });
+  }
+
+  onCloseTaxModal = () => {
+   this.setState({ openTax: false });
+  }
+
+  onOpenAddModal = () => {
+   this.setState({ openAdd: true });
+  }
+
+  onCloseAddModal = () => {
+   this.setState({ openAdd: false });
+  }
+
+  handleCreateManual = () => {
+    let id = this.props.match.params.id
+    this.props.history.push(`/bills/${id}/items`)
+  }
+
+  handleAttach = () => {
+    let id = this.props.match.params.id
+    this.props.history.push(`/bills/${id}/upload`)
+  }
+
+  addButton = () => {
+    return (
+      <Modal open={this.state.openAdd} onClose={this.onCloseAddModal} center>
+        <div onClick={this.handleCreateManual} className="create-box">
+          <span className="menu-icons"><i className="far fa-edit"></i></span>
+          <p className="create-bill">WRITE MANUALLY</p>
+        </div>
+        <div onClick={this.handleAttach} className="create-box">
+          <span className="menu-icons"><i className="far fa-image"></i></span>
+          <p className="create-bill">ATTACH FILE</p>
+        </div>
+      </Modal>
+    )
   }
 
   render() {
@@ -59,6 +99,10 @@ class BillContainer extends Component {
     else if (this.props.wholeBill.items.length === 0) {
       return (<div className="home-page">
         <p>No item yet...</p>
+
+        <span className="plus-icon" onClick={this.onOpenAddModal}><i className="fas fa-plus-circle fa-spin-hover"></i></span>
+        {this.addButton()}
+
         <div onClick={this.props.history.goBack} id="back">
           <span>&#10229;</span>
           Go Back
@@ -66,8 +110,6 @@ class BillContainer extends Component {
       </div>)
     }
     else {
-      console.log("inside tax", this.props.tax)
-      // let finalTotal = this.total(this.props.wholeBill.items) + this.props.tax
       let total = this.total(this.props.wholeBill.items)
       let finalTotal = total + (total * this.props.tax / 100)
       let sortedItems = this.props.wholeBill.items.sort((a,b) => a.id - b.id)
@@ -76,7 +118,10 @@ class BillContainer extends Component {
           {sortedItems.map((item, idx) => <BillCard key={idx} item={item} />)}
           <div className="row-items tax-box">
             <div className="empty-div tax-div">
-              <button className="tax-btn" onClick={this.toggle}>+ ADD TAX</button>
+              <button className="tax-btn" onClick={this.onOpenTaxModal}>+ ADD TAX</button>
+              <Modal open={this.state.openTax} onClose={this.onCloseTaxModal} center>
+                <Tax taxFromBill={this.props.tax} onClose={this.onCloseTaxModal} />
+              </Modal>
             </div>
             <div className="item-total">
               TAX
@@ -97,10 +142,8 @@ class BillContainer extends Component {
             </div>
           </div>
 
-          {this.state.renderForm ? <Tax toggle={this.toggle} taxFromBill={this.props.tax} /> : null}
           <div className="btn-box">
             <button className="btn signup modify" onClick={this.handleEdit}>Modify</button>
-            {/* <button onClick={this.toggle}>Tax</button> */}
             <button className="btn submit next" onClick={this.handleNext}>Next</button>
           </div>
         </div>

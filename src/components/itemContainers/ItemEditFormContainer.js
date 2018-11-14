@@ -11,8 +11,9 @@ import Modal from 'react-responsive-modal';
 class ItemEditFormContainer extends Component {
 
   state = {
-    // renderForm: false,
-    open: false
+    openAddModal: false,
+    openDeleteModal: false,
+    openEditModal: false
   }
 
   componentDidMount() {
@@ -23,13 +24,14 @@ class ItemEditFormContainer extends Component {
     // }
   }
 
-  handleEdit = (item) => {
-    console.log("inside handleselect form ItemFormContainer", item)
-    this.props.history.push(`/items/${item.id}/edit`)
-  }
+  // handleEdit = (item) => {
+  //   console.log("inside handleselect form ItemFormContainer", item)
+  //   this.props.history.push(`/items/${item.id}/edit`)
+  // }
 
-  handleItemDelete = (e, id) => {
+  handleItemDelete = (id) => {
     this.props.deleteItem(id)
+    this.onCloseDeleteModal()
   }
 
   handleDone = () => {
@@ -42,81 +44,107 @@ class ItemEditFormContainer extends Component {
     this.setState({renderForm: true})
   }
 
-  // handleSave = () => {
-  //   let billId = this.props.match.params.id
-  //   let arr = this.props.items
-  //   this.props.postItems(billId, arr)
-  //   .then(() => this.props.history.push(`/bills/${billId}`))
-  // }
-
-  onOpenModal = () => {
-   this.setState({ open: true });
+  onOpenAddModal = () => {
+   this.setState({ openAddModal: true });
   }
 
-  onCloseModal = () => {
-   this.setState({ open: false });
+  onCloseAddModal = () => {
+   this.setState({ openAddModal: false });
   }
 
-  // onClick={this.handleAdd}
+  onOpenEditModal = () => {
+   this.setState({ openEditModal: true });
+  }
+
+  onCloseEditModal = () => {
+   this.setState({ openEditModal: false });
+  }
+
+  onOpenDeleteModal = () => {
+   this.setState({ openDeleteModal: true });
+  }
+
+  onCloseDeleteModal = () => {
+   this.setState({ openDeleteModal: false });
+  }
+
+  modalAddItem = () => {
+    return (
+      <Modal open={this.state.openAddModal} onClose={this.onCloseAddModal} center>
+        <ItemCreateFormContainer onClose={this.onCloseAddModal} />
+      </Modal>
+    )
+  }
+
+  modalEditItem = (item) => {
+    return (
+      <Modal open={this.state.openEditModal} onClose={this.onCloseEditModal} center>
+        <ItemEditForm onClose={this.onCloseEditModal} item={item} />
+      </Modal>
+    )
+  }
+
+  modalDeleteItem = (item) => {
+    return (
+      <Modal open={this.state.openDeleteModal} onClose={this.onCloseDeleteModal} center>
+        <div className="asking-box">
+          <p>Are you Sure about deleting it?</p>
+          <button className="btn cancel" onClick={this.onCloseDeleteModal}>Cancel</button>
+          <button className="btn yes" onClick={() => this.handleItemDelete(item.id)} >Delete</button>
+        </div>
+      </Modal>
+    )
+  }
 
   render() {
-    const {open} = this.state
     if (this.props.items.length === 0) {
       return (
         <div className="container">
           <div className="home-page">
-            <button class="btn submit" id="add" onClick={this.onOpenModal}>Add Item</button>
-            <Modal open={open} onClose={this.onCloseModal} center>
-              <ItemCreateFormContainer />
-            </Modal>
-            {/* {this.state.renderForm ? (<div>
-              <ItemCreateFormContainer />
-            </div>)
-            : null
-            } */}
+            <button className="btn submit" id="add" onClick={this.onOpenAddModal}>Add Item</button>
+            {this.modalAddItem()}
             <br/>
             <div onClick={this.props.history.goBack} id="back">
               <span>&#10229;</span>
               Go Back
             </div>
-        </div>
-
+          </div>
         </div>)
     }
     let sortedItems = this.props.items.sort((a,b) => a.id - b.id)
     const renderItems = sortedItems.map(item => {
       return (
         <div key={item.id}>
-          <div className="row-items">
+          <div className="row-items row-edit">
+
             <div className="item-title">
               {item.title}
             </div>
             <div className="item-price">
               <span>$</span>
               <p className="price-number">{parseFloat(item.price).toFixed(2)}</p>
-              <button onClick={() => this.handleEdit(item)}><i class="fas fa-pen"></i></button>
-              <button onClick={(e) => this.handleItemDelete(e, item.id)}><i class="far fa-trash-alt"></i></button>
+
+              <span className="icon-edit-item" onClick={this.onOpenEditModal}><i className="fas fa-pen"></i></span>
+              {this.modalEditItem(item)}
+
+              <span className="icon-edit-item" onClick={this.onOpenDeleteModal}><i className="far fa-trash-alt icons"></i></span>
+              {this.modalDeleteItem(item)}
+
             </div>
           </div>
-          {/* <button onClick={this.onOpenModal}>Edit</button>
-          <Modal open={open} onClose={this.onCloseModal} center>
-            <ItemEditForm />
-          </Modal> */}
-
-
         </div>
       )
     })
+
     return (
       <div className="container">
         <div className="home-page">
           {renderItems}
-          {/* <ItemCreateFormContainer /> */}
-          <button className="btn signup done-btn" onClick={this.handleDone}>Done</button>
-          <button class="btn submit add-item-btn" id="add" onClick={this.onOpenModal}>Add Item</button>
-          <Modal open={open} onClose={this.onCloseModal} center>
-            <ItemCreateFormContainer />
-          </Modal>
+          <div className="btn-box">
+            <button className="btn signup done-btn" onClick={this.handleDone}>Done</button>
+            <button className="btn submit" id="add" onClick={this.onOpenAddModal}>Add Item</button>
+            {this.modalAddItem()}
+          </div>
         </div>
       </div>
     )
