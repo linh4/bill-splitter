@@ -93,7 +93,7 @@ class PayerPage extends Component {
 
         </div>)}
 
-        <div onClick={this.props.history.goBack} id="back">
+        <div onClick={this.props.history.goBack} id="back-upload">
           <span>&#10229;</span>
           Go Back
         </div>

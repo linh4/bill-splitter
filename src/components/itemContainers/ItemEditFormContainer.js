@@ -100,7 +100,7 @@ class ItemEditFormContainer extends Component {
             <button className="btn submit" id="add" onClick={this.onOpenAddModal}>Add Item</button>
             {this.modalAddItem()}
             <br/>
-            <div onClick={this.props.history.goBack} id="back">
+            <div onClick={this.props.history.goBack} id="back-upload">
               <span>&#10229;</span>
               Go Back
             </div>

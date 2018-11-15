@@ -54,11 +54,14 @@ class BillPage extends Component {
   }
 
   render() {
+    const filterBills = this.props.allBill.filter(bill => bill.user_id === this.props.currentUser.id)
+    const billList = filterBills.sort((a,b) => b.id - a.id)
     if (this.props.allBill.length === 0) {
       return <div>You have no bill yet....</div>
     }
-    const filterBills = this.props.allBill.filter(bill => bill.user_id === this.props.currentUser.id)
-    const billList = filterBills.sort((a,b) => b.id - a.id)
+    else if (billList.length === 0) {
+      return <div>You have no bill yet....</div>
+    }
     return (
       <React.Fragment>
         <p className="bill-title">Bill from __</p>

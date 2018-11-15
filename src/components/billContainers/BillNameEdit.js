@@ -29,7 +29,6 @@ class BillNameEdit extends Component {
         <div className="add-btn add-tax-btn">
           <input type="submit" value="EDIT"/>
         </div>
-          <button onClick={() => this.props.handleClose()}>Close</button>
         </form>
       </div>
     )

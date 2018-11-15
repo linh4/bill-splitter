@@ -57,8 +57,8 @@ class SignUp extends React.Component{
           <input type="password" placeholder='Password' name="password" onChange={this.handleChange}/>
           <span><i className="fa fa-lock"></i></span>
         </div>
-          <button className="submit btn" onClick={this.handleSignUpSubmit} type='submit'>SUBMIT</button>
-          <button className="signup btn" onClick={this.handleSignup}>LOGIN</button>
+          <button className="submit btn login-form" onClick={this.handleSignUpSubmit} type='submit'>SUBMIT</button>
+          <button className="signup btn login-form" onClick={this.handleSignup}>LOGIN</button>
         </form>
       </React.Fragment>
     )

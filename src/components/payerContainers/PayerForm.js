@@ -25,12 +25,12 @@ class PayerForm extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} className="add-form">
-          <div className="input add-title">
+        <form onSubmit={this.handleSubmit} className="add-form payer-form">
+          <div className="input add-title payer-title">
             <input type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="enter payer name"/>
           </div>
-          <div className="add-btn">
-            <input type="submit" value="ADD PAYER"/>
+          <div className="add-btn payer-add">
+            <input type="submit" value="ADD"/>
           </div>
         </form>
       </div>

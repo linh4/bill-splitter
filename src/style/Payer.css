@@ -46,9 +46,11 @@
 .click-payer {
   color: #66666;
   margin-bottom: 30px;
+  color: #a8a8a8;
 }
 .click-name {
   font-size: 0.7em;
+  color: #a8a8a8;
 }
 
 .payer-modal-box {
@@ -128,6 +130,10 @@
   font-weight: 700;
   margin-bottom: 20px;
 }
+.click-detail {
+  font-size: 0.7em;
+  color: #a8a8a8
+}
 
 
 @media only screen and (min-width: 401px) and (max-width: 800px) {
@@ -137,6 +143,9 @@
 }
 
 @media only screen and (max-width: 400px) {
+  .payer-modal-box {
+    margin: 0 10px;;
+  }
   .bill-payer-box {
     width: 90%;
   }
@@ -148,14 +157,14 @@
     margin-bottom: 10px;
   }
   .click-name {
-    margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 0.5em;
   }
   .payer-render-name {
     font-size: 0.6em;
   }
   .item-name {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
   .checkbox-box {
     margin-top: -15px;
@@ -170,5 +179,17 @@
   .icon-bill-edit {
     font-size: 0.7em;
   }
+  .btn.signup.payer-done {
+    width: 100px;
+    height: 35px;;
+  }
+  .icon-trash {
+    font-size: 0.6em;
+  }
+  .click-detail {
+    font-size: 0.5em;
+    padding: 0;
+  }
+
 
 }

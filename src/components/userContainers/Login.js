@@ -54,8 +54,8 @@ class Login extends React.Component{
               <input type="password" placeholder='Password' name="password" onChange={this.handleChange} />
               <span><i className="fa fa-lock"></i></span>
             </div>
-            <button className="submit btn" onClick={this.handleSubmit} type='submit'>SUBMIT</button>
-            <button className="signup btn" onClick={this.handleSignup}>SIGNUP</button>
+            <button className="submit btn login-form" onClick={this.handleSubmit} type='submit'>SUBMIT</button>
+            <button className="signup btn login-form" onClick={this.handleSignup}>SIGNUP</button>
           </form>
         </div>
       )

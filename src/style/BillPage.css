@@ -172,7 +172,7 @@ span.menu-icons i {
       font-size: 1em;
     }
     .bill-box {
-      margin-left: 60px;
+      margin-left: 50px;
       font-size: 0.7em;
       padding: 10px;
     }
@@ -186,10 +186,10 @@ span.menu-icons i {
 
 @media only screen and (min-width: 401px) and (max-width: 800px) {
 
+
+
   .bill-box {
     margin-left: 90px;
-    /* font-size: 0.7em; */
-    /* padding: 10px; */
   }
   .delete-btn {
     margin: 30px auto 0 auto;

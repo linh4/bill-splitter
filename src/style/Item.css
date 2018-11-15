@@ -57,9 +57,6 @@
 }
 
 /* button for modify, tax and next */
-.btn-box {
-  margin-top: 20px;
-}
 .btn.signup.modify {
   margin-right: 30px;
 }
@@ -141,4 +138,11 @@ span.icon-edit-item {
   .price-number {
     /* width: 30px; */
   }
+  .done-btn {
+    margin-right: 0;
+  }
+  .btn.signup.modify {
+    margin-right: 0;
+  }
+
 }

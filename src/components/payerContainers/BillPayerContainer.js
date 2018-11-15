@@ -129,12 +129,14 @@ class BillPayerContainer extends Component {
         <p className="click-payer">****Click each item to assign payers***</p>
           {renderItems}
 
-        <button className="btn submit" onClick={this.onOpenTipModal}>Next</button>
-        {this.modalTip()}
+        <div className="btn-box">
+          <div onClick={this.handleBack} id="back-payer">
+            <span>&#10229;</span>
+            Go Back
+          </div>
 
-        <div onClick={this.handleBack} id="back">
-          <span>&#10229;</span>
-          Go Back
+          <button className="btn submit next" onClick={this.onOpenTipModal}>Next</button>
+          {this.modalTip()}
         </div>
 
       </div>

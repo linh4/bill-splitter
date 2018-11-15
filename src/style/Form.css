@@ -58,6 +58,9 @@
   flex-wrap: nowrap;
   padding: 20px;
 }
+.add-form.payer-form {
+  padding: 0 20px;;
+}
 
 .add-title,
 .add-price {
@@ -107,13 +110,33 @@
     padding: 0;
     text-align: center;
   }
+  .add-form.payer-form {
+    display: flex;
+    margin-top: -10px;
+    padding: 0;
+  }
+  .input.payer-title {
+    width: 70%;
+  }
+  .add-btn.payer-add input {
+    margin-top: 15px;
+    width: 60px;
+  }
   .add-price {
     width: 90%;
   }
   .add-btn input,
   .add-btn input:visited {
     margin-top: 0;
-    padding: 10px;
+    /* padding: 10px; */
+    width: 100px;
+  }
+  .upload-btn {
+    width: 100px;
+    heght: 40px;
+  }
+  .add-tax-btn {
+    margin: 0;
   }
 
 }

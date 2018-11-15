@@ -103,7 +103,7 @@ class BillContainer extends Component {
         <span className="plus-icon" onClick={this.onOpenAddModal}><i className="fas fa-plus-circle fa-spin-hover"></i></span>
         {this.addButton()}
 
-        <div onClick={this.props.history.goBack} id="back">
+        <div onClick={this.props.history.goBack} id="back-upload">
           <span>&#10229;</span>
           Go Back
         </div>

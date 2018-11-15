@@ -94,9 +94,9 @@ class PayerFormContainer extends Component {
         <div className="item-name">
           {this.props.item && this.props.item.title}
         </div>
+        <p className="click-name">***Names should be different****</p>
         {uniquePayers.map((payer, idx) => this.renderPayerList(payer, idx))}
         <PayerForm />
-        <p className="click-name">***Names should be different****</p>
         <button className="btn signup payer-done" onClick={this.handleDone}>Done</button>
       </div>)
     }
