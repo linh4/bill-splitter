@@ -65,16 +65,10 @@ class ItemEditForm extends React.Component {
             <input type="submit" value="EDIT"/>
           </div>
         </form>
-        {/* <button onClick={this.props.history.goBack}>Back</button> */}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    selectedItem: state.text.selectedItem
-  }
-}
 
-export default connect(mapStateToProps, {getItem, editItem})(ItemEditForm)
+export default connect(null, {getItem, editItem})(ItemEditForm)

@@ -3,11 +3,10 @@ import PayerForm from './PayerForm'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-// import CheckBoxForm from '../components/CheckBoxForm';
-// import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 import {getItem} from '../../actions/itemAction'
 import {fetchBill, clearBill} from '../../actions/billAction'
 import { deletePayer, postItemPayer, getPayer } from '../../actions/payerAction'
+import Modal from 'react-responsive-modal';
 
 class PayerFormContainer extends Component {
 
@@ -15,26 +14,8 @@ class PayerFormContainer extends Component {
     renderForm: false,
     isChecked: false,
     payerArr: [],
-  }
-
-  componentDidMount() {
-    console.log("inside payer form fetching")
-    let itemId = this.props.match.params.id
-    this.props.getItem(itemId)
-    .then(() => {
-      if (this.props.selectedItem) {
-        let billId = this.props.selectedItem.bill_id
-        this.props.fetchBill(billId)
-        .then(() => this.combinePayers())
-      }
-    })
-  }
-
-  combinePayers = () => {
-    const payers = this.props.wholeBill.payers.reduce((a,b) => a.concat(b))
-    let payerArr = this.props.payers.concat(payers)
-    let uniquePayers = _.uniqBy(payerArr, 'id')
-    this.props.getPayer(uniquePayers)
+    openDeleteModal: false,
+    payer: {},
   }
 
   onAddingItem = (payer) => {
@@ -57,57 +38,69 @@ class PayerFormContainer extends Component {
     this.setState({renderForm: true})
   }
 
-  handleDeletePayer = (e, payer) => {
-    const id = e.target.parentElement.children[0].id
-    const newPayers = this.state.payerArr.filter(payer => payer !== id)
+  handleDeletePayer = (payer) => {
+    const newPayers = this.state.payerArr.filter(payer => payer !== payer.id)
     this.setState({payerArr: newPayers })
     this.props.deletePayer(payer.id)
-    // .then(() => this.setState({renderForm: false}))
+    .then(() => this.props.fetchBill(this.props.match.params.id))
+    .then(() => this.onCloseDeleteModal())
   }
 
   handleDone = () => {
-    let id = this.props.selectedItem.id
-    let billId = this.props.selectedItem.bill_id
+    let id = this.props.item.id
+    let ibd = this.props.item.bill_id
     this.props.postItemPayer(id, this.state.payerArr)
-    .then(() => this.props.clearBill())
-    .then(() => this.props.history.push(`/bills/${billId}/assignPayers`))
+    .then(() => this.props.fetchBill(ibd))
+    .then(() => this.props.onClose())
+  }
+
+  onOpenDeleteModal = (payer) => {
+   this.setState({ openDeleteModal: true, payer: payer });
+  }
+
+  onCloseDeleteModal = () => {
+   this.setState({ openDeleteModal: false });
+  }
+
+  modalDeleteItem = () => {
+    return (
+      <Modal open={this.state.openDeleteModal} onClose={this.onCloseDeleteModal} payer={this.state.payer} center>
+        <div className="asking-box">
+          <p className="asking-delete">Are you sure about deleting it?</p>
+          <button className="btn cancel" onClick={this.onCloseDeleteModal}>Cancel</button>
+          <button className="btn yes" onClick={() => this.handleDeletePayer(this.state.payer)} >Delete</button>
+        </div>
+      </Modal>
+    )
   }
 
   renderPayerList = (payer,idx) => {
-    return (<div key={idx}>
+    return (<div key={idx} className="checkbox-box">
       <input type="checkbox" id={payer.id} value={payer.name || ''} onChange={this.onAddingItem} />
-      {payer.name}
-      <button onClick={(e) => this.handleDeletePayer(e, payer)}>X</button>
+      <p className="payer-render-name">{payer.name}</p>
+
+      <span className="icon-delete-btn" onClick={() => this.onOpenDeleteModal(payer)}><i className="far fa-trash-alt icon-trash"></i></span>
+        {this.modalDeleteItem()}
+
     </div>
     )
   }
 
   render() {
-    if (!this.props.wholeBill) {
-      return <div>Loading</div>
-    }
-    else {
-      return (<div>
-        {this.props.selectedItem && this.props.selectedItem.title}
-        {this.props.payers.map((payer, idx) => this.renderPayerList(payer, idx))}
+    console.log("inside render payer form", this.props.item)
+    let payerArr = this.props.payers.concat(...this.props.billPayers)
+    let uniquePayers = _.uniqBy(payerArr, 'id').sort((a,b) => a.id - b.id)
+      return (<div className="payer-modal-box">
+        <div className="item-name">
+          {this.props.item && this.props.item.title}
+        </div>
+        {uniquePayers.map((payer, idx) => this.renderPayerList(payer, idx))}
         <PayerForm />
-        ***Names should be different****
-        <br/>
-        <button onClick={this.handleDone}>Done</button>
+        <p className="click-name">***Names should be different****</p>
+        <button className="btn signup payer-done" onClick={this.handleDone}>Done</button>
       </div>)
     }
   }
-}
 
-const mapStateToProps = (state) => {
-  console.log("inside PayerFormContainer", state)
-  return {
-    bill: state.text.bill,
-    items: state.text.items,
-    payers: state.payer.payers,
-    selectedItem: state.text.selectedItem,
-    wholeBill: state.text.wholeBill
-    };
-};
 
-export default withRouter(connect(mapStateToProps, {fetchBill, deletePayer, postItemPayer, getItem, clearBill, getPayer})(PayerFormContainer))
+export default withRouter(connect(null, {fetchBill, deletePayer, postItemPayer, getItem, clearBill, getPayer})(PayerFormContainer))

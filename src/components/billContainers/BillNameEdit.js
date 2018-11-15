@@ -16,16 +16,19 @@ class BillNameEdit extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.changeName(this.props.bill.id, this.state.name)
-    .then(() => this.props.handleClose())
+    .then(() => this.props.onClose())
   }
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="add-form">
+          <div className="input">
           <input type="text" value={this.state.name} onChange={this.handleChange}/>
-          <br/>
-          <input type="submit"/>
+        </div>
+        <div className="add-btn add-tax-btn">
+          <input type="submit" value="EDIT"/>
+        </div>
           <button onClick={() => this.props.handleClose()}>Close</button>
         </form>
       </div>

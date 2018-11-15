@@ -124,4 +124,18 @@ html, body{
   #back {
     font-size: 0.6em;
   }
+  .asking-delete {
+    font-size: 0.7em;
+  }
+  .asking-box {
+    display: inline-block;
+    padding: 0;
+  }
+  .btn.cancel,
+  .btn.yes {
+    width: 100px;
+  }
+  .btn {
+    width: 100px;
+  }
 }

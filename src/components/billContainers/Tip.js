@@ -70,8 +70,8 @@ class Tip extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Tip Component</h1>
+      <div className="tip-box">
+        <p className="tip-name">ADD TIP</p>
         <SliderWithTooltip
           value={this.state.value}
           min={this.state.min} max={this.state.max}
@@ -85,9 +85,11 @@ class Tip extends Component {
           onAfterChange={this.onAfterChange}
       />
       <br/>
-      <button onClick={(e) =>this.handleCancel(e)}>Cancel</button>
-      <button onClick={this.handleNext}>Next</button>
+      <div className="asking-box">
+        <button className="btn cancel" onClick={(e) =>this.handleCancel(e)}>Cancel</button>
+        <button className="btn yes" onClick={this.handleNext}>Next</button>
       </div>
+    </div>
     )
   }
 }

@@ -25,7 +25,7 @@ class Tax extends Component {
       <div>
         <form onSubmit={this.handleSubmit} className="add-form" >
           <div className="input">
-            <input type="number" value={this.state.tax} step="any" onChange={this.handleChange}/>
+            <input type="number" min="0" value={this.state.tax} step="any" onChange={this.handleChange}/>
           </div>
           <div className="add-btn add-tax-btn">
             <input type="submit" value="ADD"/>

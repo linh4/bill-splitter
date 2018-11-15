@@ -1,0 +1,147 @@
+.row-items.row-item-payer {
+  width: 100% !important;
+}
+
+.row-bill-payers {
+  text-align: left;
+  margin: 10px auto;
+  font-size: 0.7em;
+  font-family: 'PT Sans Narrow', sans-serif;
+  border-bottom: 1px solid #a8a8a8;
+  color: #AA1111;
+}
+.row-unassigned {
+  display: inline-block;
+  width: 100%;
+}
+
+.row-payers {
+  display: flex;
+}
+.payer-name {
+  margin-right: 3px;
+}
+
+.bill-payer-box {
+  cursor: pointer;
+  width: 60%;
+  margin: 0 auto;
+  padding: 10px;
+  transition: 0.25s ease-out;
+}
+.bill-payer-box:hover {
+  color: #fff;
+  background: #a8a8a8;
+}
+.bill-payer-box:hover .row-payers {
+  color: #fff;
+}
+.bill-payer-box:hover .row-item-payer {
+  color: #AA1111;
+}
+.bill-payer-box:hover .row-unassigned {
+  color: #fff;
+}
+
+.click-payer {
+  color: #66666;
+  margin-bottom: 30px;
+}
+.click-name {
+  font-size: 0.7em;
+}
+
+.payer-modal-box {
+  margin: 0 30px;
+  text-align: center;
+}
+
+.item-name {
+  text-align: center;
+  font-size: 0.7em;
+  border-bottom: 1px solid #e5b7b7;
+  margin: 0 auto;
+  font-style: italic;
+}
+.payer-render-name {
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 0.8em;
+  font-family: 'PT Sans Narrow', serif;
+  text-align: left;
+  width: 100px;
+}
+.icon-trash {
+  font-size: 0.7em;
+  color: #AA1111;
+}
+.btn.signup.payer-done {
+  margin-top: 10px;
+}
+
+.tip-box {
+  margin: 0 auto;
+}
+.tip-name {
+  text-align: center;
+  font-weight: bold;
+}
+.rc-slider {
+  width: 600px;
+  margin-top: 30px;
+}
+
+
+/* Payer Page */
+.bill-name {
+  border-bottom: 1px solid #AA1111;
+  width: 70%;
+  margin: 0 auto;
+}
+.bill-name p {
+  width: 70%;
+  display: inline-block;
+}
+.icon-bill-edit {
+  width: 20%;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+
+@media only screen and (min-width: 401px) and (max-width: 800px) {
+  .rc-slider {
+    width: 320px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .bill-payer-box {
+    width: 90%;
+  }
+  .row-bill-payers {
+    font-size: 0.5em;
+  }
+  .click-payer {
+    font-size: 0.5em;
+    margin-bottom: 10px;
+  }
+  .click-name {
+    margin-top: 20px;
+    font-size: 0.5em;
+  }
+  .payer-render-name {
+    font-size: 0.6em;
+  }
+  .item-name {
+    margin-bottom: 15px;
+  }
+  .checkbox-box {
+    margin-top: -15px;
+  }
+
+  .rc-slider {
+    width: 240px;
+  }
+
+}

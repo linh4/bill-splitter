@@ -13,7 +13,8 @@ class ItemEditFormContainer extends Component {
   state = {
     openAddModal: false,
     openDeleteModal: false,
-    openEditModal: false
+    openEditModal: false,
+    item: {}
   }
 
   componentDidMount() {
@@ -23,11 +24,6 @@ class ItemEditFormContainer extends Component {
       .catch(() => console.log('error'))
     // }
   }
-
-  // handleEdit = (item) => {
-  //   console.log("inside handleselect form ItemFormContainer", item)
-  //   this.props.history.push(`/items/${item.id}/edit`)
-  // }
 
   handleItemDelete = (id) => {
     this.props.deleteItem(id)
@@ -52,16 +48,16 @@ class ItemEditFormContainer extends Component {
    this.setState({ openAddModal: false });
   }
 
-  onOpenEditModal = () => {
-   this.setState({ openEditModal: true });
+  onOpenEditModal = (item) => {
+   this.setState({ openEditModal: true, item: item });
   }
 
   onCloseEditModal = () => {
    this.setState({ openEditModal: false });
   }
 
-  onOpenDeleteModal = () => {
-   this.setState({ openDeleteModal: true });
+  onOpenDeleteModal = (item) => {
+   this.setState({ openDeleteModal: true, item: item });
   }
 
   onCloseDeleteModal = () => {
@@ -76,21 +72,21 @@ class ItemEditFormContainer extends Component {
     )
   }
 
-  modalEditItem = (item) => {
+  modalEditItem = () => {
     return (
-      <Modal open={this.state.openEditModal} onClose={this.onCloseEditModal} center>
-        <ItemEditForm onClose={this.onCloseEditModal} item={item} />
+      <Modal open={this.state.openEditModal} onClose={this.onCloseEditModal} item={this.state.item} center>
+        <ItemEditForm onClose={this.onCloseEditModal} item={this.state.item} />
       </Modal>
     )
   }
 
-  modalDeleteItem = (item) => {
+  modalDeleteItem = () => {
     return (
-      <Modal open={this.state.openDeleteModal} onClose={this.onCloseDeleteModal} center>
+      <Modal open={this.state.openDeleteModal} onClose={this.onCloseDeleteModal} item={this.state.item} center>
         <div className="asking-box">
-          <p>Are you Sure about deleting it?</p>
+          <p className="asking-delete">Are you sure about deleting it?</p>
           <button className="btn cancel" onClick={this.onCloseDeleteModal}>Cancel</button>
-          <button className="btn yes" onClick={() => this.handleItemDelete(item.id)} >Delete</button>
+          <button className="btn yes" onClick={() => this.handleItemDelete(this.state.item.id)} >Delete</button>
         </div>
       </Modal>
     )
@@ -124,11 +120,11 @@ class ItemEditFormContainer extends Component {
               <span>$</span>
               <p className="price-number">{parseFloat(item.price).toFixed(2)}</p>
 
-              <span className="icon-edit-item" onClick={this.onOpenEditModal}><i className="fas fa-pen"></i></span>
-              {this.modalEditItem(item)}
+              <span className="icon-edit-item" onClick={() => this.onOpenEditModal(item)}><i className="fas fa-pen"></i></span>
+                {this.modalEditItem()}
 
-              <span className="icon-edit-item" onClick={this.onOpenDeleteModal}><i className="far fa-trash-alt icons"></i></span>
-              {this.modalDeleteItem(item)}
+              <span className="icon-edit-item" onClick={() => this.onOpenDeleteModal(item)}><i className="far fa-trash-alt icons"></i></span>
+                {this.modalDeleteItem()}
 
             </div>
           </div>

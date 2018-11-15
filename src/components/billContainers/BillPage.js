@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getAllBills, deleteBill} from '../../actions/billAction'
+import { clearPayers } from '../../actions/payerAction'
 import Modal from 'react-responsive-modal';
 
 class BillPage extends Component {
 
   state = {
     open: false,
+    bill: {}
   }
 
   componentDidMount() {
@@ -18,8 +20,10 @@ class BillPage extends Component {
 
   handleClick = (bill) => {
     if (this.renderPayers(bill).length === 0) {
+      this.props.clearPayers()
       this.props.history.push(`/bills/${bill.id}`)
     } else {
+      this.props.clearPayers()
       this.props.history.push(`/bills/${bill.id}/payers`)
     }
   }
@@ -29,21 +33,21 @@ class BillPage extends Component {
     this.onCloseModal()
   }
 
-  onOpenModal = () => {
-   this.setState({ open: true });
+  onOpenModal = (bill) => {
+   this.setState({ open: true, bill: bill });
   }
 
   onCloseModal = () => {
    this.setState({ open: false });
   }
 
-  modalBox = (bill) => {
+  modalBox = () => {
     return (
-      <Modal open={this.state.open} onClose={this.onCloseModal} center>
+      <Modal open={this.state.open} onClose={this.onCloseModal} bill={this.state.bill} center>
         <div className="asking-box">
-          <p>Are you Sure about deleting it?</p>
+          <p className="asking-delete">Are you sure about deleting it?</p>
           <button className="btn cancel" onClick={this.onCloseModal}>Cancel</button>
-          <button className="btn yes" onClick={() => this.handleDelete(bill.id)} >Delete</button>
+          <button className="btn yes" onClick={() => this.handleDelete(this.state.bill.id)} >Delete</button>
         </div>
       </Modal>
     )
@@ -66,8 +70,8 @@ class BillPage extends Component {
               </div>
 
               <div className="delete-btn" >
-                <span onClick={this.onOpenModal}><i className="far fa-trash-alt icons"></i></span>
-                {this.modalBox(bill)}
+                <span onClick={() => this.onOpenModal(bill)}><i className="far fa-trash-alt icons"></i></span>
+                {this.modalBox()}
               </div>
 
             </React.Fragment>
@@ -78,8 +82,8 @@ class BillPage extends Component {
                 <p> __{bill.date}</p>
               </div>
               <div className="delete-btn" >
-                <span onClick={this.onOpenModal}><i className="far fa-trash-alt icons"></i></span>
-                {this.modalBox(bill)}
+                <span onClick={() => this.onOpenModal(bill)}><i className="far fa-trash-alt icons"></i></span>
+                {this.modalBox()}
               </div>
             </React.Fragment>)
           }
@@ -100,4 +104,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, {getAllBills, deleteBill})(BillPage))
+export default withRouter(connect(mapStateToProps, {getAllBills, deleteBill, clearPayers})(BillPage))

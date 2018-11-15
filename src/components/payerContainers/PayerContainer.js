@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fetchBill, deleteBill} from '../../actions/billAction'
 import { fetchPayers } from '../../actions/payerAction'
+import Modal from 'react-responsive-modal';
 
 class PayerContainer extends Component {
 
     state = {
-      renderForm: false
+      openEditModal: false,
     }
 
   componentDidMount() {
@@ -51,16 +52,30 @@ class PayerContainer extends Component {
 
   renderBill = (bill) => {
     if (this.props.name) {
-      return (<div>
-        <p> {this.props.name}</p>
-      </div>)
+      return <p>{this.props.name}</p>
     }
     else {
-      return (<div>
-        <p> {bill.date}</p>
-      </div>)
+      return <p>{bill.date}</p>
     }
   }
+
+
+  onOpenEditModal = () => {
+   this.setState({ openEditModal: true });
+  }
+
+  onCloseEditModal = () => {
+   this.setState({ openEditModal: false });
+  }
+
+  modalEditBill = () => {
+    return (
+      <Modal open={this.state.openEditModal} onClose={this.onCloseEditModal} item={this.state.item} center>
+        <BillNameEdit onClose={this.onCloseEditModal} bill={this.props.wholeBill} />
+      </Modal>
+    )
+  }
+
 
   render() {
     if (this.props.payerArr.length === 0) {
@@ -68,14 +83,19 @@ class PayerContainer extends Component {
     }
     const filterPayers = this.props.payerArr.filter(payer => payer.bill_id[0] == this.props.match.params.id)
     return(
-      <div>
-        {this.renderBill(this.props.wholeBill)}
-        <button onClick={this.handleEdit}>Edit</button>
+      <div className="home-page">
+        <div className="bill-name">
+          {this.renderBill(this.props.wholeBill)}
+          {/* <button onClick={this.handleEdit}>Edit</button> */}
+          <span className="icon-bill-edit" onClick={this.onOpenEditModal}><i className="fas fa-pen"></i></span>
+            {this.modalEditBill()}
+        </div>
 
-        {this.state.renderForm ? <BillNameEdit handleClose={this.handleClose} bill={this.props.wholeBill} /> : null}
+        {/* {this.state.renderForm ? <BillNameEdit handleClose={this.handleClose} bill={this.props.wholeBill} /> : null} */}
 
         {filterPayers.map(payer => (<div key={payer.id}>
           <p onClick={() => this.handlePayer(payer.id)}>{payer.name}</p>
+
           ${parseFloat(this.totalPrice(payer.items)).toFixed(2)}
           <hr/>
         </div>))

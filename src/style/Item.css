@@ -86,17 +86,12 @@
   margin-top: 20px;
 }
 span.icon-edit-item {
-  /* width: 50px; */
   margin-left: 10px;
   cursor: pointer;
 }
 .fa-pen:hover {
   color: #AA1111;
 }
-
-
-
-
 
 
 
@@ -118,9 +113,31 @@ span.icon-edit-item {
     font-size: 0.4em;
   }
   .empty-div {
-    width: 50%;
+    width: 60%;
+  }
+  .item-total {
+    width: 10%;
   }
   .item-total-price {
-    width: 25%;
+    width: 30%;
+  }
+  .tax-btn {
+    margin-top: 5px;
+    padding: 1px;
+  }
+  .item-title {
+    width: 50%;
+  }
+  .item-price {
+    width: 50%;
+  }
+  .fa-pen {
+    font-size: 0.9em;
+  }
+  .fa-trash-alt.icons {
+    font-size: 0.9em;
+  }
+  .price-number {
+    /* width: 30px; */
   }
 }
