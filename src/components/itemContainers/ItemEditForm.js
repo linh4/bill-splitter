@@ -57,7 +57,7 @@ class ItemEditForm extends React.Component {
           </div>
 
           <div className="input add-price">
-            <input name="price" value={this.state.price} onChange={this.handleChange}/>
+            <input name="price" type="number" min="0" value={this.state.price} onChange={this.handleChange}/>
             <span><i className="fas fa-dollar-sign"></i></span>
           </div>
 

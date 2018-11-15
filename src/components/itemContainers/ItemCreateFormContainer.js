@@ -55,7 +55,7 @@ class ItemCreateFormContainer extends Component {
             <span><i className="fas fa-tag"></i></span>
           </div>
           <div className="input add-price">
-            <input type="number " name="price" min="0" step="any" value={this.state.price} onChange={this.handleChange}/>
+            <input type="number" name="price" min="0" step="any" value={this.state.price} onChange={this.handleChange}/>
             <span><i className="fas fa-dollar-sign"></i></span>
           </div>
           <div className="add-btn">
