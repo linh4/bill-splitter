@@ -77,7 +77,6 @@ class BillPayerContainer extends Component {
     if (payer) {
       alert('All items need to be assigned')
     } else {
-      // this.setState({renderTip: true})
       this.setState({ openTipModal: true });
     }
   }
@@ -88,7 +87,7 @@ class BillPayerContainer extends Component {
 
   modalPayer = () => {
     return (
-      <Modal open={this.state.openPayerModal} onClose={this.onClosePayerModal} item={this.state.item} center>
+      <Modal open={this.state.openPayerModal} onClose={this.onClosePayerModal} item={this.state.item} animationDuration={200} center>
         <PayerFormContainer onClose={this.onClosePayerModal} item={this.state.item} billPayers={this.props.wholeBill.payers} payers={this.props.payers} />
       </Modal>
     )
@@ -96,7 +95,7 @@ class BillPayerContainer extends Component {
 
   modalTip = () => {
     return (
-      <Modal open={this.state.openTipModal} onClose={this.onCloseTipModal} center>
+      <Modal open={this.state.openTipModal} onClose={this.onCloseTipModal} animationDuration={200} center>
         <Tip />
       </Modal>
     )

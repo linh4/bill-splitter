@@ -43,9 +43,7 @@ class Tip extends Component {
      value,
    });
   }
-   // onAfterChange = (value) => {
-   //   console.log(value); //eslint-disable-line
-   // }
+
    onMinChange = (e) => {
       this.setState({
       min: +e.target.value || 0,

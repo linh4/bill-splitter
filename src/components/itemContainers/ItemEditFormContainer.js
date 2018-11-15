@@ -66,7 +66,7 @@ class ItemEditFormContainer extends Component {
 
   modalAddItem = () => {
     return (
-      <Modal open={this.state.openAddModal} onClose={this.onCloseAddModal} center>
+      <Modal open={this.state.openAddModal} onClose={this.onCloseAddModal} animationDuration={200} center>
         <ItemCreateFormContainer onClose={this.onCloseAddModal} />
       </Modal>
     )
@@ -74,7 +74,7 @@ class ItemEditFormContainer extends Component {
 
   modalEditItem = () => {
     return (
-      <Modal open={this.state.openEditModal} onClose={this.onCloseEditModal} item={this.state.item} center>
+      <Modal open={this.state.openEditModal} onClose={this.onCloseEditModal} item={this.state.item} animationDuration={200} center>
         <ItemEditForm onClose={this.onCloseEditModal} item={this.state.item} />
       </Modal>
     )
@@ -82,7 +82,7 @@ class ItemEditFormContainer extends Component {
 
   modalDeleteItem = () => {
     return (
-      <Modal open={this.state.openDeleteModal} onClose={this.onCloseDeleteModal} item={this.state.item} center>
+      <Modal open={this.state.openDeleteModal} onClose={this.onCloseDeleteModal} item={this.state.item} animationDuration={200} center>
         <div className="asking-box">
           <p className="asking-delete">Are you sure about deleting it?</p>
           <button className="btn cancel" onClick={this.onCloseDeleteModal}>Cancel</button>

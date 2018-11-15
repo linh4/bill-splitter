@@ -43,7 +43,7 @@ class BillPage extends Component {
 
   modalBox = () => {
     return (
-      <Modal open={this.state.open} onClose={this.onCloseModal} bill={this.state.bill} center>
+      <Modal open={this.state.open} onClose={this.onCloseModal} bill={this.state.bill} animationDuration={200}  center>
         <div className="asking-box">
           <p className="asking-delete">Are you sure about deleting it?</p>
           <button className="btn cancel" onClick={this.onCloseModal}>Cancel</button>
@@ -57,10 +57,10 @@ class BillPage extends Component {
     const filterBills = this.props.allBill.filter(bill => bill.user_id === this.props.currentUser.id)
     const billList = filterBills.sort((a,b) => b.id - a.id)
     if (this.props.allBill.length === 0) {
-      return <div>You have no bill yet....</div>
+      return <div className="home-page">You have no bill yet....</div>
     }
     else if (billList.length === 0) {
-      return <div>You have no bill yet....</div>
+      return <div className="home-page">You have no bill yet....</div>
     }
     return (
       <React.Fragment>

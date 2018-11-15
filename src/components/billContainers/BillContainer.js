@@ -79,7 +79,7 @@ class BillContainer extends Component {
 
   addButton = () => {
     return (
-      <Modal open={this.state.openAdd} onClose={this.onCloseAddModal} center>
+      <Modal open={this.state.openAdd} onClose={this.onCloseAddModal} animationDuration={200} center>
         <div onClick={this.handleCreateManual} className="create-box">
           <span className="menu-icons"><i className="far fa-edit"></i></span>
           <p className="create-bill">WRITE MANUALLY</p>
@@ -94,7 +94,7 @@ class BillContainer extends Component {
 
   render() {
     if (this.props.wholeBill === null) {
-      return <div>Loading</div>
+      return <div className="home-page">Loading</div>
     }
     else if (this.props.wholeBill.items.length === 0) {
       return (<div className="home-page">
@@ -119,7 +119,7 @@ class BillContainer extends Component {
           <div className="row-items tax-box">
             <div className="empty-div tax-div">
               <button className="tax-btn" onClick={this.onOpenTaxModal}>+ ADD TAX</button>
-              <Modal open={this.state.openTax} onClose={this.onCloseTaxModal} center>
+              <Modal open={this.state.openTax} onClose={this.onCloseTaxModal} animationDuration={200}  center>
                 <Tax taxFromBill={this.props.tax} onClose={this.onCloseTaxModal} />
               </Modal>
             </div>

@@ -77,7 +77,7 @@
   font-size: 0.7em;
   color: #AA1111;
 }
-.btn.signup.payer-done {
+.btn.submit.payer-done {
   margin-top: 10px;
 }
 
@@ -135,6 +135,24 @@
   color: #a8a8a8
 }
 
+.checkbox-box input[type="checkbox"] {
+  zoom: 1.2;
+  transform: scale(2);
+}
+.checkbox-box input:checked {
+    color: #fff;
+   top: 4px;
+   left: 4px;
+}
+.checkbox-box input:checked{
+  content: '\2713';
+  color: #fff;
+  /* position: absolute; */
+  font-size: 0.65em;
+  left: 6px;
+  top: 3px;
+}
+
 
 @media only screen and (min-width: 401px) and (max-width: 800px) {
   .rc-slider {
@@ -157,17 +175,22 @@
     margin-bottom: 10px;
   }
   .click-name {
-    margin-bottom: 20px;
     font-size: 0.5em;
   }
   .payer-render-name {
     font-size: 0.6em;
+    margin-bottom: 5px;
   }
   .item-name {
     margin-bottom: 5px;
   }
   .checkbox-box {
     margin-top: -15px;
+    margin-bottom: 10px;
+  }
+  .checkbox-box input[type="checkbox"] {
+    zoom: 1.1;
+    transform: scale(1.8);
   }
 
   .rc-slider {
@@ -179,7 +202,7 @@
   .icon-bill-edit {
     font-size: 0.7em;
   }
-  .btn.signup.payer-done {
+  .btn.submit.payer-done {
     width: 100px;
     height: 35px;;
   }

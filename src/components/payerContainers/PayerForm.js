@@ -30,7 +30,7 @@ class PayerForm extends React.Component {
             <input type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="enter payer name"/>
           </div>
           <div className="add-btn payer-add">
-            <input type="submit" value="ADD"/>
+            <input type="submit" value="Submit"/>
           </div>
         </form>
       </div>

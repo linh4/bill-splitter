@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getThisPayer } from '../../actions/payerAction'
 import { fetchBill } from '../../actions/billAction'
 import { convertNum } from '../../actions/convertFunction'
+import _ from 'lodash'
 
 class PayerPage extends Component {
 
@@ -39,11 +40,12 @@ class PayerPage extends Component {
     if (!this.props.selectedPayer) {
       return <div>Loading...</div>
     }
+    const filterItems = _.uniqBy(this.props.selectedPayer.items, 'id')
     return (
       <div className="home-page">
         <p className="payer-top-name">{this.props.selectedPayer.name}</p>
         <hr/>
-        {this.props.selectedPayer.items.map(item => {
+        {filterItems.map(item => {
           return (
             <div key={item.id} className="row-items">
             <div className="item-title">

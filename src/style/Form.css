@@ -85,6 +85,12 @@
   border: 1px solid #AA1111;
   color: #AA1111;
 }
+.add-btn.payer-add input{
+  background: #fff;
+  color: #AA1111;
+  border: 1px solid #AA1111;
+}
+
 
 .upload-btn {
   margin-top: 15px;
@@ -113,6 +119,7 @@
   .add-form.payer-form {
     display: flex;
     margin-top: -10px;
+    margin-bottom: 5px;
     padding: 0;
   }
   .input.payer-title {

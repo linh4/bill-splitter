@@ -64,7 +64,7 @@ class PayerFormContainer extends Component {
 
   modalDeleteItem = () => {
     return (
-      <Modal open={this.state.openDeleteModal} onClose={this.onCloseDeleteModal} payer={this.state.payer} center>
+      <Modal open={this.state.openDeleteModal} onClose={this.onCloseDeleteModal} payer={this.state.payer} animationDuration={200} center>
         <div className="asking-box">
           <p className="asking-delete">Are you sure about deleting it?</p>
           <button className="btn cancel" onClick={this.onCloseDeleteModal}>Cancel</button>
@@ -95,9 +95,9 @@ class PayerFormContainer extends Component {
           {this.props.item && this.props.item.title}
         </div>
         <p className="click-name">***Names should be different****</p>
-        {uniquePayers.map((payer, idx) => this.renderPayerList(payer, idx))}
         <PayerForm />
-        <button className="btn signup payer-done" onClick={this.handleDone}>Done</button>
+        {uniquePayers.map((payer, idx) => this.renderPayerList(payer, idx))}
+        <button className="btn submit payer-done" onClick={this.handleDone}>SAVE</button>
       </div>)
     }
   }

@@ -70,7 +70,7 @@ class PayerContainer extends Component {
 
   modalEditBill = () => {
     return (
-      <Modal open={this.state.openEditModal} onClose={this.onCloseEditModal} item={this.state.item} center>
+      <Modal open={this.state.openEditModal} onClose={this.onCloseEditModal} item={this.state.item} animationDuration={200} center>
         <BillNameEdit onClose={this.onCloseEditModal} bill={this.props.wholeBill} />
       </Modal>
     )
@@ -89,7 +89,7 @@ class PayerContainer extends Component {
           <span className="icon-bill-edit" onClick={this.onOpenEditModal}><i className="fas fa-pen"></i></span>
             {this.modalEditBill()}
         </div>
-        <p className="click-detail">---Click each payer for detail---</p>  
+        <p className="click-detail">---Click each payer for detail---</p>
         {filterPayers.map(payer => (
           <div key={payer.id} className="row-items payer-rows" onClick={() => this.handlePayer(payer.id)}>
             <div className="item-title">
