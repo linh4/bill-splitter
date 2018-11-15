@@ -86,22 +86,26 @@ class PayerContainer extends Component {
       <div className="home-page">
         <div className="bill-name">
           {this.renderBill(this.props.wholeBill)}
-          {/* <button onClick={this.handleEdit}>Edit</button> */}
           <span className="icon-bill-edit" onClick={this.onOpenEditModal}><i className="fas fa-pen"></i></span>
             {this.modalEditBill()}
         </div>
 
-        {/* {this.state.renderForm ? <BillNameEdit handleClose={this.handleClose} bill={this.props.wholeBill} /> : null} */}
-
-        {filterPayers.map(payer => (<div key={payer.id}>
-          <p onClick={() => this.handlePayer(payer.id)}>{payer.name}</p>
-
-          ${parseFloat(this.totalPrice(payer.items)).toFixed(2)}
-          <hr/>
-        </div>))
+        {filterPayers.map(payer => (
+          <div key={payer.id} className="row-items payer-rows" onClick={() => this.handlePayer(payer.id)}>
+            <div className="item-title">
+              <p>{payer.name}</p>
+            </div>
+            <div className="item-price">
+              ${parseFloat(this.totalPrice(payer.items)).toFixed(2)}
+            </div>
+          </div>
+          ))
         }
-        <button onClick={this.handleBillEdit}>Edit</button>
-        <button onClick={this.handleDone}>Done</button>
+
+        <div className="btn-box">
+          <button className="btn signup modify" onClick={this.handleBillEdit}>Edit</button>
+          <button className="btn submit next" onClick={this.handleDone}>Done</button>
+        </div>
       </div>
     )
   }

@@ -137,8 +137,6 @@ class BillPayerContainer extends Component {
           Go Back
         </div>
 
-        {/* {this.state.renderTip ? <Tip handleDisplay={this.handleDisplay} /> : null} */}
-
       </div>
     )
   }

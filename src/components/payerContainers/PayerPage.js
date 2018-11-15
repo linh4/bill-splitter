@@ -40,24 +40,63 @@ class PayerPage extends Component {
       return <div>Loading...</div>
     }
     return (
-      <div>
-        <p>{this.props.selectedPayer.name}</p>
+      <div className="home-page">
+        <p className="payer-top-name">{this.props.selectedPayer.name}</p>
         <hr/>
         {this.props.selectedPayer.items.map(item => {
-          return (<div key={item.id}>
-            <p> {this.numToFraction(item)} {item.title} - ${this.costEachItem(item)}</p>
+          return (
+            <div key={item.id} className="row-items">
+            <div className="item-title">
+              <p> {this.numToFraction(item)} {item.title}</p>
+            </div>
+            <div className="item-price">
+              <span>$</span>
+              <p className="price-number">{this.costEachItem(item)}</p>
+            </div>
+
           </div>)
           })
         }
         {this.props.wholeBill && (<div>
-          <hr/>
-          <p>TAX - %{this.props.wholeBill.tax}</p>
-          <p>TIP - %{this.props.wholeBill.tip}</p>
-          <hr/>
-          <p>TOTAL - ${parseFloat(this.totalPrice(this.props.selectedPayer.items)).toFixed(2)}</p>
+          <div className="row-items tax-box">
+            <div className="empty-div tax-div"></div>
+            <div className="item-total">
+              TAX
+            </div>
+            <div className="item-total-price">
+              <span>%</span>
+              <p className="price-number tax">{this.props.wholeBill.tax}</p>
+            </div>
+          </div>
+
+          <div className="row-items tax-box">
+            <div className="empty-div tax-div"></div>
+            <div className="item-total">
+              TIP
+            </div>
+            <div className="item-total-price">
+              <span>%</span>
+              <p className="price-number tax">{this.props.wholeBill.tip}</p>
+            </div>
+          </div>
+
+          <div className="row-items total-box">
+          <div className="empty-div"></div>
+          <div className="item-total">
+            TOTAL
+          </div>
+          <div className="item-total-price">
+            <span>$</span>
+            <p className="price-number total">{parseFloat(this.totalPrice(this.props.selectedPayer.items)).toFixed(2)}</p>
+          </div>
+        </div>
+
         </div>)}
-        <button onClick={this.props.history.goBack}>Back</button>
-        <button>Venmo</button>
+
+        <div onClick={this.props.history.goBack} id="back">
+          <span>&#10229;</span>
+          Go Back
+        </div>
       </div>
     )
   }

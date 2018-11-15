@@ -96,16 +96,37 @@
 .bill-name {
   border-bottom: 1px solid #AA1111;
   width: 70%;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
 }
 .bill-name p {
   width: 70%;
   display: inline-block;
+  margin-bottom:
 }
 .icon-bill-edit {
   width: 20%;
   margin-left: 20px;
   cursor: pointer;
+  color: #a8a8a8;
+}
+
+.row-items.payer-rows {
+  margin: 20px auto;
+  padding: 10px 7px;
+  border-bottom: 1px solid #a8a8a8;
+  cursor: pointer;
+  width: 70%;
+  transition: 0.25s ease-out;
+}
+.row-items.payer-rows:hover {
+  background: #AA1111;
+  color: #fff;
+}
+
+.payer-top-name {
+  color: #AA1111;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
 
 
@@ -142,6 +163,12 @@
 
   .rc-slider {
     width: 240px;
+  }
+  .bill-name p {
+    font-size: 0.7em;
+  }
+  .icon-bill-edit {
+    font-size: 0.7em;
   }
 
 }
