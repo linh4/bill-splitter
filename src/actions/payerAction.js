@@ -52,7 +52,6 @@ export const deletePayer = (payerId) => {
 }
 
 export const postItemPayer = (itemId, payers) => {
-  console.log(itemId, payers)
   return dispatch => {
     return fetch("https://split-b-api.herokuapp.com/item_payers", {
       method: 'POST',
@@ -62,8 +61,6 @@ export const postItemPayer = (itemId, payers) => {
         payer_id: payers
       })
     })
-    // .then(res => res.json())
-    // .then(console.log)
   }
 }
 

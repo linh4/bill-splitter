@@ -1,5 +1,4 @@
 const loginUser = (user) => {
-  console.log("in login action", user)
   return {type: 'LOGIN_USER', payload: user}
 }
 

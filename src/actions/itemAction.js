@@ -27,8 +27,6 @@ let head = {
          item: item
        })
      })
-     .then(res => res.text())
-     .then(data => console.log(data))
    }
  }
 
@@ -75,7 +73,5 @@ export const createItem = (billId, item) => {
         item: item
       })
     })
-    // .then(res => res.text())
-    // .then(data => console.log(data))
   }
 }

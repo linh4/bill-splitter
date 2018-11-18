@@ -16,12 +16,9 @@ class BillContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('wait to fetch')
-    // if (this.props.items.length < 1) {
       let billId = this.props.match.params.id
       this.props.fetchBill(billId)
       .catch(() => console.log('error'))
-    // }
   }
 
   total = (props) => {
@@ -153,9 +150,7 @@ class BillContainer extends Component {
   }
 
 const mapStateToProps = (state) => {
-  console.log("inside bill container", state)
   return {
-    // items: state.text.items,
     bill: state.text.bill,
     wholeBill: state.text.wholeBill,
     tax: state.text.tax

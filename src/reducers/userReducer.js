@@ -5,7 +5,6 @@ const initialState = {
 }
 
 const userReducer = (state = initialState, action) => {
-  // console.log('in user reducer')
   switch (action.type) {
     case 'SIGNUP_USER':
       localStorage.setItem("token", action.payload.jwt)
@@ -18,7 +17,6 @@ const userReducer = (state = initialState, action) => {
       return {...state, currentUser: {}}
     case 'CURRENT_USER':
       return {...state, currentUser: action.payload, loggedIn: true}
-
     default:
       return state;
   }

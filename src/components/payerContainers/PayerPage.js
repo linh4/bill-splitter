@@ -9,12 +9,10 @@ import _ from 'lodash'
 class PayerPage extends Component {
 
   componentDidMount() {
-    // if (!this.props.wholeBill) {
     let billId = this.props.match.url.slice(7, 9)
     this.props.fetchBill(billId)
     let id = this.props.match.params.id
     this.props.getThisPayer(id)
-    // }
   }
 
   totalPrice = (items) => {
@@ -105,7 +103,6 @@ class PayerPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("inside payerPage", state)
   return {
     selectedPayer: state.payer.selectedPayer,
     wholeBill: state.text.wholeBill

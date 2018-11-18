@@ -11,7 +11,6 @@ import '../../style/Payer.css'
 class BillPayerContainer extends Component {
 
   state = {
-    // renderTip: false,
     openPayerModal: false,
     openTipModal: false,
     item: {}
@@ -144,7 +143,6 @@ class BillPayerContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("inside assignPayers state", state.text.wholeBill)
   return {
     items: state.text.items,
     selectedPayers: state.payer.selectedPayers,

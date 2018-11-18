@@ -69,7 +69,7 @@ class BillPage extends Component {
           {this.renderPayers(bill).length === 0 ? (
             <React.Fragment>
               <div className="bill-box" onClick={() => this.handleClick(bill)}>
-                <p> __{bill.date} <span className="uncomplete">Uncompleted</span></p>
+                <p> __{bill.date} <span className="uncomplete">Incomplete</span></p>
               </div>
 
               <div className="delete-btn" >
@@ -99,7 +99,6 @@ class BillPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("inside homepage", state)
   return {
     currentUser: state.user.currentUser,
     allBill: state.text.allBill,

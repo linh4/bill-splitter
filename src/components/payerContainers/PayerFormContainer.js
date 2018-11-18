@@ -23,10 +23,8 @@ class PayerFormContainer extends Component {
     const id = payer.target.id
     this.setState({isChecked: !this.state.isChecked})
     if (isChecked) {
-      console.log('checked!')
       return this.setState({payerArr: [...this.state.payerArr, id]})
     } else {
-      console.log('not checked')
       const newPayers = this.state.payerArr.filter(payer => payer !== id)
       return this.setState({payerArr: newPayers })
     }
@@ -87,7 +85,6 @@ class PayerFormContainer extends Component {
   }
 
   render() {
-    console.log("inside render payer form", this.props.item)
     let payerArr = this.props.payers.concat(...this.props.billPayers)
     let uniquePayers = _.uniqBy(payerArr, 'id').sort((a,b) => a.id - b.id)
       return (<div className="payer-modal-box">

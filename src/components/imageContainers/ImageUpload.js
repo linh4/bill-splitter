@@ -88,7 +88,6 @@ class ImageUpload extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("in image upload", state)
   return {
     currentUserI: state.user.currentUser,
     bill: state.text.bill,

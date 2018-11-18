@@ -112,7 +112,6 @@ class PayerContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("inside payers page", state)
   return {
     wholeBill: state.text.wholeBill,
     payerArr: state.payer.payerArr,

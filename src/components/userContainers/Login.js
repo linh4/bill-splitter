@@ -20,7 +20,6 @@ class Login extends React.Component{
     this.props.handleLogin(this.state)
     .then(() => this.props.history.push('/home'))
     .catch(() => this.props.history.push('/'))
-    console.log("in submit", this.props.currentUser)
   }
 
   handleFocus = (e) => {

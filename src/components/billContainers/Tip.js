@@ -34,7 +34,7 @@ class Tip extends Component {
     max: 30,
   }
 
-  handleCancel = (e) => {
+  handleCancel = () => {
     this.props.handleDisplay()
   }
 
@@ -60,7 +60,6 @@ class Tip extends Component {
   }
 
   handleNext = () => {
-    console.log(this.state.value)
     let id = this.props.match.params.id
     this.props.postTip(id, this.props.wholeBill.date, this.props.wholeBill.tax, this.state.value)
     .then(() => this.props.history.push(`/bills/${id}/payers`))
@@ -84,7 +83,7 @@ class Tip extends Component {
       />
       <br/>
       <div className="asking-box">
-        <button className="btn cancel" onClick={(e) =>this.handleCancel(e)}>Cancel</button>
+        <button className="btn cancel" onClick={this.handleCancel}>Cancel</button>
         <button className="btn yes" onClick={this.handleNext}>Next</button>
       </div>
     </div>

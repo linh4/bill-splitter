@@ -148,7 +148,6 @@ class ItemEditFormContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("inside form container", state)
   return {
     bill: state.text.bill,
     items: state.text.items

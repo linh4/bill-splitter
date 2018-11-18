@@ -73,7 +73,6 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("in homepage", state)
   return {
     currentUserI: state.user.currentUser,
     bill: state.text.bill,

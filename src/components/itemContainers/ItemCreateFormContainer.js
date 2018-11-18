@@ -68,7 +68,6 @@ class ItemCreateFormContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("inside create form", state)
   return {
     items: state.text.items
     };
