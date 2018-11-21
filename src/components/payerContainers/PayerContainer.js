@@ -78,10 +78,13 @@ class PayerContainer extends Component {
 
 
   render() {
-    if (this.props.payerArr.length === 0) {
-      return <div>Loading....</div>
-    }
     const filterPayers = this.props.payerArr.filter(payer => payer.bill_id[0] == this.props.match.params.id)
+    if (this.props.payerArr.length === 0) {
+      return <div className="home-page">Loading....</div>
+    }
+    else if (filterPayers.length === 0) {
+      return <div className="home-page">Loading....</div>
+    }
     return(
       <div className="home-page">
         <div className="bill-name">
