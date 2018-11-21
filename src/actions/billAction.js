@@ -1,4 +1,4 @@
-import API_KEY from '../keys.js'
+import API_KEY from '../key.js'
 import helperFunction from './helperFunction'
 import moment from 'moment';
 
