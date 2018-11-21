@@ -1,3 +1,4 @@
+import API_KEY from '../keys.js'
 import helperFunction from './helperFunction'
 import moment from 'moment';
 
@@ -84,7 +85,7 @@ export const createItems = (billId,imageSrc) => {
     ]
   }
   return dispatch => {
-    return fetch('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDFcBEHHQPo3FMwKmvVEgxOBM3T6M8Oc4s', {
+    return fetch(`https://vision.googleapis.com/v1/images:annotate?key=${API_KEY.API_KEY}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json; charset=utf-8'},
       body: JSON.stringify(bodyImg)
