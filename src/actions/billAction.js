@@ -85,7 +85,7 @@ export const createItems = (billId,imageSrc) => {
     ]
   }
   return dispatch => {
-    return fetch(`https://vision.googleapis.com/v1/images:annotate?key=${API_KEY.API_KEY}`, {
+    return fetch('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDFcBEHHQPo3FMwKmvVEgxOBM3T6M8Oc4s', {
       method: 'POST',
       headers: {'Content-Type': 'application/json; charset=utf-8'},
       body: JSON.stringify(bodyImg)
