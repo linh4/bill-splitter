@@ -102,7 +102,7 @@ class BillPayerContainer extends Component {
 
   render() {
     if (!this.props.wholeBill) {
-      return <div>Loading...</div>
+      return <div className="home-page">Loading...</div>
     }
     const renderItems = this.props.wholeBill.items.map(item => {
       return (

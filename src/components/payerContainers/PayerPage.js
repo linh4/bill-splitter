@@ -36,7 +36,7 @@ class PayerPage extends Component {
 
   render() {
     if (!this.props.selectedPayer) {
-      return <div>Loading...</div>
+      return <div className="home-page">Loading...</div>
     }
     const filterItems = _.uniqBy(this.props.selectedPayer.items, 'id')
     return (
