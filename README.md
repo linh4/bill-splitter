@@ -34,7 +34,7 @@ Frontend:
 npm i && npm start
 ```
 
-### [Frontend](https://github.com/linh4/split-b-front-end)
+### [Backend](https://github.com/linh4/split-b-back-end)
 
 ### Future Plans:
 - Add quantity and discount.
