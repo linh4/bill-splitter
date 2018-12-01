@@ -42,9 +42,9 @@ class App extends Component {
               <Route exact path="/bills/:id/upload" render={(routerProps) => <ImageContainer {...routerProps} /> } />
               <Route exact path="/bills/:id" render={(routerProps) => <BillContainer {...routerProps} /> } />
               <Route exact path="/bills/:id/items" render={(routerProps) => <ItemEditFormContainer {...routerProps} />}  />
-              <Route exac path="/bills/:id/assignPayers" render={(routerProps) => <BillPayerContainer {...routerProps} />} />
-              <Route exac path="/bills/:id/payers/:id" render={(routerProps) => <PayerPage {...routerProps} />} />
-              <Route exac path="/bills/:id/payers" render={(routerProps) => <PayerContainer {...routerProps} />} />
+              <Route exact path="/bills/:id/assignPayers" render={(routerProps) => <BillPayerContainer {...routerProps} />} />
+              <Route exact path="/bills/:id/payers/:id" render={(routerProps) => <PayerPage {...routerProps} />} />
+              <Route exact path="/bills/:id/payers" render={(routerProps) => <PayerContainer {...routerProps} />} />
               <Route exact path="/login" component={HomePage} />
           </Switch>
           </div>
