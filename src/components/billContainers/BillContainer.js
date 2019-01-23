@@ -125,7 +125,7 @@ class BillContainer extends Component {
             </div>
             <div className="item-total-price">
               <span>%</span>
-              <p className="price-number tax">{parseFloat(this.props.tax).toFixed(2)}</p>
+              <p className="price-number tax">{this.props.tax}</p>
             </div>
           </div>
           <div className="row-items total-box">

@@ -15,7 +15,7 @@ class BillNameEdit extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.changeName(this.props.bill.id, this.state.name)
+    this.props.changeName(this.props.bill.id, this.state.name, this.props.bill.tax, this.props.bill.tip)
     .then(() => this.props.onClose())
   }
 

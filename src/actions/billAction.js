@@ -153,13 +153,15 @@ export const createItems = (billId,imageSrc) => {
    }
  }
 
- export const changeName = (billId, name) => {
+ export const changeName = (billId, name, tax, tip) => {
    return dispatch => {
      return fetch(`https://split-b-api.herokuapp.com/bills/${billId}`, {
        method: 'PATCH',
        headers: head,
        body: JSON.stringify({
-         date: name
+         date: name,
+         tax: tax,
+         tip: tip
        })
      })
      .then(res => res.json())

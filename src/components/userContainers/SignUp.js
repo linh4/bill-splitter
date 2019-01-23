@@ -1,68 +1,127 @@
-import React from 'react'
-import '../../style/Form.css'
-import {connect} from 'react-redux'
-import {handleSignUp} from '../../actions/userAction.js'
+import React, { Component } from 'react';
+import BillNameEdit from '../billContainers/BillNameEdit'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { fetchBill, deleteBill} from '../../actions/billAction'
+import { fetchPayers } from '../../actions/payerAction'
+import Modal from 'react-responsive-modal';
 
-class SignUp extends React.Component{
-  state = {
-    name: "",
-    username: "",
-    password: "",
+class PayerContainer extends Component {
+
+    state = {
+      openEditModal: false,
+    }
+
+  componentDidMount() {
+    let id = this.props.match.params.id
+    this.props.fetchBill(id)
+    this.props.fetchPayers()
   }
 
-  handleSignUpSubmit = (e) => {
-    e.preventDefault()
-    this.props.handleSignUp(this.state)
-    .then(() => this.props.history.push('/login'))
-    .catch(() => this.props.history.push('/signup'))
+  totalPrice = (items) => {
+    console.log(this.props.wholeBill.tax)
+    let arr = []
+    for ( let i in items) {
+      arr.push(items[i].price/items[i].payers.length)
+    }
+    let sum = arr.reduce((a,b) => a + b, 0)
+    let result = sum + (sum * this.props.wholeBill.tax / 100) + (sum * this.props.wholeBill.tip / 100)
+    return result
   }
 
-  handleChange = (e) => {
-    this.setState({[e.target.name]:e.target.value})
+  handlePayer = (id) => {
+    let billId = this.props.match.params.id
+    this.props.history.push(`/bills/${billId}/payers/${id}`)
   }
 
-  handleFocus = (e) => {
-    e.persist()
-    setTimeout(function() {
-      e.target.parentElement.lastElementChild.style.opacity = '0'
-    }, 100)
+  handleDone = () => {
+    this.props.history.push('/home')
   }
 
-  handleBlur = (e) => {
-    e.persist()
-    setTimeout(function() {
-      e.target.parentElement.lastElementChild.style.opacity = '1'
-    }, 300)
+  handleEdit = () => {
+    this.setState({renderForm: true})
   }
 
-  handleSignup = () => {
-    this.props.history.push('/login')
+  handleClose = () => {
+    this.setState({renderForm: false})
   }
 
-  render(){
+  handleBillEdit = () => {
+    let id = this.props.match.params.id
+    this.props.history.push(`/bills/${id}`)
+  }
+
+  renderBill = (bill) => {
+    if (this.props.name) {
+      return <p>{this.props.name}</p>
+    }
+    else {
+      return <p>{bill.date}</p>
+    }
+  }
+
+
+  onOpenEditModal = () => {
+   this.setState({ openEditModal: true });
+  }
+
+  onCloseEditModal = () => {
+   this.setState({ openEditModal: false });
+  }
+
+  modalEditBill = () => {
+    return (
+      <Modal open={this.state.openEditModal} onClose={this.onCloseEditModal} item={this.state.item} animationDuration={200} center>
+        <BillNameEdit onClose={this.onCloseEditModal} bill={this.props.wholeBill} />
+      </Modal>
+    )
+  }
+
+
+  render() {
+    const filterPayers = this.props.payerArr.filter(payer => payer.bill_id[0] == this.props.match.params.id)
+    if (this.props.payerArr.length === 0) {
+      return <div className="home-page">Loading....</div>
+    }
+    else if (filterPayers.length === 0) {
+      return <div className="home-page">Loading....</div>
+    }
     return(
-      <React.Fragment>
-        <form className="login-signup" onFocus={this.handleFocus} onBlur={this.handleBlur} >
-          <legend className="legend">SIGNUP</legend>
-          <div className="input">
-          <input placeholder='Name' name="name" onChange={this.handleChange}/>
-          <span><i className="fas fa-address-card"></i></span>
+      <div className="home-page">
+        <div className="bill-name">
+          {this.renderBill(this.props.wholeBill)}
+          <span className="icon-bill-edit" onClick={this.onOpenEditModal}><i className="fas fa-pen"></i></span>
+            {this.modalEditBill()}
         </div>
-        <div className="input">
-          <input placeholder='Username' name="username" required onChange={this.handleChange}/>
-          <span><i className="fas fa-user"></i></span>
+        <p className="click-detail">---Click each payer for detail---</p>
+        {filterPayers.map(payer => (
+          <div key={payer.id} className="row-items payer-rows" onClick={() => this.handlePayer(payer.id)}>
+            <div className="item-title">
+              <p>{payer.name}</p>
+            </div>
+            <div className="item-price">
+              ${parseFloat(this.totalPrice(payer.items)).toFixed(2)}
+            </div>
+          </div>
+          ))
+        }
+
+        <div className="btn-box">
+          <button className="btn signup modify" onClick={this.handleBillEdit}>Edit</button>
+          <button className="btn submit next" onClick={this.handleDone}>Done</button>
         </div>
-        <div className="input">
-          <input type="password" placeholder='Password' name="password" onChange={this.handleChange}/>
-          <span><i className="fa fa-lock"></i></span>
-        </div>
-          <button className="submit btn login-form" onClick={this.handleSignUpSubmit} type='submit'>SUBMIT</button>
-          <button className="signup btn login-form" onClick={this.handleSignup}>LOGIN</button>
-        </form>
-      </React.Fragment>
+      </div>
     )
   }
 }
 
-export default withRouter(connect(null, {handleSignUp})(SignUp))
+const mapStateToProps = (state) => {
+  return {
+    wholeBill: state.text.wholeBill,
+    payerArr: state.payer.payerArr,
+    items: state.text.items,
+    name: state.text.name
+    };
+};
+
+export default withRouter(connect(mapStateToProps, {fetchBill, fetchPayers, deleteBill})(PayerContainer))

@@ -1,17 +1,16 @@
 const initialState = {
   currentUser: {},
-  loggedIn: false,
-  loading: false,
+  loggedIn: false
 }
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SIGNUP_USER':
       localStorage.setItem("token", action.payload.jwt)
-      return {...state, currentUser: action.payload.user, loggedIn: false}
+      return {...state, currentUser: action.payload.user, loggedIn: true}
     case 'LOGIN_USER':
       localStorage.setItem("token", action.payload.jwt)
-      return {...state, currentUser: action.payload.user, loggedIn: true, loading: false}
+      return {...state, currentUser: action.payload.user, loggedIn: true}
     case 'LOGOUT_USER':
       localStorage.removeItem('token')
       return {...state, currentUser: {}}
